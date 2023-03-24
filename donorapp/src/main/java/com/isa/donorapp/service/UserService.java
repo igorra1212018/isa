@@ -1,5 +1,6 @@
 package com.isa.donorapp.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class UserService {
 		Role userRole = roleRepository.findByName(ERole.USER)
 				.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 		user.getRoles().add(userRole);
-		user.setActivated(true);
+		//user.setActivated(true);
 		return userRepository.save(user);
 	}
 	
@@ -59,6 +60,12 @@ public class UserService {
 			return null;
 		else
 			return foundUser.get();
+	}
+	
+	public List<User> findAll()
+	{
+		List<User> users = userRepository.findAll();
+		return users;
 	}
 	
     public void createVerificationTokenForUser(final User user, final String token) {

@@ -18,8 +18,8 @@ public class MailConfig {
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
         
-        javaMailSender.setUsername("timrobotfishingapp@gmail.com");
-        javaMailSender.setPassword("tbvdlsuvhulfrofj");
+        javaMailSender.setUsername("thetimrobot@gmail.com");
+        javaMailSender.setPassword("wahqnaeikopbidlr");
 
         javaMailSender.setJavaMailProperties(getMailProperties());
 
