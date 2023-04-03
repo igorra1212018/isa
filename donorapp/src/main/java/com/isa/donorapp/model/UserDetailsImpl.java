@@ -13,15 +13,13 @@ public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String email;
-	private String username;
 	@JsonIgnore
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
-	public UserDetailsImpl(Integer integer, String username, String email, String password,
+	public UserDetailsImpl(Integer integer, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = integer;
 		this.email = email;
-		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -31,7 +29,6 @@ public class UserDetailsImpl implements UserDetails {
 				.collect(Collectors.toList());
 		return new UserDetailsImpl(
 				user.getId(), 
-				user.getUsername(), 
 				user.getEmail(),
 				user.getPassword(), 
 				authorities);

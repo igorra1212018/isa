@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.isa.donorapp.dto.UserDTO;
+import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.service.UserService;
 import com.isa.donorapp.repository.TokenRepository;
@@ -66,17 +66,12 @@ public class UserController {
 
 	@PostMapping("/register")
 	@PreAuthorize("not(isAuthenticated())")
-	public ResponseEntity<String> register(@RequestBody UserDTO signUpRequest, HttpServletRequest request)
+	public ResponseEntity<String> register(@RequestBody UserRegisterDTO signUpRequest, HttpServletRequest request)
 	{
 		if (userService.findByEmail(signUpRequest.getEmail()) != null) {
 			return ResponseEntity
 					.badRequest()
 					.body("Error: Email is already taken!");
-		}
-		if (userService.findByUsername(signUpRequest.getUsername()) != null) {
-			return ResponseEntity
-					.badRequest()
-					.body("Error: Username is already taken!");
 		}
 		signUpRequest.setPassword(encoder.encode(signUpRequest.getPassword()));
 		signUpRequest.setPassword(signUpRequest.getPassword());

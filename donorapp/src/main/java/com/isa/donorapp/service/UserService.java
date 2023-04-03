@@ -44,6 +44,7 @@ public class UserService {
 			return foundUser.get();
 	}
 	
+	/*
 	public User findByUsername(String username)
 	{
 		Optional<User> foundUser = userRepository.findByUsername(username);
@@ -52,6 +53,7 @@ public class UserService {
 		else
 			return foundUser.get();
 	}
+	*/
 	
 	public User findById(Integer id)
 	{
