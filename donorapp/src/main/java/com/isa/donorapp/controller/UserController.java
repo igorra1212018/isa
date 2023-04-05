@@ -71,7 +71,7 @@ public class UserController {
 		if (userService.findByEmail(signUpRequest.getEmail()) != null) {
 			return ResponseEntity
 					.badRequest()
-					.body("Error: Email is already taken!");
+					.body("Email already taken!");
 		}
 		signUpRequest.setPassword(encoder.encode(signUpRequest.getPassword()));
 		signUpRequest.setPassword(signUpRequest.getPassword());

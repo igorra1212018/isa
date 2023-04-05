@@ -6,6 +6,7 @@ export class UserRegister {
     address: string = "";
     city: string = "";
     country: string = "";
+    phoneNumber: string = "";
     jmbg: string = "";
     gender: string = "";
     occupation: string = "";

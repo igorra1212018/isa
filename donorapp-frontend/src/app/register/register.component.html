@@ -1,2 +1,128 @@
-<p>GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</p>
-<button (click)="register()" [disabled]="!contentIsValid()" class="btn btn-blue btn-rounded" style="width: 100%;">Register</button>
+<div class="container-fluid">
+    <div class="row mt-3">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+
+            <!--Header-->
+            <div class="header gradient-blue">
+                <div class="row d-flex justify-content-center">
+                    <h3 class="text-white mb-1 mt-1 font-weight-bold">Register</h3>
+                </div>
+            </div>
+
+            <div style="padding: 5%; margin: auto;">
+                <form *ngIf="!registrationCompleted; else mailSentMessage">
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="email" [(ngModel)]="email" required="required">
+                                <span class="keep_hovered">Email</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <label>
+                                <input type="password" name="password" [(ngModel)]="password" required="required">
+                                <span class="keep_hovered">Password</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>
+                                <input type="password" name="confirm" [(ngModel)]="confirmPassword" required="required">
+                                <span class="keep_hovered">Confirm Password</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="firstname" [(ngModel)]="firstName" required="required">
+                                <span class="keep_hovered">First Name</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="lastname" [(ngModel)]="lastName" required="required">
+                                <span class="keep_hovered">Last Name</span>
+                            </label>
+                        </div>
+                    </div>
+                    <span style="color:#9e9e9e; font-size:16px">Gender</span>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <input type='radio' id='male' checked='checked' name='radio' class="male_option" [(ngModel)]="gender" value="MALE">
+                            <label for='male'>Male</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type='radio' id='female' name='radio' class="female_option" [(ngModel)]="gender" value="FEMALE">
+                            <label for='female'>Female</label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-5">
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="jmbg" [(ngModel)]="jmbg" required="required">
+                                <span class="keep_hovered">JMBG</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="phone" [(ngModel)]="phoneNumber" required="required">
+                                <span class="keep_hovered">Phone</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="address" [(ngModel)]="address" required="required">
+                                <span class="keep_hovered">Address</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="city" [(ngModel)]="city" required="required">
+                                <span class="keep_hovered">City</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="country" [(ngModel)]="country" required="required">
+                                <span class="keep_hovered">Country</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="occupation" [(ngModel)]="occupation" required="required">
+                                <span class="keep_hovered">Occupation</span>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <label>
+                                <input type="text" name="occupationInfo" [(ngModel)]="occupationInfo" required="required">
+                                <span class="keep_hovered">Occupation info</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <button (click)="register()" [disabled]="!contentIsValid()" class="btn btn-blue btn-rounded" style="width: 100%;">Register</button>
+                        </div>
+                    </div>
+                </form>
+                <div style="color: red" *ngIf="responseMessage.length != 0"><b>{{responseMessage}}</b></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #mailSentMessage>
+    <p>Verification link sent to email!</p>
+  </ng-template>

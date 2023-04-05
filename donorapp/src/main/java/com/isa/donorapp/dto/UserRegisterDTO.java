@@ -8,6 +8,7 @@ public class UserRegisterDTO {
 	private String address;
 	private String city;
 	private String country;
+	private String phoneNumber;
 	private String jmbg;
 	private String gender;
 	private String occupation;
@@ -16,7 +17,7 @@ public class UserRegisterDTO {
 	public UserRegisterDTO() {}
 	
 	public UserRegisterDTO(String email, String password, String firstName, String lastName, String address,
-			String city, String country, String jmbg, String gender, String occupation, String occupationInfo) {
+			String city, String country, String phoneNumber, String jmbg, String gender, String occupation, String occupationInfo) {
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
@@ -24,6 +25,7 @@ public class UserRegisterDTO {
 		this.address = address;
 		this.city = city;
 		this.country = country;
+		this.phoneNumber = phoneNumber;
 		this.jmbg = jmbg;
 		this.gender = gender;
 		this.occupation = occupation;
@@ -81,6 +83,14 @@ public class UserRegisterDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getJmbg() {

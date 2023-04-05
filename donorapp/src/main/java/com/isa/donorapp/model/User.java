@@ -31,6 +31,7 @@ public class User {
 	private String lastName;
 	@Embedded
 	private Location residence;
+	private String phoneNumber;
 	private String jmbg;
 	
 	private EGender gender;
@@ -41,7 +42,7 @@ public class User {
 	}
 	
 	public User(String email, String password, Set<Role> roles, boolean activated, String firstName, String lastName,
-			Location residence, String jmbg, EGender gender, String occupation, String occupationInfo) {
+			Location residence, String phoneNumber, String jmbg, EGender gender, String occupation, String occupationInfo) {
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
@@ -49,6 +50,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.residence = residence;
+		this.phoneNumber = phoneNumber;
 		this.jmbg = jmbg;
 		this.gender = gender;
 		this.occupation = occupation;
@@ -62,6 +64,7 @@ public class User {
 		this.firstName = userDTO.getFirstName();
 		this.lastName = userDTO.getLastName();
 		this.residence = new Location(userDTO.getAddress(), userDTO.getCity(), userDTO.getCountry(), 0, 0);
+		this.phoneNumber = userDTO.getPhoneNumber();
 		this.jmbg = userDTO.getJmbg();
 		this.gender = EGender.valueOf(userDTO.getGender()); //Treba validacija pre ovoga
 		this.occupation = userDTO.getOccupation();
@@ -115,6 +118,14 @@ public class User {
 	
 	public void setResidence(Location residence) {
 		this.residence = residence;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getJmbg() {
