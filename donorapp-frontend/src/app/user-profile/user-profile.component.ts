@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserRegister } from './user-register';
+import { UserRegister } from '../register/user-register';
 import { RegisterService } from '../services/register.service';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css'],
+    selector: 'app-user-profile',
+    templateUrl: './user-profile.component.html',
+    styleUrls: ['./user-profile.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
     email: string = 'horar70418@djpich.com';
     password: string = 'hori123';
     confirmPassword: string = 'hori123';
@@ -23,14 +23,14 @@ export class RegisterComponent implements OnInit {
     occupation: string = 'Student';
     occupationInfo: string = 'Fakultet tehnickih nauka';
 
-    registrationCompleted: boolean = false;
+    infoChanged: boolean = false;
     responseMessage: string = '';
 
     constructor(private router: Router, private _registerService: RegisterService) {}
 
     ngOnInit(): void {}
 
-    register() {
+    changeInfo() {
         //TODO: validacija unosa
 
         let user = new UserRegister();
@@ -49,17 +49,12 @@ export class RegisterComponent implements OnInit {
 
         this._registerService.register(user).subscribe(
             (response) => {
-                this.registrationCompleted = true;
+                this.infoChanged = true;
                 console.log(response);
             },
             (error) => {
                 this.responseMessage = error.error;
             }
-            /*
-      success => setTimeout(() => {
-        
-        //this.router.navigate(['']);
-      }, 800)*/
         );
     }
 
