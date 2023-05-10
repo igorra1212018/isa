@@ -38,6 +38,11 @@ public class User {
 	private String occupation;
 	private String occupationInfo;
 	
+	//Staff Role
+	@ManyToOne
+    @JoinColumn(name = "center_id")
+	private DonationCenter donationCenter;
+	
 	public User() {
 	}
 	
@@ -159,7 +164,15 @@ public class User {
 	public void setOccupationInfo(String occupationInfo) {
 		this.occupationInfo = occupationInfo;
 	}
+	
+	public DonationCenter getDonationCenter() {
+		return donationCenter;
+	}
 
+	public void setDonationCenter(DonationCenter donationCenter) {
+		this.donationCenter = donationCenter;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
