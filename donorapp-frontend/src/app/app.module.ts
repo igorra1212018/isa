@@ -13,12 +13,14 @@ import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './interceptor';
 import { AuthGuard } from './auth.guard';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { UserHomepageComponent } from './user-homepage/user-homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UserHomepageComponent
   ],
   imports: [
     BrowserModule,

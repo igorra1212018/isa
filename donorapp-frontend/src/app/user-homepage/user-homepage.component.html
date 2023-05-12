@@ -1,0 +1,65 @@
+<style>
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.checked {
+  color: #4facfe;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div class="container">
+    <h3 class="mt-4">Penalties: {{penaltyCount}}</h3>
+    
+    <h2 class="mb-4">Donation Centers</h2>
+    <div class="col-md-2">
+        <label for="sort">
+            <span>Sort by:</span>
+            <select name="sort" id="sort" [(ngModel)]="selectedSortOption" (ngModelChange)="sortCenters()">
+                <option value="name">Name</option>
+                <option value="city">City</option>
+                <option value="rating">Rating</option>
+            </select>
+        </label>
+    </div>
+
+    <p *ngIf="errorMsg != null">{{errorMsg}}</p>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let center of centers">
+            <div class="card h-100">
+                <img class="card-img-top" src="../../assets/donation_center.png" alt="{{center.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{center.name}}</h5>
+                    <p class="card-text">{{center.address + " " + center.city + ", " + center.country}}</p>
+                    <p class="card-text">{{center.description}}</p>
+                    <div>
+                        <span *ngIf="center.rating < 1">
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                        </span>
+                        <span *ngIf="center.rating >= 1" class="fas fa-star checked"></span>
+
+                        <span *ngIf="center.rating >= 1 && center.rating < 1.25" class="far fa-star checked"></span>
+                        <span *ngIf="center.rating >= 1.25 && center.rating < 1.75" class="fas fa-star-half-alt checked"></span>
+                        <span *ngIf="center.rating >= 1.75" class="fas fa-star checked"></span>
+
+                        <span *ngIf="center.rating >= 1 && center.rating < 2.25" class="far fa-star checked"></span>
+                        <span *ngIf="center.rating >= 2.25 && center.rating < 2.75" class="fas fa-star-half-alt checked"></span>
+                        <span *ngIf="center.rating >= 2.75" class="fas fa-star checked"></span>
+
+                        <span *ngIf="center.rating >= 1 && center.rating < 3.25" class="far fa-star checked"></span>
+                        <span *ngIf="center.rating >= 3.25 && center.rating < 3.75" class="fas fa-star-half-alt checked"></span>
+                        <span *ngIf="center.rating >= 3.75" class="fas fa-star checked"></span>
+
+                        <span *ngIf="center.rating >= 1 && center.rating < 4.25" class="far fa-star checked"></span>
+                        <span *ngIf="center.rating >= 4.25 && center.rating < 4.75" class="far fa-star-half-alt checked"></span>
+                        <span *ngIf="center.rating >= 4.75" class="fas fa-star checked"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
