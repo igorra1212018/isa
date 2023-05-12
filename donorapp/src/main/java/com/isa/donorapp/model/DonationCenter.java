@@ -1,18 +1,11 @@
 package com.isa.donorapp.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 public class DonationCenter {
@@ -24,4 +17,56 @@ public class DonationCenter {
 	@Embedded
 	Location address;
 	String description;
+	
+	@Transient
+	double rating;
+	
+	public DonationCenter() {}
+
+	public DonationCenter(String name, Location address, String description, double rating) {
+		this.name = name;
+		this.address = address;
+		this.description = description;
+		this.rating = rating;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Location getAddress() {
+		return address;
+	}
+
+	public void setAddress(Location address) {
+		this.address = address;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 }

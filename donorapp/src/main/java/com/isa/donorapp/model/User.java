@@ -38,16 +38,18 @@ public class User {
 	private String occupation;
 	private String occupationInfo;
 	
+	private int penaltyCount = 0;
+	
 	//Staff Role
 	@ManyToOne
     @JoinColumn(name = "center_id")
 	private DonationCenter donationCenter;
 	
-	public User() {
-	}
+	public User() {}
 	
 	public User(String email, String password, Set<Role> roles, boolean activated, String firstName, String lastName,
-			Location residence, String phoneNumber, String jmbg, EGender gender, String occupation, String occupationInfo) {
+			Location residence, String phoneNumber, String jmbg, EGender gender, String occupation, String occupationInfo,
+			int penaltyCount) {
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
@@ -60,6 +62,7 @@ public class User {
 		this.gender = gender;
 		this.occupation = occupation;
 		this.occupationInfo = occupationInfo;
+		this.penaltyCount = penaltyCount;
 	}
 
 
@@ -171,6 +174,14 @@ public class User {
 
 	public void setDonationCenter(DonationCenter donationCenter) {
 		this.donationCenter = donationCenter;
+	}
+
+	public int getPenaltyCount() {
+		return penaltyCount;
+	}
+
+	public void setPenaltyCount(int penaltyCount) {
+		this.penaltyCount = penaltyCount;
 	}
 	
 	@Override
