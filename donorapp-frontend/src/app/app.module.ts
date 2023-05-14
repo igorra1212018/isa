@@ -14,13 +14,15 @@ import { AuthInterceptor } from './interceptor';
 import { AuthGuard } from './auth.guard';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UserHomepageComponent } from './user-homepage/user-homepage.component';
+import { UserUpcomingAppointmentsComponent } from './user-upcoming-appointments/user-upcoming-appointments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    UserHomepageComponent
+    UserHomepageComponent,
+    UserUpcomingAppointmentsComponent
   ],
   imports: [
     BrowserModule,
