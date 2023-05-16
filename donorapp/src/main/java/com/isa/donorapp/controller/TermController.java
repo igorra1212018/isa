@@ -56,6 +56,8 @@ public class TermController {
 		}
 	}
 	
+	// Treba DTO
+	/*
 	@GetMapping("/{id}")
 	public ResponseEntity<Term> getTermById(@PathVariable("id") Integer id) {
 		Term termData = termService.findById(id);
@@ -65,7 +67,7 @@ public class TermController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+	*/
 	private User getCurrentUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);

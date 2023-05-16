@@ -83,7 +83,7 @@ public class UserController {
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser,
           request.getLocale(), appUrl));
 		return new ResponseEntity<>(
-			      "Registration successful!", 
+			      "Registration successful!",
 			      HttpStatus.OK);
 	}
 	
@@ -93,7 +93,7 @@ public class UserController {
 	    VerificationToken verificationToken = tokenRepository.findByToken(token).orElse(null);
 	    if (verificationToken == null) {
 	    	return new ResponseEntity<>(
-				      "Verification token not found!", 
+				      "Verification token not found!",
 				      HttpStatus.NOT_FOUND);
 	    }
 	    
@@ -101,14 +101,14 @@ public class UserController {
 	    Calendar cal = Calendar.getInstance();
 	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
 	    	return new ResponseEntity<>(
-				      "Verification token expired!", 
+				      "Verification token expired!",
 				      HttpStatus.BAD_REQUEST);
-	    } 
+	    }
 	    
-	    user.setActivated(true); 
-	    userService.save(user); 
+	    user.setActivated(true);
+	    userService.save(user);
 	    return new ResponseEntity<>(
-			      "Successful verification!", 
+			      "Successful verification!",
 			      HttpStatus.OK);
 	}
 }

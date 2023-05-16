@@ -53,7 +53,8 @@ public class DonationCenterController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+	// Nije pravilno implementirano
+	/*
 	@GetMapping("/{id}")
 	public ResponseEntity<DonationCenter> getDonationCenterById(@PathVariable("id") Integer id) {
 		DonationCenter donationCenterData = donationCenterService.findById(id);
@@ -63,7 +64,7 @@ public class DonationCenterController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+	*/
 	private User getCurrentUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);
