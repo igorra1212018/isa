@@ -13,8 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Term {
@@ -34,11 +33,8 @@ public class Term {
 	private LocalDateTime date;
 	private int duration;
 	
-	@OneToOne
+	@Transient
 	private User reservedBy;
-	private LocalDateTime reservationDate;
-	
-	private boolean canceled = false;
 	
 	public Term() {}
 	
@@ -83,17 +79,5 @@ public class Term {
 	}
 	public void setCenter(DonationCenter center) {
 		this.center = center;
-	}
-	public LocalDateTime getReservationDate() {
-		return reservationDate;
-	}
-	public void setReservationDate(LocalDateTime reservationDate) {
-		this.reservationDate = reservationDate;
-	}
-	public boolean isCanceled() {
-		return canceled;
-	}
-	public void setCanceled(boolean canceled) {
-		this.canceled = canceled;
 	}
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.isa.donorapp.model.Term;
 public interface TermRepository extends JpaRepository<Term, Long> {
 	Optional<Term> findById(Integer id);
-	List<Term> findByReservedById(Integer reservedById);
+	List<Term> findByCenterId(Integer centerId);
 }

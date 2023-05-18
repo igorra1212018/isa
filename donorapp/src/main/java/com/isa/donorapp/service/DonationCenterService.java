@@ -33,22 +33,18 @@ public class DonationCenterService {
 		Optional<DonationCenter> foundDonationCenter = donationCenterRepository.findById(id);
 		if(foundDonationCenter.isEmpty())
 			return null;
-		else
-			return foundDonationCenter.get();
+		else {
+			DonationCenter donationCenter = foundDonationCenter.get();
+			donationCenter.setRating(calculateScore(donationCenter.getId()));
+			return donationCenter;
+		}
 	}
 	
 	public List<DonationCenter> findAll()
 	{
 		List<DonationCenter> donationCenters = donationCenterRepository.findAll();
 		for (DonationCenter dc : donationCenters) {
-			List<DonationCenterScore> scores = donationCenterScoreService.findByCenterId(dc.getId());
-			double scoreSum = 0;
-			for (DonationCenterScore dcs : scores) {
-				scoreSum += dcs.getScore();
-			}
-			if(scores != null && !scores.isEmpty()) {
-				dc.setRating(scoreSum / scores.size());
-			}
+			dc.setRating(calculateScore(dc.getId()));
 		}
 		return donationCenters;
 	}
@@ -57,6 +53,19 @@ public class DonationCenterService {
 	{
 		return donationCenterRepository.save(donationCenter);
 	}
+	
+	private double calculateScore(Integer id) {
+		List<DonationCenterScore> scores = donationCenterScoreService.findByCenterId(id);
+		double scoreSum = 0;
+		for (DonationCenterScore dcs : scores) {
+			scoreSum += dcs.getScore();
+		}
+		if(scores != null && !scores.isEmpty()) {
+			return scoreSum / scores.size();
+		}
+		return 0;
+	}
+	
 	/*
 	public User getLoggedUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();

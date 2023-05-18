@@ -10,18 +10,15 @@ public class AppointmentDTO {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime date;
 	private int duration;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime reservationDate;
 	private DonationCenterDTO center;
 	
 	public AppointmentDTO() {}
 
-	public AppointmentDTO(Integer id, LocalDateTime date, int duration, LocalDateTime reservationDate,
+	public AppointmentDTO(Integer id, LocalDateTime date, int duration,
 			DonationCenterDTO center) {
 		this.id = id;
 		this.date = date;
 		this.duration = duration;
-		this.reservationDate = reservationDate;
 		this.center = center;
 	}
 	
@@ -29,7 +26,6 @@ public class AppointmentDTO {
 		this.id = term.getId();
 		this.date = term.getDate();
 		this.duration = term.getDuration();
-		this.reservationDate = term.getReservationDate();
 		this.center = new DonationCenterDTO(term.getCenter());
 	}
 
@@ -57,14 +53,6 @@ public class AppointmentDTO {
 		this.duration = duration;
 	}
 
-	public LocalDateTime getReservationDate() {
-		return reservationDate;
-	}
-
-	public void setReservationDate(LocalDateTime reservationDate) {
-		this.reservationDate = reservationDate;
-	}
-
 	public DonationCenterDTO getCenter() {
 		return center;
 	}
@@ -72,6 +60,4 @@ public class AppointmentDTO {
 	public void setCenter(DonationCenterDTO center) {
 		this.center = center;
 	}
-	
-	
 }

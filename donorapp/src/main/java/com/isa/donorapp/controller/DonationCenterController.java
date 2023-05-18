@@ -41,6 +41,7 @@ public class DonationCenterController {
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	@GetMapping("/all")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<List<DonationCenterDTO>> getAllDonationCenters() {
 		try {
 			List<DonationCenter> donationCenters = donationCenterService.findAll();
@@ -53,18 +54,19 @@ public class DonationCenterController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	// Nije pravilno implementirano
-	/*
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<DonationCenter> getDonationCenterById(@PathVariable("id") Integer id) {
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<DonationCenterDTO> getDonationCenterById(@PathVariable("id") int id) {
 		DonationCenter donationCenterData = donationCenterService.findById(id);
 		if (donationCenterData != null) {
-			return new ResponseEntity<>(donationCenterData, HttpStatus.OK);
+			DonationCenterDTO donationCenterDto = new DonationCenterDTO(donationCenterData);
+			return new ResponseEntity<>(donationCenterDto, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	*/
+	
 	private User getCurrentUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);
