@@ -16,6 +16,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UserHomepageComponent } from './user-homepage/user-homepage.component';
 import { UserUpcomingAppointmentsComponent } from './user-upcoming-appointments/user-upcoming-appointments.component';
 import { UserQuestionnaireComponent } from './user-questionnaire/user-questionnaire.component';
+import { UserDonationCenterComponent } from './user-donation-center/user-donation-center.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserQuestionnaireComponent } from './user-questionnaire/user-questionna
     LoginComponent,
     UserHomepageComponent,
     UserUpcomingAppointmentsComponent,
-    UserQuestionnaireComponent
+    UserQuestionnaireComponent,
+    UserDonationCenterComponent
   ],
   imports: [
     BrowserModule,

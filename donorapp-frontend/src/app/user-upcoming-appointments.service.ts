@@ -10,6 +10,6 @@ export class UserUpcomingAppointmentsService {
   constructor(private http: HttpClient) { }
 
   getUpcomingAppointments() : Observable<Appointment[]>{
-    return this.http.get<Appointment[]>("/api/term/upcoming")
+    return this.http.get<Appointment[]>("/api/term/upcoming");
   }
 }

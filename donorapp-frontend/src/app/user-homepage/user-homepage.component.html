@@ -26,7 +26,7 @@
     <p *ngIf="errorMsg != null">{{errorMsg}}</p>
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let center of centers">
-            <div class="card h-100">
+            <div class="card h-100" (click)="openCenter(center.id)">
                 <img class="card-img-top" src="../../assets/donation_center.png" alt="{{center.name}}">
                 <div class="card-body">
                     <h5 class="card-title">{{center.name}}</h5>

@@ -21,7 +21,7 @@ export class UserHomepageComponent implements OnInit{
       error => this.errorMsg = "Couldn't load centers");
   }
 
-  sortCenters(): void{
+  sortCenters(): void {
     switch (this.selectedSortOption) {
       case 'name':
         this.centers.sort((a, b) => a.name.localeCompare(b.name));
@@ -36,4 +36,8 @@ export class UserHomepageComponent implements OnInit{
         break;
     }
   }
+
+  openCenter(id: number): void {
+    this.router.navigate(['user-donation-center/' + id]);
+  } 
 }
