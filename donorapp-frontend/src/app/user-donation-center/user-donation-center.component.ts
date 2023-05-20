@@ -22,6 +22,7 @@ export class UserDonationCenterComponent implements OnInit{
   center: DonationCenter = new DonationCenter();
   errorMsg = "";
   public terms = [] as Term[];
+  selectedSortOption = "date";
 
   constructor(private route: ActivatedRoute, private router: Router, private _userDonationCenterService: UserDonationCenterService) { }
   
@@ -31,6 +32,7 @@ export class UserDonationCenterComponent implements OnInit{
       this.terms.forEach(function (value) {
         value.date = new Date(value.date);
       });
+      this.sortTerms();
     },
       error => this.errorMsg += "\nCouldn't load terms");
   }
@@ -76,5 +78,26 @@ export class UserDonationCenterComponent implements OnInit{
       error => {
         console.log(error.error);
       });
+  }
+
+  sortTerms(): void {
+    switch (this.selectedSortOption) {
+      case 'date':
+        this.terms.sort((a, b) => {
+          const dateA = new Date(a.date).setHours(0, 0, 0, 0);
+          const dateB = new Date(b.date).setHours(0, 0, 0, 0);
+          return dateA - dateB;
+        });
+        break;
+      case 'time':
+        this.terms.sort((a, b) => {
+          const timeA = new Date(a.date).getTime() % (24 * 60 * 60 * 1000);
+          const timeB = new Date(b.date).getTime() % (24 * 60 * 60 * 1000);
+          return timeA - timeB;
+        });
+        break;
+      default:
+        break;
+    }
   }
 }

@@ -55,6 +55,15 @@
 <div class="container col-md-6">
     <div class="card mt-5" *ngIf="!(terms === undefined) && terms.length != 0">
         <div class="card-body mx-4">
+            <div class="col-md-2">
+                <label for="sort">
+                    <span>Sort by:</span>
+                    <select name="sort" id="sort" [(ngModel)]="selectedSortOption" (ngModelChange)="sortTerms()">
+                        <option value="date">Date</option>
+                        <option value="time">Time</option>
+                    </select>
+                </label>
+            </div>
             <div class="row d-flex mt-2" style="border-bottom: 1px solid #9e9e9e;" *ngFor = "let t of terms">
                 <div class="col-md-2">
                     <div class="row d-flex">
