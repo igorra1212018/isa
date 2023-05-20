@@ -96,6 +96,21 @@ public class TermController {
 		}
 	}
 	
+	@PutMapping("/cancel/{id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<String> cancel(@PathVariable("id") int id)
+	{
+		try {
+			User currentUser = getCurrentUser();
+			if (termService.cancelReservation(id, currentUser.getId()))
+				return new ResponseEntity<>(HttpStatus.OK);
+			else
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	// Treba DTO
 	/*
 	@GetMapping("/{id}")

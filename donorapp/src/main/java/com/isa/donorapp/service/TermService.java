@@ -52,6 +52,15 @@ public class TermService {
 			return foundTerm.get();
 	}
 	
+	public Reservation findReservationById(Integer id)
+	{
+		Optional<Reservation> foundReservation = reservationRepository.findById(id);
+		if(foundReservation.isEmpty())
+			return null;
+		else
+			return foundReservation.get();
+	}
+	
 	public List<Term> findByReservedById(Integer reservedById)
 	{
 		List<Reservation> reservations = reservationRepository.findByUserId(reservedById);
@@ -101,7 +110,7 @@ public class TermService {
 	public Term reserveTerm(Integer termId, Integer userId)
 	{
 		Term term = findById(termId);
-		if(term != null) {
+		if (term != null) {
 			User currentUser = userService.findById(userId);
 			List<Reservation> termReservations = reservationRepository.findByTermId(termId);
 			for (Reservation r : termReservations) {
@@ -128,6 +137,27 @@ public class TermService {
 			return term;
 		}
 		return null;
+	}
+	
+	public boolean cancelReservation(Integer termId, Integer userId) {
+		List<Reservation> termReservations = reservationRepository.findByTermId(termId);
+		Reservation reservation = null;
+		for (Reservation r : termReservations) {
+			if (r.getUser().getId() == userId) {
+				reservation = r;
+				break;
+			}
+		}
+		if (reservation != null) {
+			if (LocalDateTime.now().isAfter(reservation.getTerm().getDate().minusDays(1)))
+				return false;
+			if (reservation.isCanceled())
+				return false;
+			reservation.setCanceled(true);
+			reservationRepository.save(reservation);
+			return true;
+		}
+		return false;
 	}
 	
 	public List<Term> findAll()
