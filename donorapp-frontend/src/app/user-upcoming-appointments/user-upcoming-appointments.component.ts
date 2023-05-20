@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Appointment } from '../appointment';
 import { UserUpcomingAppointmentsService } from '../user-upcoming-appointments.service';
 
@@ -13,9 +13,9 @@ export class UserUpcomingAppointmentsComponent {
   errorMsg = "";
   currentDate: Date = new Date()
 
-  constructor(private router: Router, private _userUpcomingAppointmentsService: UserUpcomingAppointmentsService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private _userUpcomingAppointmentsService: UserUpcomingAppointmentsService) { }
   
-  ngOnInit(): void {
+  loadUpcomingAppointments(): void {
     this._userUpcomingAppointmentsService.getUpcomingAppointments().subscribe(data => {
       this.appointments = data;
       this.appointments.forEach(function (value) {
@@ -23,10 +23,21 @@ export class UserUpcomingAppointmentsComponent {
         value.reservationDate = new Date(value.reservationDate);
       });
     },
-      error => this.errorMsg = "Couldn't load centers");
+      error => this.errorMsg = "Couldn't load upcoming appointments");
+  }
+
+  ngOnInit(): void {
+    this.loadUpcomingAppointments();
   }
 
   cancelAppointment(id: number): void{
-
+    this._userUpcomingAppointmentsService.cancel(id).subscribe(
+      response => {
+        console.log(response);
+        this.loadUpcomingAppointments();
+      },
+      error => {
+        console.log(error.error);
+      });
   }
 }
