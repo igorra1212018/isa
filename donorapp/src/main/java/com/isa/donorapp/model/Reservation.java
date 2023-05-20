@@ -18,6 +18,8 @@ public class Reservation {
 	private Term term;
 	private boolean canceled;
 	
+	private byte[] qrCode;
+	
 	public Reservation() {}
 	
 	public Reservation(User user, Term term, boolean canceled) {
@@ -49,5 +51,11 @@ public class Reservation {
 	}
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
+	}
+	public byte[] getQrCode() {
+		return qrCode;
+	}
+	public void setQrCode(byte[] qrCode) {
+		this.qrCode = qrCode;
 	}
 }

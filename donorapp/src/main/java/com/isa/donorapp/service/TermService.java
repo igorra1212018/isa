@@ -1,5 +1,7 @@
 package com.isa.donorapp.service;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +11,19 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
+import com.google.zxing.EncodeHintType;
+import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Term;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.Term;
 import com.isa.donorapp.repository.UserRepository;
+
+import net.glxn.qrgen.core.image.ImageType;
+import net.glxn.qrgen.javase.QRCode;
+
 import com.isa.donorapp.repository.TermRepository;
 import com.isa.donorapp.repository.ReservationRepository;
 import com.isa.donorapp.repository.RoleRepository;
@@ -24,6 +33,8 @@ public class TermService {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private EmailService emailService;
 	
 	@Autowired
 	private TermRepository termRepository;
@@ -99,7 +110,21 @@ public class TermService {
 				}
 			}
 			Reservation reservation = new Reservation(currentUser, term, false);
+			String reservationInfoText = generateReservationInfo(term);
+			
+			ByteArrayOutputStream outputStream = QRCode.from(reservationInfoText)
+												.withHint(EncodeHintType.CHARACTER_SET, "UTF-8").to(ImageType.PNG).stream();
+			byte[] qrCodeBytes = outputStream.toByteArray();
+			reservation.setQrCode(qrCodeBytes);
+			String qrCodeBase64 = Base64Utils.encodeToString(qrCodeBytes);
 			reservationRepository.save(reservation);
+			
+			try {
+				emailService.sendEmailWithQRCode(currentUser.getEmail(), qrCodeBase64);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 			return term;
 		}
 		return null;
@@ -114,6 +139,18 @@ public class TermService {
 	public Term save(Term term)
 	{
 		return termRepository.save(term);
+	}
+	
+	private String generateReservationInfo(Term term)
+	{
+		String reservationInfo = "Donation Center: " + term.getCenter().getName() + "\n";
+		DonationCenter center = term.getCenter();
+		reservationInfo += "Address: " + center.getAddress().getAddress() + ", " + center.getAddress().getCity() + "\n";
+		LocalDateTime date = term.getDate();
+		reservationInfo += "Date: " + date.getDayOfMonth() + "." + date.getMonthValue() + "." + date.getYear() + ".\n";
+		reservationInfo += "Time: " + date.getHour() + ":" + date.getMinute() + "\n";
+		reservationInfo += "Duration: " + term.getDuration() + " minutes"; 
+		return reservationInfo;
 	}
 	
 }

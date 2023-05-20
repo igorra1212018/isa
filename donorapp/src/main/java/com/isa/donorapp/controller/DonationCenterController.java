@@ -41,7 +41,7 @@ public class DonationCenterController {
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	@GetMapping("/all")
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<List<DonationCenterDTO>> getAllDonationCenters() {
 		try {
 			List<DonationCenter> donationCenters = donationCenterService.findAll();
@@ -56,7 +56,7 @@ public class DonationCenterController {
 	}
 	
 	@GetMapping("/{id}")
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<DonationCenterDTO> getDonationCenterById(@PathVariable("id") int id) {
 		DonationCenter donationCenterData = donationCenterService.findById(id);
 		if (donationCenterData != null) {
