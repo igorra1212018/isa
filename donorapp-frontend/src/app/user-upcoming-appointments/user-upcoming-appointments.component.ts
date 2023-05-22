@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Appointment } from '../appointment';
-import { UserUpcomingAppointmentsService } from '../user-upcoming-appointments.service';
+import { UserUpcomingAppointmentsService } from '../services/user-upcoming-appointments.service';
 
 @Component({
   selector: 'app-user-upcoming-appointments',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Question } from '../question';
-import { UserQuestionnaireService } from '../user-questionnaire.service';
+import { UserQuestionnaireService } from '../services/user-questionnaire.service';
 import { Router } from '@angular/router';
 import { UserQuestionnaire } from '../user-questionnaire';
 import { Answer } from '../answer';

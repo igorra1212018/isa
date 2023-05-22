@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserQuestionnaire } from './user-questionnaire';
-import { Question } from './question';
+import { UserQuestionnaire } from '../user-questionnaire';
+import { Question } from '../question';
 
 @Injectable({
   providedIn: 'root'

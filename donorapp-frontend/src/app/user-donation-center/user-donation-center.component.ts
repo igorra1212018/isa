@@ -7,7 +7,7 @@ import OSM from 'ol/source/OSM';
 import {useGeographic} from 'ol/proj.js';
 import { DonationCenter } from '../donation-center';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserDonationCenterService } from '../user-donation-center.service';
+import { UserDonationCenterService } from '../services/user-donation-center.service';
 import { Term } from '../term';
 
 useGeographic();

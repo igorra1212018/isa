@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserHomepageService } from '../user-homepage.service';
+import { UserHomepageService } from '../services/user-homepage.service';
 import { DonationCenter } from '../donation-center';
 
 @Component({

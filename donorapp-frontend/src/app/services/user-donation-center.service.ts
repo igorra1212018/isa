@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DonationCenter } from './donation-center';
+import { DonationCenter } from '../donation-center';
 import { Observable } from 'rxjs';
-import { Term } from './term';
+import { Term } from '../term';
 
 @Injectable({
   providedIn: 'root'
