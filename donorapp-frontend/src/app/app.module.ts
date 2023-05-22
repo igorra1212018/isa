@@ -17,6 +17,7 @@ import { UserHomepageComponent } from './user-homepage/user-homepage.component';
 import { UserUpcomingAppointmentsComponent } from './user-upcoming-appointments/user-upcoming-appointments.component';
 import { UserQuestionnaireComponent } from './user-questionnaire/user-questionnaire.component';
 import { UserDonationCenterComponent } from './user-donation-center/user-donation-center.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UserDonationCenterComponent } from './user-donation-center/user-donatio
     UserHomepageComponent,
     UserUpcomingAppointmentsComponent,
     UserQuestionnaireComponent,
-    UserDonationCenterComponent
+    UserDonationCenterComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -10,15 +10,19 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.dto.UserRegisterDTO;
+import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.service.UserService;
 import com.isa.donorapp.repository.TokenRepository;
 import com.isa.donorapp.model.VerificationToken;
+import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.jwt.JwtUtils;
 
@@ -110,5 +114,25 @@ public class UserController {
 	    return new ResponseEntity<>(
 			      "Successful verification!",
 			      HttpStatus.OK);
+	}
+	
+	@GetMapping("/profile")
+	public ResponseEntity<UserProfileDTO> getUserProfile() {
+		User user = getCurrentUser();
+		UserProfileDTO userDTO = new UserProfileDTO(user);
+		
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
+	
+	@PutMapping("/profile")
+	public ResponseEntity<UserProfileDTO> changeUserInfo(@RequestBody UserProfileDTO newData) {
+		UserProfileDTO newUserDTO = new UserProfileDTO(userService.updateUser(newData));
+		
+		return new ResponseEntity<>(newUserDTO, HttpStatus.OK);
+	}
+	
+	private User getCurrentUser() {
+		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+		return userService.findByEmail(currentUserEmail);
 	}
 }
