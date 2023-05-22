@@ -99,7 +99,7 @@ public class UserService {
 		user.setOccupation(newData.getOccupation());
 		user.setOccupationInfo(newData.getOccupationInfo());
 		
-		save(user);
+		userRepository.save(user);
 		
 		return user;
 	}
