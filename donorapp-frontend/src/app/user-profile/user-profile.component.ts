@@ -3,6 +3,12 @@ import { Router } from '@angular/router';
 import { UserRegister } from '../register/user-register';
 import { RegisterService } from '../services/register.service';
 
+enum Role {
+    USER,
+    ADMINISTRATOR,
+    STAFF,
+}
+
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -11,7 +17,6 @@ import { RegisterService } from '../services/register.service';
 export class UserProfileComponent implements OnInit {
     email: string = 'horar70418@djpich.com';
     password: string = 'hori123';
-    confirmPassword: string = 'hori123';
     firstName: string = 'Hori';
     lastName: string = 'Horic';
     address: string = 'Nikole Tesle 12';
@@ -22,6 +27,7 @@ export class UserProfileComponent implements OnInit {
     gender: string = 'MALE';
     occupation: string = 'Student';
     occupationInfo: string = 'Fakultet tehnickih nauka';
+    role: Role = Role.USER;
 
     infoChanged: boolean = false;
     responseMessage: string = '';
