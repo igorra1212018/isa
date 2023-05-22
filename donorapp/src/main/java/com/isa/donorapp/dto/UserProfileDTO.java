@@ -38,7 +38,7 @@ public class UserProfileDTO {
 		this.role = role;
 	}
 	
-	public UserProfileDTO(User user, Role role) {
+	public UserProfileDTO(User user) {
 		this.email = user.getEmail();
 		this.password = user.getPassword();
 		this.firstName = user.getFirstName();
@@ -51,7 +51,8 @@ public class UserProfileDTO {
 		this.gender = user.getGender() == EGender.MALE ? "MALE":"FEMALE";
 		this.occupation = user.getOccupation();
 		this.occupationInfo = user.getOccupationInfo();
-		this.role = role;
+		for (Role r : user.getRoles())
+		    this.role = r;
 	}
 
 	public String getEmail() {

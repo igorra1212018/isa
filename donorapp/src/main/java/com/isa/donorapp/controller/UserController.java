@@ -119,16 +119,16 @@ public class UserController {
 	@GetMapping("/profile")
 	public ResponseEntity<UserProfileDTO> getUserProfile() {
 		User user = getCurrentUser();
-		UserProfileDTO userDTO = new UserProfileDTO(user, new Role(ERole.USER));
+		UserProfileDTO userDTO = new UserProfileDTO(user);
 		
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
 	@PutMapping("/profile")
-	public ResponseEntity<String> changeUserInfo(@RequestBody UserProfileDTO newData, HttpServletRequest request) {
-		return new ResponseEntity<>(
-			      "Registration successful!", 
-			      HttpStatus.OK);
+	public ResponseEntity<UserProfileDTO> changeUserInfo(@RequestBody UserProfileDTO newData) {
+		UserProfileDTO newUserDTO = new UserProfileDTO(userService.updateUser(newData));
+		
+		return new ResponseEntity<>(newUserDTO, HttpStatus.OK);
 	}
 	
 	private User getCurrentUser() {

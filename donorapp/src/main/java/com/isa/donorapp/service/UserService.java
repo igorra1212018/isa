@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.repository.UserRepository;
+import com.isa.donorapp.dto.UserProfileDTO;
+import com.isa.donorapp.model.Location;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.repository.RoleRepository;
@@ -85,5 +87,20 @@ public class UserService {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.print(currentUserEmail);
 		return findByEmail(currentUserEmail);
+	}
+
+	public User updateUser(UserProfileDTO newData) {
+		User user = findByEmail(newData.getEmail());
+		
+		user.setEmail(newData.getEmail());
+		user.setFirstName(newData.getFirstName());
+		user.setLastName(newData.getLastName());
+		user.setResidence(new Location(newData.getAddress(), newData.getCity(), newData.getCountry()));
+		user.setOccupation(newData.getOccupation());
+		user.setOccupationInfo(newData.getOccupationInfo());
+		
+		save(user);
+		
+		return user;
 	}
 }

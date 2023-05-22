@@ -20,6 +20,14 @@ public class Location {
 		this.longtitude = 0;
 	}
 	
+	public Location(String address, String city, String country) {
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.latitude = 0;
+		this.longtitude = 0;
+	}
+	
 	public Location(String address, String city, String country, double latitude, double longtitude) {
 		this.address = address;
 		this.city = city;

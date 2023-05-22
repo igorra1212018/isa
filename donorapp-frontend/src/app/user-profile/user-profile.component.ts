@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserRegister } from '../register/user-register';
-import { RegisterService } from '../services/register.service';
+import { UserProfileService } from '../services/user-profile.service';
 
 enum Role {
     USER,
@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit {
     infoChanged: boolean = false;
     responseMessage: string = '';
 
-    constructor(private router: Router, private _registerService: RegisterService) {}
+    constructor(private router: Router, private _userProfileService: UserProfileService) {}
 
     ngOnInit(): void {}
 
@@ -53,7 +53,7 @@ export class UserProfileComponent implements OnInit {
         user.occupation = this.occupation;
         user.occupationInfo = this.occupationInfo;
 
-        this._registerService.register(user).subscribe(
+        this._userProfileService.changeUserData(user).subscribe(
             (response) => {
                 this.infoChanged = true;
                 console.log(response);
