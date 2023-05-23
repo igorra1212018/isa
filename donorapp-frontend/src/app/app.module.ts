@@ -19,6 +19,7 @@ import { UserQuestionnaireComponent } from './user-questionnaire/user-questionna
 import { UserDonationCenterComponent } from './user-donation-center/user-donation-center.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     UserQuestionnaireComponent,
     UserDonationCenterComponent,
     UserProfileComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserQrCodesComponent
   ],
   imports: [
     BrowserModule,

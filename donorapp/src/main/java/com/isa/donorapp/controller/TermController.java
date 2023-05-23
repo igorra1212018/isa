@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.isa.donorapp.dto.AnswerUserDTO;
 import com.isa.donorapp.dto.AppointmentDTO;
 import com.isa.donorapp.dto.QuestionnaireUserDTO;
+import com.isa.donorapp.dto.ReservationQRDTO;
 import com.isa.donorapp.model.Term;
 import com.isa.donorapp.model.Questionnaire;
 import com.isa.donorapp.model.QuestionnaireAnswer;
 import com.isa.donorapp.model.QuestionnaireQuestion;
+import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.enums.EGender;
 import com.isa.donorapp.model.enums.ERole;
+import com.isa.donorapp.service.ReservationService;
 import com.isa.donorapp.service.TermService;
 import com.isa.donorapp.service.UserDetailsServiceImpl;
 import com.isa.donorapp.service.UserService;
@@ -43,6 +46,8 @@ import com.isa.donorapp.service.UserService;
 public class TermController {
 	@Autowired
 	TermService termService;
+	@Autowired
+	ReservationService reservationService;
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -81,13 +86,29 @@ public class TermController {
 		}
 	}
 	
+	@GetMapping("/qr-codes")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<List<ReservationQRDTO>> getAllQRReservations() {
+		try {
+			User currentUser = getCurrentUser();
+			List<Reservation> reservations = reservationService.findByUserId(currentUser.getId());
+			List<ReservationQRDTO> reservationQRDtos = new ArrayList<ReservationQRDTO>();
+			for (Reservation r : reservations) {
+				reservationQRDtos.add(new ReservationQRDTO(r));
+			}
+			return new ResponseEntity<>(reservationQRDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/reserve/{id}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> reserve(@PathVariable("id") int id)
 	{
 		try {
 			User currentUser = getCurrentUser();
-			if (termService.reserveTerm(id, currentUser.getId()) != null)
+			if (reservationService.reserveTerm(id, currentUser.getId()) != null)
 				return new ResponseEntity<>(HttpStatus.OK);
 			else
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -102,7 +123,7 @@ public class TermController {
 	{
 		try {
 			User currentUser = getCurrentUser();
-			if (termService.cancelReservation(id, currentUser.getId()))
+			if (reservationService.cancelReservation(id, currentUser.getId()))
 				return new ResponseEntity<>(HttpStatus.OK);
 			else
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
