@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
   }
 
   signout(){
-    //localStorage.clear();
+    localStorage.clear();
   }
 
 }
