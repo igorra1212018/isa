@@ -11,22 +11,28 @@ export class AuthGuard implements CanActivate{
         private jwtHelper: JwtHelperService
     ) {}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        const { roles } = route.data;
         const token = this.getToken()
+        const role = this.getRole();
         const decodedToken = this.jwtHelper.decodeToken(token);
-        if(token && !this.jwtHelper.isTokenExpired(token) && decodedToken.role.includes("ROLE_USER")){ //Ovde vrv kasnije i za druge role
+        if(!roles)
+            return true;
+        if(token && !this.jwtHelper.isTokenExpired(token) && roles.includes(role)){
             return true;
         }
-        else{
-            this.router.navigate(['login']);
-            return false
-        }
+        this.router.navigate(['login']);
+        return false
     }
 
-    getToken():string{
+    getToken(): string {
         const token = localStorage.getItem("AccessToken")
         if(token){return token}
         else{return ""}
     }
 
-    
+    getRole(): string {
+        const role = localStorage.getItem("Role")
+        if(role){return role}
+        else{return ""}
+    }
 }

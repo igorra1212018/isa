@@ -7,15 +7,17 @@ import { UserUpcomingAppointmentsComponent } from './user-upcoming-appointments/
 import { UserQuestionnaireComponent } from './user-questionnaire/user-questionnaire.component';
 import { UserDonationCenterComponent } from './user-donation-center/user-donation-center.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthGuard } from './auth.guard';
+import { Role } from './role';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent },
-  { path: "user-homepage", component: UserHomepageComponent },
-  { path: "user-upcoming-appointments", component: UserUpcomingAppointmentsComponent },
-  { path: "user-questionnaire", component: UserQuestionnaireComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: "user-donation-center/:id", component: UserDonationCenterComponent }
+  { path: "login", component: LoginComponent},
+  { path: "", component: UserHomepageComponent, canActivate: [AuthGuard]},
+  { path: "user-upcoming-appointments", component: UserUpcomingAppointmentsComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-questionnaire", component: UserQuestionnaireComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-donation-center/:id", component: UserDonationCenterComponent },
 ];
 
 @NgModule({

@@ -29,7 +29,10 @@ export class LoginComponent {
         user.password = this.password;
 
         this._loginService.login(user).subscribe(
-            (data) => localStorage.setItem('AccessToken', data.accessToken),
+            (data) => {
+                localStorage.setItem('AccessToken', data.accessToken);
+                localStorage.setItem('Role', data.roles[0]);
+            },
             (error) => this.handleError(),
             () => this.router.navigate([''])
         );
