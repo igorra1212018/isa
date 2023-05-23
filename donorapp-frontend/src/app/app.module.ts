@@ -18,6 +18,7 @@ import { UserUpcomingAppointmentsComponent } from './user-upcoming-appointments/
 import { UserQuestionnaireComponent } from './user-questionnaire/user-questionnaire.component';
 import { UserDonationCenterComponent } from './user-donation-center/user-donation-center.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     UserUpcomingAppointmentsComponent,
     UserQuestionnaireComponent,
     UserDonationCenterComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

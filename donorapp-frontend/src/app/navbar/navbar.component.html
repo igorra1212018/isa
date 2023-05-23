@@ -1,0 +1,14 @@
+<nav class="navMenu">
+    <a href="/" style="float:none">Home</a>
+    <a *ngIf="role === ' '" href="/register" id="registration" style="float:none">Sign up</a>
+    <a *ngIf="role === ' '" href="/login" id="login" style="float:none">Login</a>
+    
+    <a *ngIf="role === 'user'" href="/user-profile" id="profile" style="float:none">Profile</a>
+    <a *ngIf="role === 'user'" href="/appointment-history" id="appointment-history" style="float:none">Appointment History</a>
+    <a *ngIf="role === 'user'" href="/user-upcoming-appointments" id="upcoming-appointments" style="float:none">Upcoming Appointments</a>
+    <a *ngIf="role === 'user'" href="/qr-confirmations" id="qr-confirmations" style="float:none">QR Confirmations</a>
+    <a *ngIf="role === 'user'" href="/user-questionnaire" id="survey" style="float:none">Questionnaire</a>
+    <a *ngIf="role === 'user'" href="/complaints" id="complaints" style="float:none">Complaints</a>
+
+    <a *ngIf="role === 'user'" href="/" id="signout" (click)="signout()" style="float:none">Sign out</a>
+</nav>
