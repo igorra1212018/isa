@@ -1,0 +1,46 @@
+<div class="container col-md-4">
+    <div class="col-md-12" style="margin-top: 20px;">
+        <div class="row d-flex mt-2">
+            <label for="filter" class="col-md-6">
+                <select name="filter" id="filter" [(ngModel)]="filterOption" (ngModelChange)="filterandSortReservations()">
+                    <option value="ALL" checked>All</option>
+                    <option value="NEW">New</option>
+                    <option value="PROCESSED">Processed</option>
+                    <option value="REJECTED">Rejected</option>
+                </select>
+            </label>
+            <label for="sort" class="col-md-6">
+                <select name="sort" id="sort" [(ngModel)]="selectedSortOption" (ngModelChange)="filterandSortReservations()">
+                    <option value="date" checked>Creation date</option>
+                    <option value="status">Status</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="card mt-5" *ngFor = "let r of displayReservations">
+        <div class="card-body mx-4">
+            <div class="row d-flex mt-2">
+                <div class="col-md-4">
+                    <img [src]="'data:image/png;base64,' + r.qrCode">
+                </div>
+                <div class="col-md-4">
+                    <div class="row d-flex">
+                        <h5 class="font-weight-bold" style="margin-bottom: 0px !important;">
+                            {{r.creationDate | date:'HH:mm'}}
+                        </h5>
+                    </div>
+                    <div class="row d-flex">
+                        <span class="font-weight-bold header-text">
+                            {{r.creationDate | date:'dd/MM/yyyy'}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="font-weight-bold">
+                    {{r.status}}
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

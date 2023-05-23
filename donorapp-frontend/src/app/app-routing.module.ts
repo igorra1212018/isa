@@ -7,6 +7,7 @@ import { UserUpcomingAppointmentsComponent } from './user-upcoming-appointments/
 import { UserQuestionnaireComponent } from './user-questionnaire/user-questionnaire.component';
 import { UserDonationCenterComponent } from './user-donation-center/user-donation-center.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: "user-upcoming-appointments", component: UserUpcomingAppointmentsComponent },
   { path: "user-questionnaire", component: UserQuestionnaireComponent },
   { path: 'user-profile', component: UserProfileComponent },
-  { path: "user-donation-center/:id", component: UserDonationCenterComponent }
+  { path: "user-donation-center/:id", component: UserDonationCenterComponent },
+  { path: "user-qr-codes", component: UserQrCodesComponent }
 ];
 
 @NgModule({
