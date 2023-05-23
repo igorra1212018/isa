@@ -1,10 +1,14 @@
 package com.isa.donorapp.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.isa.donorapp.model.enums.EReservationStatus;
 
 @Entity
 public class Reservation {
@@ -16,16 +20,22 @@ public class Reservation {
 	private User user;
 	@ManyToOne
 	private Term term;
+	
+	private LocalDateTime creationDate;
+	
 	private boolean canceled;
+	private EReservationStatus status;
 	
 	private byte[] qrCode;
 	
 	public Reservation() {}
 	
-	public Reservation(User user, Term term, boolean canceled) {
+	public Reservation(User user, Term term, LocalDateTime creationDate, boolean canceled, EReservationStatus status) {
 		this.user = user;
 		this.term = term;
+		this.creationDate = creationDate;
 		this.canceled = canceled;
+		this.status = status;
 	}
 	
 	public Integer getId() {
@@ -57,5 +67,17 @@ public class Reservation {
 	}
 	public void setQrCode(byte[] qrCode) {
 		this.qrCode = qrCode;
+	}
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+	public EReservationStatus getStatus() {
+		return status;
+	}
+	public void setStatus(EReservationStatus status) {
+		this.status = status;
 	}
 }
