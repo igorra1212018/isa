@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.isa.donorapp.dto.DonationCenterDTO;
+import com.isa.donorapp.dto.StaffDTO;
+import com.isa.donorapp.dto.UserRegisterDTO;
+import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +70,27 @@ public class DonationCenterController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	
+	@PostMapping("/register")
+	public ResponseEntity<String> registerCenter(@RequestBody DonationCenterDTO donationCenterDTO, HttpServletRequest request){
+		DonationCenter newCenter = new DonationCenter(donationCenterDTO);
+		donationCenterService.save(newCenter);
+		
+		return new ResponseEntity<>(
+			      "Registration successful!",
+			      HttpStatus.OK);
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<String> updateDonationCenter(@RequestBody DonationCenterDTO newData){
+		DonationCenter newCenter = new DonationCenter(newData);
+		donationCenterService.save(newCenter);
+		
+		return new ResponseEntity<>(
+			      "Center update successful!",
+			      HttpStatus.OK);
 	}
 	
 	private User getCurrentUser() {

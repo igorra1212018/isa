@@ -38,7 +38,7 @@ public class StaffController {
 	}
 		
 	@PutMapping("/update")
-	public ResponseEntity<StaffDTO> UpdateStaffInfo(@RequestBody StaffDTO newData) {
+	public ResponseEntity<StaffDTO> updateStaffInfo(@RequestBody StaffDTO newData) {
 		StaffDTO updatedStaffDTO = new StaffDTO(staffService.updateStaff(newData));
 		
 		return new ResponseEntity<>(updatedStaffDTO, HttpStatus.OK);

@@ -18,7 +18,7 @@ export class StaffService {
         return this.http.get<any>(this._url + "profile", this.httpOptions);
     }
 
-    UpdateStaffInfo(newData: StaffDTO): Observable<any> {
+    updateStaffInfo(newData: StaffDTO): Observable<any> {
         return this.http.put(this._url + "update", JSON.stringify(newData), this.httpOptions);
     }
     

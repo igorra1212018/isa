@@ -21,6 +21,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
 import { StaffProfileComponent } from './staff-profile/staff-profile.component';
+import { StaffDonationCenterComponent } from './staff-donation-center/staff-donation-center.component';
+import { StaffHomepageComponent } from './staff-homepage/staff-homepage.component';
+import { AdminDonationCenterComponent } from './admin-donation-center/admin-donation-center.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { StaffProfileComponent } from './staff-profile/staff-profile.component';
     UserProfileComponent,
     NavbarComponent,
     UserQrCodesComponent,
-    StaffProfileComponent
+    StaffProfileComponent,
+    StaffDonationCenterComponent,
+    StaffHomepageComponent,
+    AdminDonationCenterComponent
   ],
   imports: [
     BrowserModule,

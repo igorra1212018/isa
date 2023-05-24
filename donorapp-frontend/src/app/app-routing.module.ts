@@ -11,6 +11,7 @@ import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
 import { AuthGuard } from './auth.guard';
 import { Role } from './role';
 import { StaffProfileComponent } from './staff-profile/staff-profile.component';
+import { AdminDonationCenterComponent } from './admin-donation-center/admin-donation-center.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-donation-center/:id", component: UserDonationCenterComponent },
   { path: "user-qr-codes", component: UserQrCodesComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
-  { path: "staff-profile", component: StaffProfileComponent, data: { roles: [Role.Staff]}}
+  { path: "staff-profile", component: StaffProfileComponent, data: { roles: [Role.Staff]}},
+  { path: "admin-donation-center", component: AdminDonationCenterComponent, data: { roles: [Role.Admin]}}
 ];
 
 @NgModule({

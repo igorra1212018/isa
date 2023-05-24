@@ -70,7 +70,7 @@ export class StaffProfileComponent implements OnInit {
         user.occupation = this.occupation;
         user.occupationInfo = this.occupationInfo;
 
-        this._staffService.UpdateStaffInfo(user).subscribe(
+        this._staffService.updateStaffInfo(user).subscribe(
             (response) => {
                 this.infoChanged = true;
                 console.log(response);
