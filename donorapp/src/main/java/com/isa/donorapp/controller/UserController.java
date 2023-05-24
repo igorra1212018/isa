@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.isa.donorapp.dto.UserHomepageDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.model.Role;
@@ -122,6 +123,20 @@ public class UserController {
 		UserProfileDTO userDTO = new UserProfileDTO(user);
 		
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping("/homepage_info")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<UserHomepageDTO> getUserHomepageInfo() {
+		try {
+			User user = getCurrentUser();
+			UserHomepageDTO userHomepageDto = new UserHomepageDTO(user);
+			return new ResponseEntity<>(userHomepageDto, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 	
 	@PutMapping("/profile")
