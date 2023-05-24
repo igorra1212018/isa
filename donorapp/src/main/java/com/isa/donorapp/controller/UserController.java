@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import com.isa.donorapp.dto.UserHomepageDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.dto.UserRegisterDTO;
+import com.isa.donorapp.model.Location;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.service.UserService;
@@ -118,6 +119,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<UserProfileDTO> getUserProfile() {
 		User user = getCurrentUser();
 		UserProfileDTO userDTO = new UserProfileDTO(user);
@@ -140,8 +142,18 @@ public class UserController {
 	}
 	
 	@PutMapping("/profile")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<UserProfileDTO> changeUserInfo(@RequestBody UserProfileDTO newData) {
-		UserProfileDTO newUserDTO = new UserProfileDTO(userService.updateUser(newData));
+		User user = getCurrentUser();
+		
+		user.setEmail(newData.getEmail());
+		user.setFirstName(newData.getFirstName());
+		user.setLastName(newData.getLastName());
+		user.setResidence(new Location(newData.getAddress(), newData.getCity(), newData.getCountry()));
+		user.setOccupation(newData.getOccupation());
+		user.setOccupationInfo(newData.getOccupationInfo());
+		
+		UserProfileDTO newUserDTO = new UserProfileDTO(userService.updateUser(user));
 		
 		return new ResponseEntity<>(newUserDTO, HttpStatus.OK);
 	}

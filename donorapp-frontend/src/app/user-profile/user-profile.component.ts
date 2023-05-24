@@ -15,51 +15,31 @@ enum Role {
     styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
-    email: string = 'horar70418@djpich.com';
-    password: string = 'hori123';
-    firstName: string = 'Hori';
-    lastName: string = 'Horic';
-    address: string = 'Nikole Tesle 12';
-    city: string = 'Novi Sad';
-    country: string = 'Serbia';
-    phoneNumber: string = '063123123';
-    jmbg: string = '3213213213213';
-    gender: string = 'MALE';
-    occupation: string = 'Student';
-    occupationInfo: string = 'Fakultet tehnickih nauka';
     role: Role = Role.USER;
 
+    user: UserRegister = new UserRegister();
+
     infoChanged: boolean = false;
+    errorMessage: string = '';
     responseMessage: string = '';
 
     constructor(private router: Router, private _userProfileService: UserProfileService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this._userProfileService.getUserData().subscribe((data) => {
+            this.user = data;
+        });
+    }
 
     changeInfo() {
-        //TODO: validacija unosa
-
-        let user = new UserRegister();
-        user.email = this.email;
-        user.password = this.password;
-        user.firstName = this.firstName;
-        user.lastName = this.lastName;
-        user.address = this.address;
-        user.city = this.city;
-        user.country = this.country;
-        user.phoneNumber = this.phoneNumber;
-        user.gender = this.gender;
-        user.jmbg = this.jmbg;
-        user.occupation = this.occupation;
-        user.occupationInfo = this.occupationInfo;
-
-        this._userProfileService.changeUserData(user).subscribe(
+        this._userProfileService.changeUserData(this.user).subscribe(
             (response) => {
-                this.infoChanged = true;
+                this.user = response;
+                this.responseMessage = 'Info changed successfully';
                 console.log(response);
             },
             (error) => {
-                this.responseMessage = error.error;
+                this.errorMessage = error.error;
             }
         );
     }

@@ -89,16 +89,7 @@ public class UserService {
 		return findByEmail(currentUserEmail);
 	}
 
-	public User updateUser(UserProfileDTO newData) {
-		User user = findByEmail(newData.getEmail());
-		
-		user.setEmail(newData.getEmail());
-		user.setFirstName(newData.getFirstName());
-		user.setLastName(newData.getLastName());
-		user.setResidence(new Location(newData.getAddress(), newData.getCity(), newData.getCountry()));
-		user.setOccupation(newData.getOccupation());
-		user.setOccupationInfo(newData.getOccupationInfo());
-		
+	public User updateUser(User user) {
 		userRepository.save(user);
 		
 		return user;

@@ -14,8 +14,8 @@ export class UserProfileService {
 
     constructor(private http: HttpClient) {}
 
-    gtUserData(userId: Number): Observable<any> {
-        return this.http.get(this._url, this.httpOptions);
+    getUserData(): Observable<UserRegister> {
+        return this.http.get<UserRegister>(this._url, this.httpOptions);
     }
 
     changeUserData(newData: UserRegister): Observable<any> {

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.model.enums.EGender;
 
@@ -67,6 +68,19 @@ public class User {
 
 
 	public User(UserRegisterDTO userDTO) {
+		this.email = userDTO.getEmail();
+		this.password = userDTO.getPassword(); //Enkripcija ovde?
+		this.firstName = userDTO.getFirstName();
+		this.lastName = userDTO.getLastName();
+		this.residence = new Location(userDTO.getAddress(), userDTO.getCity(), userDTO.getCountry(), 0, 0);
+		this.phoneNumber = userDTO.getPhoneNumber();
+		this.jmbg = userDTO.getJmbg();
+		this.gender = EGender.valueOf(userDTO.getGender()); //Treba validacija pre ovoga
+		this.occupation = userDTO.getOccupation();
+		this.occupationInfo = userDTO.getOccupationInfo();
+	}
+	
+	public User(UserProfileDTO userDTO) {
 		this.email = userDTO.getEmail();
 		this.password = userDTO.getPassword(); //Enkripcija ovde?
 		this.firstName = userDTO.getFirstName();
