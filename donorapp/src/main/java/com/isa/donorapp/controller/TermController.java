@@ -102,6 +102,22 @@ public class TermController {
 		}
 	}
 	
+	@GetMapping("/visited")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<List<AppointmentDTO>> getVisitedAppointments() {
+		try {
+			User currentUser = getCurrentUser();
+			List<Term> terms = termService.findVisitedAppointments(currentUser.getId());
+			List<AppointmentDTO> appointmentDtos = new ArrayList<AppointmentDTO>();
+			for (Term t : terms) {
+				appointmentDtos.add(new AppointmentDTO(t));
+			}
+			return new ResponseEntity<>(appointmentDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/reserve/{id}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> reserve(@PathVariable("id") int id)

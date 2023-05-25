@@ -71,6 +71,20 @@ public class TermService {
 		return upcomingAppointments;
 	}
 	
+	public List<Term> findVisitedAppointments(Integer userId)
+	{
+		List<Reservation> reservations = reservationRepository.findByUserId(userId);
+		List<Term> visitedTerms = new ArrayList<Term>();
+		for (Reservation r : reservations) {
+			if (!r.isCanceled() && r.getStatus() == EReservationStatus.PROCESSED) {
+				Term term = r.getTerm();
+				term.setReservedBy(r.getUser());
+				visitedTerms.add(term);
+			}
+		}
+		return visitedTerms;
+	}
+	
 	public List<Term> findFreeTermsByCenterId(Integer centerId, Integer userId)
 	{
 		List<Term> terms = termRepository.findByCenterId(centerId);
