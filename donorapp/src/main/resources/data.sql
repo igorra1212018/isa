@@ -1,8 +1,10 @@
+--Roles
 INSERT INTO public.role(id, name) VALUES (0,'USER');
 INSERT INTO public.role(id, name) VALUES (1,'ADMINISTRATOR');
 INSERT INTO public.role(id, name) VALUES (2,'STAFF');
 
 
+--Users
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
 VALUES (10, true, 'marko.mekic@test.com', 'Marko', 'Mekić', 0, '8597742685357', 'Student', 'Fakultet tehničkih nauka Novi Sad',
@@ -23,12 +25,32 @@ occupation_info, password, penalty_count, phone_number, address, city, country, 
 VALUES (13, true, 'milica.matic@test.com', 'Milica', 'Matić', 1, '4785296075844', 'Advokat', 'Advokatska služba Aleksić, Novi Sad',
 '$2a$10$IelnpU0.wI5qmUzdmVnoB.4jA3CSj716cZsZ2lLVewwI9BpAqI0G.', 0, '063622143', 'Radnička 14', 'Novi Sad', 'Serbia', 45.24903, 19.84820, null);
 
+
+--User roles
 INSERT INTO public.user_roles(user_id, role_id) VALUES (10, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (11, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (12, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (13, 0);
 
 
+--Donation centers
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
+VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
+
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
+VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
+
+
+--Terms
+INSERT INTO public.term(id, date, duration, center_id) VALUES (0, '2023/06/18 8:30', 25, 0);
+INSERT INTO public.term(id, date, duration, center_id) VALUES (1, '2023/06/18 9:30', 30, 0);
+INSERT INTO public.term(id, date, duration, center_id) VALUES (2, '2023/06/18 19:00', 20, 0);
+INSERT INTO public.term(id, date, duration, center_id) VALUES (3, '2023/06/18 9:30', 30, 1);
+INSERT INTO public.term(id, date, duration, center_id) VALUES (4, '2023/06/18 9:30', 30, 1);
+INSERT INTO public.term(id, date, duration, center_id) VALUES (5, '2023/06/18 19:00', 20, 1);
+
+
+--Questionnaire questions
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (1,false,'Da li ste do sada dobrovoljno davali krv ili komponente krvi?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (2,false,'Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (3,false,'Da li se trenutno osećate zdravim, sposobnim i odmornim da date krv ili komponente krvi?');
