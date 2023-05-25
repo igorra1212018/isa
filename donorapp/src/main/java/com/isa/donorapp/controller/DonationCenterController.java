@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.isa.donorapp.dto.DonationCenterDTO;
+import com.isa.donorapp.dto.StaffDTO;
+import com.isa.donorapp.dto.UserRegisterDTO;
+import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +70,42 @@ public class DonationCenterController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping("/staff_center")
+	//@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<List<DonationCenterDTO>> getDonationCenterByStaffId() 
+	{
+		User user = getCurrentUser();
+		try 
+		{
+			DonationCenter donationCenterData = donationCenterService.findById(user.getDonationCenter().getId());
+			List<DonationCenterDTO> donationCenterDtos = new ArrayList<DonationCenterDTO>();
+			donationCenterDtos.add(new DonationCenterDTO(donationCenterData));
+			
+			return new ResponseEntity<>(donationCenterDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}	
+	
+	@PostMapping("/register")
+	public ResponseEntity<String> registerCenter(@RequestBody DonationCenterDTO donationCenterDTO, HttpServletRequest request){
+		DonationCenter newCenter = new DonationCenter(donationCenterDTO);
+		donationCenterService.save(newCenter);
+		
+		return new ResponseEntity<>(
+			      "Registration successful!",
+			      HttpStatus.OK);
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<DonationCenter> updateDonationCenter(@RequestBody DonationCenterDTO newData){
+		User user = getCurrentUser();
+		DonationCenter newCenter = new DonationCenter(newData);
+		donationCenterService.update(newCenter, user.getDonationCenter().getId());
+		
+		return new ResponseEntity<>(newCenter, HttpStatus.OK);
 	}
 	
 	private User getCurrentUser() {

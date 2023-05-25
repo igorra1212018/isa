@@ -21,6 +21,11 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
 import { UserAppointmentHistoryComponent } from './user-appointment-history/user-appointment-history.component';
+import { StaffProfileComponent } from './staff-profile/staff-profile.component';
+import { StaffDonationCenterComponent } from './staff-donation-center/staff-donation-center.component';
+import { StaffHomepageComponent } from './staff-homepage/staff-homepage.component';
+import { AdminDonationCenterComponent } from './admin-donation-center/admin-donation-center.component';
+import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { UserAppointmentHistoryComponent } from './user-appointment-history/user
     UserProfileComponent,
     NavbarComponent,
     UserQrCodesComponent,
-    UserAppointmentHistoryComponent
+    UserAppointmentHistoryComponent,
+    StaffProfileComponent,
+    StaffDonationCenterComponent,
+    StaffHomepageComponent,
+    AdminDonationCenterComponent,
+    StaffEditDonationCenterComponent
   ],
   imports: [
     BrowserModule,

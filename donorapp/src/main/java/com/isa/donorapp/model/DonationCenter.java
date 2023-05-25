@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import com.isa.donorapp.dto.DonationCenterDTO;
+
 @Entity
 public class DonationCenter {
 	@Id
@@ -28,6 +30,12 @@ public class DonationCenter {
 		this.address = address;
 		this.description = description;
 		this.rating = rating;
+	}
+	
+	public DonationCenter(DonationCenterDTO donationCenterDTO) {
+		this.name = donationCenterDTO.getName();		
+		this.address = new Location(donationCenterDTO.getAddress(), donationCenterDTO.getCity(), donationCenterDTO.getCountry(), donationCenterDTO.getLatitude(), donationCenterDTO.getLongitude());;
+		this.description = donationCenterDTO.getDescription();
 	}
 
 	public Integer getId() {

@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+
+            <!--Header-->
+            <div class="header gradient-blue">
+                <div class="row d-flex justify-content-center">
+                    <h3 class="text-white mb-1 mt-1 font-weight-bold">Register</h3>
+                </div>
+            </div>
+
+            <div style="padding: 5%; margin: auto;">
+                <form>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="name" [(ngModel)]="name" required="required">
+                                <span class="keep_hovered">Name</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="city" [(ngModel)]="city" required="required">
+                                <span class="keep_hovered">City</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="country" [(ngModel)]="country" required="required">
+                                <span class="keep_hovered">Country</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <input type="text" name="address" [(ngModel)]="address" required="required">
+                                <span class="keep_hovered">Address</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="latitude" [(ngModel)]="latitude" required="required">
+                                <span class="keep_hovered">Latitude</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="longitude" [(ngModel)]="longitude" required="required">
+                                <span class="keep_hovered">Longitude</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex mt-4">
+                        <div class="col-md-6">
+                            <label>
+                                <input type="text" name="description" [(ngModel)]="description" required="required">
+                                <span class="keep_hovered">Description</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <button (click)="registerCenter()" [disabled]="!contentIsValid()" class="btn btn-blue btn-rounded" style="width: 100%;">Register</button>
+                        </div>
+                    </div>
+                </form>
+                <div style="color: red" *ngIf="responseMessage.length != 0"><b>{{responseMessage}}</b></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
