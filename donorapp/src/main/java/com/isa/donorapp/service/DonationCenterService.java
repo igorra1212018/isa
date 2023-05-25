@@ -59,7 +59,7 @@ public class DonationCenterService {
 	{
 		DonationCenter donationCenter = findById(staffId);
 		donationCenter.setName(updatedDonationCenter.getName());
-		donationCenter.setAddress(new Location(updatedDonationCenter.getAddress().getAddress(), updatedDonationCenter.getAddress().getCity(), updatedDonationCenter.getAddress().getCountry(), updatedDonationCenter.getAddress().getLatitude(), updatedDonationCenter.getAddress().getLongtitude()));
+		donationCenter.setAddress(new Location(updatedDonationCenter.getAddress().getAddress(), updatedDonationCenter.getAddress().getCity(), updatedDonationCenter.getAddress().getCountry(), updatedDonationCenter.getAddress().getLatitude(), updatedDonationCenter.getAddress().getLongitude()));
 		donationCenter.setDescription(updatedDonationCenter.getDescription());
 				
 		donationCenterRepository.save(donationCenter);
