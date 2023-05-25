@@ -2,10 +2,32 @@ INSERT INTO public.role(id, name) VALUES (0,'USER');
 INSERT INTO public.role(id, name) VALUES (1,'ADMINISTRATOR');
 INSERT INTO public.role(id, name) VALUES (2,'STAFF');
 
+
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
-VALUES (0, true, "maki1@test.com", "Maki", "Mekić", 0, "1231231231231", "Student", "Fakultet tehničkih nauka Novi Sad",
-"")
+VALUES (10, true, 'marko.mekic@test.com', 'Marko', 'Mekić', 0, '8597742685357', 'Student', 'Fakultet tehničkih nauka Novi Sad',
+'$2a$10$JrBQZbE64oPnnPP9fRMe0urRWAm/IIXI.uytaBM72fF6QCkqtddJK', 0, '063241463', 'Braće Nemet 4', 'Novi Sad', 'Serbia', 45.23954, 19.80781, null);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (11, true, 'tijana.nikolic@test.com', 'Tijana', 'Nikolić', 1, '4577397855271', 'Profesor Matematike', 'Gimnazija Jovan Jovanović Zmaj, Novi Sad',
+'$2a$10$f/eIJ2mawbx75.SRBceU/.zafZvdcKy6RR6z1uEZQ7TULMUX0l8E.', 0, '062676349', 'Paje Marganovića 2', 'Novi Sad', 'Serbia', 45.25232, 19.82115, null);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (12, true, 'darko.popovic@test.com', 'Darko', 'Popović', 0, '6488052659043', 'Kasir', 'Idea, Novi Sad',
+'$2a$10$wQN2LVZipqY5KJ5ZK3hdzOYk2y4QD7V2cKGADh1eG68ZOQ4tQK5gq', 0, '063887221', 'Alekse Šantića 25', 'Novi Sad', 'Serbia', 45.24365, 19.83517, null);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (13, true, 'milica.matic@test.com', 'Milica', 'Matić', 1, '4785296075844', 'Advokat', 'Advokatska služba Aleksić, Novi Sad',
+'$2a$10$IelnpU0.wI5qmUzdmVnoB.4jA3CSj716cZsZ2lLVewwI9BpAqI0G.', 0, '063622143', 'Radnička 14', 'Novi Sad', 'Serbia', 45.24903, 19.84820, null);
+
+INSERT INTO public.user_roles(user_id, role_id) VALUES (10, 0);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (11, 0);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (12, 0);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (13, 0);
+
 
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (1,false,'Da li ste do sada dobrovoljno davali krv ili komponente krvi?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (2,false,'Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?');

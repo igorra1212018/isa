@@ -10,14 +10,14 @@ public class Location {
 	private String country;
 	
 	private final double latitude;
-	private final double longtitude;
+	private final double longitude;
 	
 	public Location() {
 		this.address = "";
 		this.city = "";
 		this.country = "";
 		this.latitude = 0;
-		this.longtitude = 0;
+		this.longitude = 0;
 	}
 	
 	public Location(String address, String city, String country) {
@@ -25,7 +25,7 @@ public class Location {
 		this.city = city;
 		this.country = country;
 		this.latitude = 0;
-		this.longtitude = 0;
+		this.longitude = 0;
 	}
 	
 	public Location(String address, String city, String country, double latitude, double longtitude) {
@@ -33,7 +33,7 @@ public class Location {
 		this.city = city;
 		this.country = country;
 		this.latitude = latitude;
-		this.longtitude = longtitude;
+		this.longitude = longtitude;
 	}
 
 	public String getAddress() {
@@ -52,13 +52,13 @@ public class Location {
 		return latitude;
 	}
 
-	public double getLongtitude() {
-		return longtitude;
+	public double getLongitude() {
+		return longitude;
 	}
 
 	@Override
 	public String toString() {
 		return "Location [address=" + address + ", city=" + city + ", country=" + country + ", latitude=" + latitude
-				+ ", longtitude=" + longtitude + "]";
+				+ ", longtitude=" + longitude + "]";
 	}
 }

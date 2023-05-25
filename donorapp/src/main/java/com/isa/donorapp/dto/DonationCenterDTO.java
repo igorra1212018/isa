@@ -37,7 +37,7 @@ public class DonationCenterDTO {
 		this.address = donationCenter.getAddress().getAddress();
 		this.description = donationCenter.getDescription();
 		this.latitude = donationCenter.getAddress().getLatitude();
-		this.longitude = donationCenter.getAddress().getLongtitude();
+		this.longitude = donationCenter.getAddress().getLongitude();
 		this.rating = donationCenter.getRating();
 	}
 
