@@ -72,6 +72,22 @@ public class DonationCenterController {
 		}
 	}
 	
+	@GetMapping("/staff_center")
+	//@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<List<DonationCenterDTO>> getDonationCenterByStaffId() 
+	{
+		User user = getCurrentUser();
+		try 
+		{
+			DonationCenter donationCenterData = donationCenterService.findById(user.getDonationCenter().getId());
+			List<DonationCenterDTO> donationCenterDtos = new ArrayList<DonationCenterDTO>();
+			donationCenterDtos.add(new DonationCenterDTO(donationCenterData));
+			
+			return new ResponseEntity<>(donationCenterDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}	
 	
 	@PostMapping("/register")
 	public ResponseEntity<String> registerCenter(@RequestBody DonationCenterDTO donationCenterDTO, HttpServletRequest request){
@@ -84,13 +100,12 @@ public class DonationCenterController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<String> updateDonationCenter(@RequestBody DonationCenterDTO newData){
+	public ResponseEntity<DonationCenter> updateDonationCenter(@RequestBody DonationCenterDTO newData){
+		User user = getCurrentUser();
 		DonationCenter newCenter = new DonationCenter(newData);
-		donationCenterService.save(newCenter);
+		donationCenterService.update(newCenter, user.getDonationCenter().getId());
 		
-		return new ResponseEntity<>(
-			      "Center update successful!",
-			      HttpStatus.OK);
+		return new ResponseEntity<>(newCenter, HttpStatus.OK);
 	}
 	
 	private User getCurrentUser() {

@@ -39,7 +39,7 @@ export class StaffProfileComponent implements OnInit {
   constructor(private router: Router, private _staffService: StaffService) {}
 
   ngOnInit(): void {
-    this._staffService.GetUserData().subscribe(data => {
+    this._staffService.getUserData().subscribe(data => {
       this.staffDTO = data
       this.email = this.staffDTO.email
       this.firstName = this.staffDTO.firstName

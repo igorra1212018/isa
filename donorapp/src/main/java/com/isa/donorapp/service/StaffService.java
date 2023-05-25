@@ -1,13 +1,18 @@
 package com.isa.donorapp.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.isa.donorapp.dto.DonationCenterDTO;
 import com.isa.donorapp.dto.StaffDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
+import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Location;
 import com.isa.donorapp.model.Staff;
 import com.isa.donorapp.model.User;
@@ -49,4 +54,24 @@ public class StaffService {
 		
 		return user;
 	}
+	
+	public List<User> findStaffFromCenter(int Center_id)
+	{
+		List<User> users = userRepository.findAll();
+		List<User> staff = new ArrayList<User>();
+		for (User u : users) {
+			if(u.getDonationCenter() == null) {
+				continue;
+			}
+			else {
+				if(u.getDonationCenter().getId() == Center_id) {
+					staff.add(u);
+				}
+				else
+					return null;
+			}
+		}
+		return staff;
+	}
+		
 }

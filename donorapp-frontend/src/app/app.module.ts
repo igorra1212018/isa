@@ -24,6 +24,7 @@ import { StaffProfileComponent } from './staff-profile/staff-profile.component';
 import { StaffDonationCenterComponent } from './staff-donation-center/staff-donation-center.component';
 import { StaffHomepageComponent } from './staff-homepage/staff-homepage.component';
 import { AdminDonationCenterComponent } from './admin-donation-center/admin-donation-center.component';
+import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AdminDonationCenterComponent } from './admin-donation-center/admin-dona
     StaffProfileComponent,
     StaffDonationCenterComponent,
     StaffHomepageComponent,
-    AdminDonationCenterComponent
+    AdminDonationCenterComponent,
+    StaffEditDonationCenterComponent
   ],
   imports: [
     BrowserModule,

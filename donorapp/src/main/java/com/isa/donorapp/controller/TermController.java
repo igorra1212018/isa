@@ -71,7 +71,7 @@ public class TermController {
 	}
 	
 	@GetMapping("/center/{id}")
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<List<AppointmentDTO>> getFreeTermsByCenter(@PathVariable("id") int id) {
 		try {
 			User currentUser = getCurrentUser();

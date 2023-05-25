@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.DonationCenterScore;
+import com.isa.donorapp.model.Location;
 import com.isa.donorapp.repository.UserRepository;
 import com.isa.donorapp.repository.DonationCenterRepository;
 import com.isa.donorapp.repository.RoleRepository;
@@ -39,7 +40,7 @@ public class DonationCenterService {
 			return donationCenter;
 		}
 	}
-	
+		
 	public List<DonationCenter> findAll()
 	{
 		List<DonationCenter> donationCenters = donationCenterRepository.findAll();
@@ -54,7 +55,20 @@ public class DonationCenterService {
 		return donationCenterRepository.save(donationCenter);
 	}
 	
-	private double calculateScore(Integer id) {
+	public DonationCenter update(DonationCenter updatedDonationCenter, int staffId) 
+	{
+		DonationCenter donationCenter = findById(staffId);
+		donationCenter.setName(updatedDonationCenter.getName());
+		donationCenter.setAddress(new Location(updatedDonationCenter.getAddress().getAddress(), updatedDonationCenter.getAddress().getCity(), updatedDonationCenter.getAddress().getCountry(), updatedDonationCenter.getAddress().getLatitude(), updatedDonationCenter.getAddress().getLongtitude()));
+		donationCenter.setDescription(updatedDonationCenter.getDescription());
+		donationCenter.setRating(calculateScore(donationCenter.getId()));		
+		
+		donationCenterRepository.save(donationCenter);
+		return donationCenter;
+	}
+	
+	private double calculateScore(Integer id) 
+	{
 		List<DonationCenterScore> scores = donationCenterScoreService.findByCenterId(id);
 		double scoreSum = 0;
 		for (DonationCenterScore dcs : scores) {

@@ -11,6 +11,6 @@ export class StaffHomepageService {
   constructor(private http: HttpClient) { }
 
   getAllDonationCenters() : Observable<DonationCenter[]>{
-    return this.http.get<DonationCenter[]>("/api/donation_center/all");
+    return this.http.get<DonationCenter[]>("/api/donation_center/staff_center");
   }
 }

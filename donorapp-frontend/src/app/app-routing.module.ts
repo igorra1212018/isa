@@ -14,6 +14,7 @@ import { StaffProfileComponent } from './staff-profile/staff-profile.component';
 import { AdminDonationCenterComponent } from './admin-donation-center/admin-donation-center.component';
 import { StaffHomepageComponent } from './staff-homepage/staff-homepage.component';
 import { StaffDonationCenterComponent } from './staff-donation-center/staff-donation-center.component';
+import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: "staff-profile", component: StaffProfileComponent, data: { roles: [Role.Staff]}},
   { path: "staff-homepage", component: StaffHomepageComponent},
   { path: "staff-donation-center/:id", component: StaffDonationCenterComponent},
+  { path: "staff-edit-donation-center/:id", component: StaffEditDonationCenterComponent},
   { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
 ];
 

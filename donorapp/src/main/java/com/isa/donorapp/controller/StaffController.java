@@ -1,5 +1,7 @@
 package com.isa.donorapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,8 @@ public class StaffController {
 	UserService userService;
 		
 	@GetMapping("/profile")
-	public ResponseEntity<UserProfileDTO> getUserProfile() {
+	public ResponseEntity<UserProfileDTO> getUserProfile() 
+	{
 		User user = getCurrentUser();
 		UserProfileDTO userDTO = new UserProfileDTO(user);
 		
@@ -38,13 +41,29 @@ public class StaffController {
 	}
 		
 	@PutMapping("/update")
-	public ResponseEntity<StaffDTO> updateStaffInfo(@RequestBody StaffDTO newData) {
+	public ResponseEntity<StaffDTO> updateStaffInfo(@RequestBody StaffDTO newData) 
+	{
 		StaffDTO updatedStaffDTO = new StaffDTO(staffService.updateStaff(newData));
 		
 		return new ResponseEntity<>(updatedStaffDTO, HttpStatus.OK);
 	}
 	
-	private User getCurrentUser() {
+	@GetMapping("/users")
+	public ResponseEntity<List<User>> getStaffByCenterId() 
+	{
+		User user = getCurrentUser();
+		List<User> staff = staffService.findStaffFromCenter(user.getDonationCenter().getId());
+		if (staff.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			return new ResponseEntity<>(staff, HttpStatus.OK);
+		}
+
+	}
+		
+	private User getCurrentUser() 
+	{
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);
 	}
