@@ -20,6 +20,7 @@ import { UserDonationCenterComponent } from './user-donation-center/user-donatio
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
+import { UserAppointmentHistoryComponent } from './user-appointment-history/user-appointment-history.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
     UserDonationCenterComponent,
     UserProfileComponent,
     NavbarComponent,
-    UserQrCodesComponent
+    UserQrCodesComponent,
+    UserAppointmentHistoryComponent
   ],
   imports: [
     BrowserModule,

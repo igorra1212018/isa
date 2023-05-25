@@ -74,6 +74,7 @@ export class UserDonationCenterComponent implements OnInit{
         console.log(response);
         let centerId = Number(this.route.snapshot.paramMap.get('id'));
         this.loadTerms(centerId);
+        this.sortTerms();
       },
       error => {
         console.log(error.error);

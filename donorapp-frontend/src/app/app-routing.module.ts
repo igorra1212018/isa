@@ -10,6 +10,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserQrCodesComponent } from './user-qr-codes/user-qr-codes.component';
 import { AuthGuard } from './auth.guard';
 import { Role } from './role';
+import { UserAppointmentHistoryComponent } from './user-appointment-history/user-appointment-history.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: "user-questionnaire", component: UserQuestionnaireComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-donation-center/:id", component: UserDonationCenterComponent },
-  { path: "user-qr-codes", component: UserQrCodesComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } }
+  { path: "user-qr-codes", component: UserQrCodesComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-appointment-history", component: UserAppointmentHistoryComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } }
 ];
 
 @NgModule({

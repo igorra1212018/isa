@@ -23,7 +23,10 @@ export class UserHomepageComponent implements OnInit{
   ngOnInit(): void {
     this.userInfo = new UserHomepageInfo("", "", "", 0);
 
-    this._userHomepageService.getAllDonationCenters().subscribe(data => {this.centers = data},
+    this._userHomepageService.getAllDonationCenters().subscribe(data => {
+      this.centers = data;
+      this.sortCenters();
+    },
       error => this.errorMsg = "Couldn't load centers");
 
     let role = localStorage.getItem("Role");
