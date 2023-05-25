@@ -11,20 +11,10 @@
     <div class="container">
                 
         <h2 class="mb-4">Donation Centers</h2>
-        <div class="col-md-2">
-            <label for="sort">
-                <span>Sort by:</span>
-                <select name="sort" id="sort" [(ngModel)]="selectedSortOption" (ngModelChange)="sortCenters()">
-                    <option value="name">Name</option>
-                    <option value="city">City</option>
-                    <option value="rating">Rating</option>
-                </select>
-            </label>
-        </div>
-    
+            
         <p *ngIf="errorMsg != null">{{errorMsg}}</p>
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let center of centers">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100" (click)="openCenter(center.id)">
                     <img class="card-img-top" src="../../assets/donation_center.png" alt="{{center.name}}">
                     <div class="card-body">

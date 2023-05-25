@@ -26,6 +26,8 @@ import { StaffDonationCenterComponent } from './staff-donation-center/staff-dona
 import { StaffHomepageComponent } from './staff-homepage/staff-homepage.component';
 import { AdminDonationCenterComponent } from './admin-donation-center/admin-donation-center.component';
 import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
+import { StaffBloodViewComponent } from './staff-blood-view/staff-blood-view.component';
+import { MatTableModule } from '@angular/material/table'  
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/s
     StaffDonationCenterComponent,
     StaffHomepageComponent,
     AdminDonationCenterComponent,
-    StaffEditDonationCenterComponent
+    StaffEditDonationCenterComponent,
+    StaffBloodViewComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/s
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule,
+    MatTableModule
   ],
   providers: [
     AuthGuard,
