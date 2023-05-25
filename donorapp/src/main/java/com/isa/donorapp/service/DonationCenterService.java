@@ -61,8 +61,7 @@ public class DonationCenterService {
 		donationCenter.setName(updatedDonationCenter.getName());
 		donationCenter.setAddress(new Location(updatedDonationCenter.getAddress().getAddress(), updatedDonationCenter.getAddress().getCity(), updatedDonationCenter.getAddress().getCountry(), updatedDonationCenter.getAddress().getLatitude(), updatedDonationCenter.getAddress().getLongtitude()));
 		donationCenter.setDescription(updatedDonationCenter.getDescription());
-		donationCenter.setRating(calculateScore(donationCenter.getId()));		
-		
+				
 		donationCenterRepository.save(donationCenter);
 		return donationCenter;
 	}

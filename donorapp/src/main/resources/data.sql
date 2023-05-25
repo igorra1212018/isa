@@ -7,6 +7,11 @@ occupation_info, password, penalty_count, phone_number, address, city, country, 
 VALUES (0, true, "maki1@test.com", "Maki", "Mekić", 0, "1231231231231", "Student", "Fakultet tehničkih nauka Novi Sad",
 "")
 
+INSERT INTO public.blood_table(	id, quantity, type)	VALUES (1, 50, 0);
+INSERT INTO public.blood_table(	id, quantity, type)	VALUES (2, 60, 1);
+INSERT INTO public.blood_table(	id, quantity, type)	VALUES (3, 70, 2);
+INSERT INTO public.blood_table(	id, quantity, type)	VALUES (4, 80, 3);
+
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (1,false,'Da li ste do sada dobrovoljno davali krv ili komponente krvi?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (2,false,'Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (3,false,'Da li se trenutno osećate zdravim, sposobnim i odmornim da date krv ili komponente krvi?');

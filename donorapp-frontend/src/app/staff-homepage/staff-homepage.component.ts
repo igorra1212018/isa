@@ -9,31 +9,15 @@ import { StaffHomepageService } from '../services/staff-homepage.service';
   styleUrls: ['./staff-homepage.component.css']
 })
 export class StaffHomepageComponent implements OnInit{
-  public centers = [] as DonationCenter[];
+  public center = new DonationCenter;
   errorMsg = "";
   selectedSortOption = "name"
 
   constructor(private router: Router, private _staffHomepageService: StaffHomepageService) { }
 
   ngOnInit(): void {
-    this._staffHomepageService.getAllDonationCenters().subscribe(data => {this.centers = data},
+    this._staffHomepageService.getMyDonationCenter().subscribe(data => {this.center = data},
       error => this.errorMsg = "Couldn't load centers");
-  }
-
-  sortCenters(): void {
-    switch (this.selectedSortOption) {
-      case 'name':
-        this.centers.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'rating':
-        this.centers.sort((a, b) => b.rating - a.rating);
-        break;
-      case 'city':
-        this.centers.sort((a, b) => a.city.localeCompare(b.city));
-        break;
-      default:
-        break;
-    }
   }
 
   openCenter(id: number): void {

@@ -74,16 +74,15 @@ public class DonationCenterController {
 	
 	@GetMapping("/staff_center")
 	//@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<List<DonationCenterDTO>> getDonationCenterByStaffId() 
+	public ResponseEntity<DonationCenterDTO> getDonationCenterByStaffId() 
 	{
 		User user = getCurrentUser();
 		try 
 		{
 			DonationCenter donationCenterData = donationCenterService.findById(user.getDonationCenter().getId());
-			List<DonationCenterDTO> donationCenterDtos = new ArrayList<DonationCenterDTO>();
-			donationCenterDtos.add(new DonationCenterDTO(donationCenterData));
+			DonationCenterDTO donationCenterDto = new DonationCenterDTO(donationCenterData);
 			
-			return new ResponseEntity<>(donationCenterDtos, HttpStatus.OK);
+			return new ResponseEntity<>(donationCenterDto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

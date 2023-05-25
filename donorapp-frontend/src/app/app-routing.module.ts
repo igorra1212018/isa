@@ -15,6 +15,7 @@ import { AdminDonationCenterComponent } from './admin-donation-center/admin-dona
 import { StaffHomepageComponent } from './staff-homepage/staff-homepage.component';
 import { StaffDonationCenterComponent } from './staff-donation-center/staff-donation-center.component';
 import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
+import { StaffBloodViewComponent } from './staff-blood-view/staff-blood-view.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: "staff-homepage", component: StaffHomepageComponent},
   { path: "staff-donation-center/:id", component: StaffDonationCenterComponent},
   { path: "staff-edit-donation-center/:id", component: StaffEditDonationCenterComponent},
-  { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
+  { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
+  { path: "staff-bloodview", component: StaffBloodViewComponent}
 ];
 
 @NgModule({
