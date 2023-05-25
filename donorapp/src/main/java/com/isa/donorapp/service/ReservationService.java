@@ -8,11 +8,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.google.zxing.EncodeHintType;
+import com.isa.donorapp.event.OnRegistrationCompleteEvent;
+import com.isa.donorapp.event.OnReservationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Term;
@@ -35,6 +38,8 @@ public class ReservationService {
 	private UserService userService;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	ApplicationEventPublisher eventPublisher;
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
@@ -84,12 +89,15 @@ public class ReservationService {
 			String qrCodeBase64 = Base64Utils.encodeToString(qrCodeBytes);
 			reservationRepository.save(reservation);
 			
+			eventPublisher.publishEvent(new OnReservationCompleteEvent(currentUser, qrCodeBase64));
+			/*
 			try {
 				emailService.sendEmailWithQRCode(currentUser.getEmail(), qrCodeBase64);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			*/
 			return reservation;
 		}
 		return null;

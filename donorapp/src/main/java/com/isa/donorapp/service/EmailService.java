@@ -16,17 +16,6 @@ public class EmailService {
     private JavaMailSender mailSender;
 	
     public void sendEmailWithQRCode(String recipientEmail, String qrCodeBase64) throws MessagingException {
-    	/*
-    	String message = "<html><body><img src='data:image/png;base64," + qrCodeBase64 + "'></body></html>";
-        
-        
-        
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipientEmail);
-        email.setSubject(subject);
-        email.setText(message);
-        mailSender.send(email);
-    	*/
     	String subject = "Reservation confirmation";
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
