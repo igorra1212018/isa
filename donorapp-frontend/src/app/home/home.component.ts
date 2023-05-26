@@ -30,8 +30,6 @@ export class HomeComponent implements OnInit {
         break;
       default:
         this.router.navigate(['/user-homepage']); // Default home route
-        console.log("none");
-        console.log(this.role);
         break;
     }
   }
