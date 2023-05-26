@@ -17,11 +17,13 @@ import { StaffHomepageComponent } from './staff-homepage/staff-homepage.componen
 import { StaffDonationCenterComponent } from './staff-donation-center/staff-donation-center.component';
 import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
 import { StaffBloodViewComponent } from './staff-blood-view/staff-blood-view.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent},
-  { path: "", component: UserHomepageComponent, canActivate: [AuthGuard]},
+  { path: "", component: HomeComponent},
+  { path: "user-homepage", component: UserHomepageComponent, canActivate: [AuthGuard]},
   { path: "user-upcoming-appointments", component: UserUpcomingAppointmentsComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-questionnaire", component: UserQuestionnaireComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
