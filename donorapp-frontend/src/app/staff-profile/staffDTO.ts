@@ -11,6 +11,7 @@ export class StaffDTO {
     gender: string = "";
     occupation: string = "";
     occupationInfo: string = "";
+    centerName: any;
     
     constructor() {}  
 }

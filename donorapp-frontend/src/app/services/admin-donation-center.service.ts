@@ -20,5 +20,9 @@ export class AdminDonationCenterService {
         ...this.httpOptions,
         responseType: 'text',
     });
-}
+  }
+
+  getAllDonationCenters() : Observable<DonationCenter[]>{
+    return this.http.get<DonationCenter[]>("/api/donation_center/all");
+  }
 }

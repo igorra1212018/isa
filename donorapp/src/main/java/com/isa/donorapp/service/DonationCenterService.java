@@ -40,6 +40,18 @@ public class DonationCenterService {
 			return donationCenter;
 		}
 	}
+	
+	public DonationCenter findByName(String name)
+	{
+		Optional<DonationCenter> foundDonationCenter = donationCenterRepository.findByName(name);
+		if(foundDonationCenter.isEmpty())
+			return null;
+		else {
+			DonationCenter donationCenter = foundDonationCenter.get();
+			donationCenter.setRating(calculateScore(donationCenter.getId()));
+			return donationCenter;
+		}
+	}
 		
 	public List<DonationCenter> findAll()
 	{

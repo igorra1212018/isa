@@ -28,7 +28,10 @@ import { AdminDonationCenterComponent } from './admin-donation-center/admin-dona
 import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
 import { StaffBloodViewComponent } from './staff-blood-view/staff-blood-view.component';
 import { MatTableModule } from '@angular/material/table';
-import { HomeComponent } from './home/home.component'  
+import { HomeComponent } from './home/home.component';
+import { AdminRegisterStaffComponent } from './admin-register-staff/admin-register-staff.component'  ;
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { HomeComponent } from './home/home.component'
     AdminDonationCenterComponent,
     StaffEditDonationCenterComponent,
     StaffBloodViewComponent,
-    HomeComponent
+    HomeComponent,
+    AdminRegisterStaffComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,9 @@ import { HomeComponent } from './home/home.component'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule 
   ],
   providers: [
     AuthGuard,

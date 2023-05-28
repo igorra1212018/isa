@@ -2,12 +2,15 @@ package com.isa.donorapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,7 @@ import com.isa.donorapp.dto.StaffDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.service.DonationCenterService;
 import com.isa.donorapp.service.StaffService;
 import com.isa.donorapp.service.UserService;
 
@@ -30,6 +34,9 @@ public class StaffController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	DonationCenterService donationCenterService;
 		
 	@GetMapping("/profile")
 	public ResponseEntity<UserProfileDTO> getUserProfile() 
@@ -44,10 +51,19 @@ public class StaffController {
 	public ResponseEntity<StaffDTO> updateStaffInfo(@RequestBody StaffDTO newData) 
 	{
 		StaffDTO updatedStaffDTO = new StaffDTO(staffService.updateStaff(newData));
-		
+
 		return new ResponseEntity<>(updatedStaffDTO, HttpStatus.OK);
 	}
 	
+	@PostMapping("register_staff")
+	public ResponseEntity<User> registerStaff(@RequestBody StaffDTO newStaff)
+	{
+		User staff = new User(newStaff);
+		DonationCenter dc = donationCenterService.findByName(newStaff.getCenterName());
+		staffService.registerStaff(staff, dc);
+		return new ResponseEntity<>(staff, HttpStatus.OK);
+	}
+		
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getStaffByCenterId() 
 	{
