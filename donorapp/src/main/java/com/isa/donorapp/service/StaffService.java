@@ -55,6 +55,10 @@ public class StaffService {
 		return user;
 	}
 	
+	public List<User> findByCenterId(Integer centerId) {
+		return userRepository.findByDonationCenterId(centerId);
+	}
+	
 	public List<User> findStaffFromCenter(int Center_id)
 	{
 		List<User> users = userRepository.findAll();
