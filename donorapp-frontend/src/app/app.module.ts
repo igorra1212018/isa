@@ -28,7 +28,8 @@ import { AdminDonationCenterComponent } from './admin-donation-center/admin-dona
 import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/staff-edit-donation-center.component';
 import { StaffBloodViewComponent } from './staff-blood-view/staff-blood-view.component';
 import { MatTableModule } from '@angular/material/table';
-import { HomeComponent } from './home/home.component'  
+import { HomeComponent } from './home/home.component';
+import { UserFileComplaintComponent } from './user-file-complaint/user-file-complaint.component'  
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { HomeComponent } from './home/home.component'
     AdminDonationCenterComponent,
     StaffEditDonationCenterComponent,
     StaffBloodViewComponent,
-    HomeComponent
+    HomeComponent,
+    UserFileComplaintComponent
   ],
   imports: [
     BrowserModule,

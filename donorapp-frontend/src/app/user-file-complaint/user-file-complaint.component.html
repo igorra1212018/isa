@@ -1,0 +1,38 @@
+<div class="container col-md-7">
+    <div class="card mt-5">
+        <div class="header gradient-blue">
+            <div class="row d-flex justify-content-center">
+                <h3 class="text-white mb-1 mt-1 font-weight-bold">Complaint - {{center.name}}</h3>
+            </div>
+        </div>
+
+        <div class="card-body mx-4" *ngIf="!submitCompleted; else submitSuccessful">
+            <div class="row d-flex justify-content-center">
+                <input type="radio" id="center" class="male_option" name="complaint_type" [(ngModel)]="complaintType" value="center">
+                <label for="center">Center</label>
+                <input type="radio" id="staff" class="male_option" name="complaint_type" [(ngModel)]="complaintType" value="staff">
+                <label for="staff">Staff</label>
+            </div>
+            <div class="row d-flex mt-2 ml-4" *ngIf="complaintType == 'staff'">
+                <label>Staff member
+                    <select name="staff" id="staff" [(ngModel)]="selectedStaff" required="required">
+                        <option *ngFor="let s of center.staff" [value]="s.id">{{s.firstName}} {{s.lastName}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="row d-flex mt-2 justify-content-center">
+                <textarea id="complaint-box" [(ngModel)]="text" style="resize: none;" name="complaint-box" rows="7" cols="100"></textarea>
+            </div>
+            <div class="row d-flex mt-2">
+                <div class="col-md-10"></div>
+                <div class="col-md-1 mt-3">
+                    <button class="btn btn-blue btn-rounded" (click)="submit()" [disabled]="text == ''">Submit</button>
+                <div>
+            </div>
+        </div>
+        <div style="color: red" *ngIf="errorMsg.length != 0"><b>{{errorMsg}}</b></div>
+    </div>
+</div>
+<ng-template #submitSuccessful>
+    <h4 class="mt-2" style="text-align: center;">Complaint submited.</h4>
+  </ng-template>
