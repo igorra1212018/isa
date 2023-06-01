@@ -63,10 +63,14 @@ public class DonationCenterController {
 			List<DonationCenter> donationCenters = donationCenterService.findAll();
 			List<DonationCenterDTO> donationCenterDtos = new ArrayList<DonationCenterDTO>();
 			for (DonationCenter dc : donationCenters) {
-				donationCenterDtos.add(new DonationCenterDTO(dc));
+				DonationCenterDTO centerDTO = new DonationCenterDTO(dc);
+				if (isAuthenticated() && canFileComplaint(dc.getId()))
+					centerDTO.setCanComplain(true);
+				donationCenterDtos.add(centerDTO);
 			}
 			return new ResponseEntity<>(donationCenterDtos, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -77,6 +81,8 @@ public class DonationCenterController {
 		DonationCenter donationCenterData = donationCenterService.findById(id);
 		if (donationCenterData != null) {
 			DonationCenterDTO donationCenterDto = new DonationCenterDTO(donationCenterData);
+			if (isAuthenticated() && canFileComplaint(donationCenterData.getId()))
+				donationCenterDto.setCanComplain(true);
 			return new ResponseEntity<>(donationCenterDto, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -149,5 +155,10 @@ public class DonationCenterController {
 	private User getCurrentUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);
+	}
+	
+	private boolean isAuthenticated() {
+		User currentUser = getCurrentUser();
+		return currentUser != null;
 	}
 }

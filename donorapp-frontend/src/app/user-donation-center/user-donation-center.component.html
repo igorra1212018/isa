@@ -49,6 +49,9 @@
                 <span *ngIf="center.rating >= 4.25 && center.rating < 4.75" class="far fa-star-half-alt checked"></span>
                 <span *ngIf="center.rating >= 4.75" class="fas fa-star checked"></span>
             </div>
+            <div *ngIf="center.canComplain">
+                <button class="btn btn-blue btn-rounded mt-3" (click)="complain()">Complain</button>
+            </div>
         </div>
     </div>
 </div>

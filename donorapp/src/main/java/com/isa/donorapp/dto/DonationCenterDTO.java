@@ -14,6 +14,8 @@ public class DonationCenterDTO {
 	double longitude;
 	double rating;
 	
+	boolean canComplain = false;
+	
 	public DonationCenterDTO() {}
 
 	public DonationCenterDTO(Integer id, String name, String city, String country, String address, String description,
@@ -111,5 +113,13 @@ public class DonationCenterDTO {
 
 	public void setRating(double rating) {
 		this.rating = rating;
+	}
+
+	public boolean isCanComplain() {
+		return canComplain;
+	}
+
+	public void setCanComplain(boolean canComplain) {
+		this.canComplain = canComplain;
 	}
 }

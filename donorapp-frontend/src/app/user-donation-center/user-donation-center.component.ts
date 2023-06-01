@@ -60,7 +60,8 @@ export class UserDonationCenterComponent implements OnInit{
         target: 'map',
         layers: [layer],
         view: view,
-        interactions: []
+        interactions: [],
+        controls: []
       });
     },
       error => this.errorMsg = "Couldn't load center");
@@ -100,5 +101,10 @@ export class UserDonationCenterComponent implements OnInit{
       default:
         break;
     }
+  }
+
+  complain(): void {
+    let centerId = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.navigate(['user-file-complaint/' + centerId]);
   }
 }

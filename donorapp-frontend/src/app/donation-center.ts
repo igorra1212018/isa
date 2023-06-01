@@ -8,6 +8,7 @@ export class DonationCenter {
     latitude: number = 45;
     longitude: number = 45;
     rating: number = 0;
+    canComplain: boolean = false;
      
     constructor() {}  
 }
