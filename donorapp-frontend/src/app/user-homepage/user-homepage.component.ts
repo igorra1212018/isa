@@ -16,7 +16,7 @@ export class UserHomepageComponent implements OnInit{
   userInfo!: UserHomepageInfo;
   errorMsg = "";
   selectedSortOption = "name"
-  loadUserFailed = false;
+  loadUserFailed = true;
 
   constructor(private router: Router, private _userHomepageService: UserHomepageService) { }
   
@@ -31,7 +31,10 @@ export class UserHomepageComponent implements OnInit{
 
     let role = localStorage.getItem("Role");
     if(role == Role.User)
-      this._userHomepageService.getUserInfo().subscribe(data => {this.userInfo = data;},
+      this._userHomepageService.getUserInfo().subscribe(data => {
+        this.userInfo = data;
+        this.loadUserFailed = false;
+      },
         error => this.loadUserFailed = true);
     else
         this.loadUserFailed = true;
