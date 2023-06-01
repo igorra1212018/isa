@@ -50,18 +50,7 @@ public class DonationCenterComplaintService {
 	
 	public DonationCenterComplaint create(DonationCenterComplaint complaint)
 	{
-		List<Reservation> reservations = reservationService.findByUserId(complaint.getUser().getId());
-		boolean visited = false;
-		for (Reservation r : reservations) {
-			if (r.getTerm().getCenter().getId() == complaint.getCenter().getId() && r.getStatus() == EReservationStatus.PROCESSED) {
-				visited = true;
-				break;
-			}
-		}
-		if (visited) {
-			return donationCenterComplaintRepository.save(complaint);
-		}
-		return null;
+		return donationCenterComplaintRepository.save(complaint);
 	}
 	
     
@@ -69,11 +58,4 @@ public class DonationCenterComplaintService {
 	{
 		return donationCenterComplaintRepository.save(donationCenterComplaint);
 	}
-	/*
-	public User getLoggedUser() {
-		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.print(currentUserEmail);
-		return userService.findByEmail(currentUserEmail);
-	}
-	*/
 }

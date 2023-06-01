@@ -14,6 +14,8 @@ import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.DonationCenterComplaint;
+import com.isa.donorapp.model.Reservation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.service.DonationCenterComplaintService;
 import com.isa.donorapp.service.DonationCenterService;
+import com.isa.donorapp.service.ReservationService;
 import com.isa.donorapp.service.UserDetailsServiceImpl;
 import com.isa.donorapp.service.UserService;
 
@@ -39,6 +43,8 @@ public class DonationCenterComplaintController {
 	UserService userService;
 	@Autowired
 	DonationCenterService donationCenterService;
+	@Autowired
+	ReservationService reservationService;
 	@Autowired
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
@@ -93,10 +99,15 @@ public class DonationCenterComplaintController {
 		try {
 			User currentUser = getCurrentUser();
 			DonationCenter center = donationCenterService.findById(complaintDTO.getCenterId());
-			DonationCenterComplaint newComplaint = new DonationCenterComplaint(complaintDTO, center, currentUser);
-			donationCenterComplaintService.create(newComplaint);
-			
-			return new ResponseEntity<>("Complaint creation successful", HttpStatus.OK);
+			if (canFileComplaint(center.getId())) {
+				DonationCenterComplaint newComplaint = new DonationCenterComplaint(complaintDTO, center, currentUser);
+				donationCenterComplaintService.create(newComplaint);
+				
+				return new ResponseEntity<>("Complaint creation successful", HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+			}
 		}
 		catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -111,12 +122,18 @@ public class DonationCenterComplaintController {
 		
 		return new ResponseEntity<>(newCenter, HttpStatus.OK);
 	}
-	
-	private User getCurrentUser() {
-		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-		return userService.findByEmail(currentUserEmail);
-	}
 	*/
+	
+	private boolean canFileComplaint(Integer centerId) {
+		User currentUser = getCurrentUser();
+		List<Reservation> reservations = reservationService.findByUserId(currentUser.getId());
+		for (Reservation r : reservations) {
+			if (r.getTerm().getCenter().getId() == centerId && r.getStatus() == EReservationStatus.PROCESSED) {
+				return true;
+			}
+		}
+		return false;
+	}
 	private User getCurrentUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);
