@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,6 +93,22 @@ public class DonationCenterComplaintController {
 		}
 	}	
 	*/
+	@GetMapping("/user")
+	@Secured("ROLE_USER")
+	public ResponseEntity<List<DonationCenterComplaintDTO>> getUserComplaints() {
+		try {
+			User currentUser = getCurrentUser();
+			List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintService.findByUserId(currentUser.getId());
+			List<DonationCenterComplaintDTO> donationCenterComplaintDtos = new ArrayList<DonationCenterComplaintDTO>();
+			for (DonationCenterComplaint dc : donationCenterComplaints) {
+				donationCenterComplaintDtos.add(new DonationCenterComplaintDTO(dc));
+			}
+			return new ResponseEntity<>(donationCenterComplaintDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/create")
 	@Secured("ROLE_USER")
 	public ResponseEntity<String> createComplaint(@RequestBody DonationCenterComplaintCreateDTO complaintDTO, HttpServletRequest request)

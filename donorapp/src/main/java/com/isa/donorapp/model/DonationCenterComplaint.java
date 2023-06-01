@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 import com.isa.donorapp.dto.DonationCenterComplaintCreateDTO;
 import com.isa.donorapp.dto.DonationCenterComplaintDTO;
@@ -20,15 +21,19 @@ public class DonationCenterComplaint {
 	@ManyToOne
 	private User user;
 	
+	@Size(max = 4000)
 	private String text;
+	@Size(max = 4000)
+	private String reply;
 	
 	public DonationCenterComplaint() {}
 	
-	public DonationCenterComplaint(Integer id, DonationCenter center, User user, String text) {
+	public DonationCenterComplaint(Integer id, DonationCenter center, User user, String text, String reply) {
 		this.id = id;
 		this.center = center;
 		this.user = user;
 		this.text = text;
+		this.reply = reply;
 	}
 	
 	public DonationCenterComplaint(DonationCenterComplaintDTO complaintDTO, DonationCenter center, User user) {
@@ -67,5 +72,11 @@ public class DonationCenterComplaint {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getReply() {
+		return reply;
+	}
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 }

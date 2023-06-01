@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 import com.isa.donorapp.dto.StaffComplaintCreateDTO;
 
@@ -20,15 +21,19 @@ public class StaffComplaint {
 	@ManyToOne
 	private User user;
 	
+	@Size(max = 4000)
 	private String text;
+	@Size(max = 4000)
+	private String reply;
 
 	public StaffComplaint() {}
 
-	public StaffComplaint(Integer id, User staff, User user, String text) {
+	public StaffComplaint(Integer id, User staff, User user, String text, String reply) {
 		this.id = id;
 		this.staff = staff;
 		this.user = user;
 		this.text = text;
+		this.reply = reply;
 	}
 	
 	public StaffComplaint(StaffComplaintCreateDTO complaintDTO, User staff, User user) {
@@ -67,5 +72,13 @@ public class StaffComplaint {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getReply() {
+		return reply;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 }

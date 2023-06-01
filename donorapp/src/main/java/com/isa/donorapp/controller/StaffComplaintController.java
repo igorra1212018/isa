@@ -3,22 +3,19 @@ package com.isa.donorapp.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.isa.donorapp.dto.StaffComplaintCreateDTO;
-import com.isa.donorapp.dto.StaffDTO;
-import com.isa.donorapp.dto.UserRegisterDTO;
-import com.isa.donorapp.event.OnRegistrationCompleteEvent;
+import com.isa.donorapp.dto.StaffComplaintDTO;
 import com.isa.donorapp.model.Reservation;
-import com.isa.donorapp.model.Staff;
 import com.isa.donorapp.model.StaffComplaint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +25,6 @@ import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.service.ReservationService;
 import com.isa.donorapp.service.StaffComplaintService;
-import com.isa.donorapp.service.StaffService;
 import com.isa.donorapp.service.UserDetailsServiceImpl;
 import com.isa.donorapp.service.UserService;
 
@@ -43,6 +39,22 @@ public class StaffComplaintController {
 	ReservationService reservationService;
 	@Autowired
 	UserDetailsServiceImpl userDetailsServiceImpl;
+	
+	@GetMapping("/user")
+	@Secured("ROLE_USER")
+	public ResponseEntity<List<StaffComplaintDTO>> getUserComplaints() {
+		try {
+			User currentUser = getCurrentUser();
+			List<StaffComplaint> staffComplaints = staffComplaintService.findByUserId(currentUser.getId());
+			List<StaffComplaintDTO> staffComplaintDTOs = new ArrayList<StaffComplaintDTO>();
+			for (StaffComplaint sc : staffComplaints) {
+				staffComplaintDTOs.add(new StaffComplaintDTO(sc));
+			}
+			return new ResponseEntity<>(staffComplaintDTOs, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	@PostMapping("/create")
 	@Secured("ROLE_USER")

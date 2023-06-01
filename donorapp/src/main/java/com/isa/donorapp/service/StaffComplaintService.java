@@ -42,6 +42,12 @@ public class StaffComplaintService {
 		return staffComplaints;
 	}
 	
+	public List<StaffComplaint> findByUserId(Integer userId)
+	{
+		List<StaffComplaint> staffComplaints = staffComplaintRepository.findByUserId(userId);
+		return staffComplaints;
+	}
+	
 	public List<StaffComplaint> findAll()
 	{
 		List<StaffComplaint> staffComplaints = staffComplaintRepository.findAll();

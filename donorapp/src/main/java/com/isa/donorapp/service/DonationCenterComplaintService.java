@@ -42,6 +42,12 @@ public class DonationCenterComplaintService {
 		return donationCenterComplaints;
 	}
 	
+	public List<DonationCenterComplaint> findByUserId(Integer userId)
+	{
+		List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintRepository.findByUserId(userId);
+		return donationCenterComplaints;
+	}
+	
 	public List<DonationCenterComplaint> findAll()
 	{
 		List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintRepository.findAll();
