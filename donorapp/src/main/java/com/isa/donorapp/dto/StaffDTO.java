@@ -19,12 +19,13 @@ public class StaffDTO {
 	private String occupation;
 	private String occupationInfo;
 	private Role role;
+	private String centerName;
 	
 	public StaffDTO() {}
 	
 	public StaffDTO(String email, String password, String firstName, String lastName, String address, String city,
 			String country, String phoneNumber, String jmbg, String gender, String occupation, String occupationInfo,
-			Role role) {
+			Role role, String centerName) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -39,6 +40,7 @@ public class StaffDTO {
 		this.occupation = occupation;
 		this.occupationInfo = occupationInfo;
 		this.role = role;
+		this.centerName = centerName;
 	}
 	
 	public StaffDTO(User user) {
@@ -58,6 +60,14 @@ public class StaffDTO {
 		    this.role = r;
 	}
 	
+	
+
+	public String getCenterName() {
+		return centerName;
+	}
+	public void setCenterName(String centerName) {
+		this.centerName = centerName;
+	}
 	public String getEmail() {
 		return email;
 	}

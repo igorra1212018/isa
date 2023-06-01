@@ -31,6 +31,9 @@ import { MatTableModule } from '@angular/material/table';
 import { HomeComponent } from './home/home.component';
 import { UserFileComplaintComponent } from './user-file-complaint/user-file-complaint.component';
 import { UserComplaintsComponent } from './user-complaints/user-complaints.component'  
+import { AdminRegisterStaffComponent } from './admin-register-staff/admin-register-staff.component'  ;
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,8 @@ import { UserComplaintsComponent } from './user-complaints/user-complaints.compo
     StaffBloodViewComponent,
     HomeComponent,
     UserFileComplaintComponent,
-    UserComplaintsComponent
+    UserComplaintsComponent,
+    AdminRegisterStaffComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,9 @@ import { UserComplaintsComponent } from './user-complaints/user-complaints.compo
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule 
   ],
   providers: [
     AuthGuard,

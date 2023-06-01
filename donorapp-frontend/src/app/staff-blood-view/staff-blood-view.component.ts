@@ -18,7 +18,6 @@ export class StaffBloodViewComponent implements OnInit{
   ngOnInit(): void {
     this._bloodService.getAllBloodTypes().subscribe(data =>{
       this.dataSource = data;
-      console.log(data);
     })
   }
 

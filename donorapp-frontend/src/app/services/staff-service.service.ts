@@ -15,14 +15,16 @@ export class StaffService {
       constructor(private http: HttpClient) {}
 
     getUserData(): Observable<any> {
-        return this.http.get<any>(this._url + "profile", this.httpOptions);
+      return this.http.get<any>(this._url + "profile", this.httpOptions);
     }
-
     updateStaffInfo(newData: StaffDTO): Observable<any> {
-        return this.http.put(this._url + "update", JSON.stringify(newData), this.httpOptions);
+      return this.http.put(this._url + "update", JSON.stringify(newData), this.httpOptions);
     }
     getStaffByCenterId(): Observable<any> {
-        return this.http.get<any>(this._url + "users", this.httpOptions);
-  }
+      return this.http.get<any>(this._url + "users", this.httpOptions);
+    }
+    registerStaff(newData: StaffDTO): Observable<any>{
+      return this.http.post<any>(this._url + "register_staff", JSON.stringify(newData), this.httpOptions);
+    }
     
 }
