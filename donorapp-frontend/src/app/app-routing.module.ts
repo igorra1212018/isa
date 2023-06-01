@@ -19,6 +19,7 @@ import { StaffEditDonationCenterComponent } from './staff-edit-donation-center/s
 import { StaffBloodViewComponent } from './staff-blood-view/staff-blood-view.component';
 import { HomeComponent } from './home/home.component';
 import { UserFileComplaintComponent } from './user-file-complaint/user-file-complaint.component';
+import { UserComplaintsComponent } from './user-complaints/user-complaints.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: "user-qr-codes", component: UserQrCodesComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-appointment-history", component: UserAppointmentHistoryComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-file-complaint/:id", component: UserFileComplaintComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-complaints", component: UserComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "staff-profile", component: StaffProfileComponent, data: { roles: [Role.Staff]}},
   { path: "staff-homepage", component: StaffHomepageComponent},
   { path: "staff-donation-center/:id", component: StaffDonationCenterComponent},
