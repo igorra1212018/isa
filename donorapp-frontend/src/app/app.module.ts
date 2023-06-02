@@ -34,6 +34,7 @@ import { UserComplaintsComponent } from './user-complaints/user-complaints.compo
 import { AdminRegisterStaffComponent } from './admin-register-staff/admin-register-staff.component'  ;
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {MatSelectModule} from '@angular/material/select';
     HomeComponent,
     UserFileComplaintComponent,
     UserComplaintsComponent,
-    AdminRegisterStaffComponent
+    AdminRegisterStaffComponent,
+    AdminRepliedComplaintsComponent
   ],
   imports: [
     BrowserModule,
