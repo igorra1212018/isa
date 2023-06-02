@@ -54,6 +54,18 @@ public class DonationCenterComplaintService {
 		return donationCenterComplaints;
 	}
 	
+	public List<DonationCenterComplaint> findByNoReply()
+	{
+		List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintRepository.findByReplyIsNull();
+		return donationCenterComplaints;
+	}
+	
+	public List<DonationCenterComplaint> findByReplied()
+	{
+		List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintRepository.findByReplyIsNotNull();
+		return donationCenterComplaints;
+	}
+	
 	public DonationCenterComplaint create(DonationCenterComplaint complaint)
 	{
 		return donationCenterComplaintRepository.save(complaint);

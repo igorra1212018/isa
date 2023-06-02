@@ -9,4 +9,6 @@ public interface DonationCenterComplaintRepository extends JpaRepository<Donatio
 	Optional<DonationCenterComplaint> findById(Integer id);
 	List<DonationCenterComplaint> findByUserId(Integer userId);
 	List<DonationCenterComplaint> findByCenterId(Integer centerId);
+	List<DonationCenterComplaint> findByReplyIsNull();
+	List<DonationCenterComplaint> findByReplyIsNotNull();
 }

@@ -54,6 +54,18 @@ public class StaffComplaintService {
 		return staffComplaints;
 	}
 	
+	public List<StaffComplaint> findByNoReply()
+	{
+		List<StaffComplaint> staffComplaints = staffComplaintRepository.findByReplyIsNull();
+		return staffComplaints;
+	}
+	
+	public List<StaffComplaint> findByReplied()
+	{
+		List<StaffComplaint> staffComplaints = staffComplaintRepository.findByReplyIsNotNull();
+		return staffComplaints;
+	}
+	
 	public StaffComplaint create(StaffComplaint complaint)
 	{
 		return staffComplaintRepository.save(complaint);

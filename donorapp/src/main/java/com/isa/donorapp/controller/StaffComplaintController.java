@@ -56,6 +56,36 @@ public class StaffComplaintController {
 		}
 	}
 	
+	@GetMapping("/no_reply")
+	@Secured("ROLE_ADMINISTRATOR")
+	public ResponseEntity<List<StaffComplaintDTO>> getNoReplyComplaints() {
+		try {
+			List<StaffComplaint> staffComplaints = staffComplaintService.findByNoReply();
+			List<StaffComplaintDTO> staffComplaintDTOs = new ArrayList<StaffComplaintDTO>();
+			for (StaffComplaint sc : staffComplaints) {
+				staffComplaintDTOs.add(new StaffComplaintDTO(sc));
+			}
+			return new ResponseEntity<>(staffComplaintDTOs, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/replied")
+	@Secured("ROLE_ADMINISTRATOR")
+	public ResponseEntity<List<StaffComplaintDTO>> getRepliedComplaints() {
+		try {
+			List<StaffComplaint> staffComplaints = staffComplaintService.findByReplied();
+			List<StaffComplaintDTO> staffComplaintDTOs = new ArrayList<StaffComplaintDTO>();
+			for (StaffComplaint sc : staffComplaints) {
+				staffComplaintDTOs.add(new StaffComplaintDTO(sc));
+			}
+			return new ResponseEntity<>(staffComplaintDTOs, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/create")
 	@Secured("ROLE_USER")
 	public ResponseEntity<String> createComplaint(@RequestBody StaffComplaintCreateDTO complaintDTO, HttpServletRequest request)

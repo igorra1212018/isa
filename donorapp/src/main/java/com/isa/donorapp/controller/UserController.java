@@ -143,7 +143,7 @@ public class UserController {
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
-		String[] passwords = {"marko123", "tijana123", "darko123", "milica123"} ;
+		String[] passwords = {"marko123", "tijana123", "darko123", "milica123", "sasa123"} ;
 		for(String s : passwords)
 			System.out.println(encoder.encode(s));
 		return new ResponseEntity<>("success", HttpStatus.OK);

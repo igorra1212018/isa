@@ -109,6 +109,36 @@ public class DonationCenterComplaintController {
 		}
 	}
 	
+	@GetMapping("/no_reply")
+	@Secured("ROLE_ADMINISTRATOR")
+	public ResponseEntity<List<DonationCenterComplaintDTO>> getNoReplyComplaints() {
+		try {
+			List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintService.findByNoReply();
+			List<DonationCenterComplaintDTO> donationCenterComplaintDTOs = new ArrayList<DonationCenterComplaintDTO>();
+			for (DonationCenterComplaint dc : donationCenterComplaints) {
+				donationCenterComplaintDTOs.add(new DonationCenterComplaintDTO(dc));
+			}
+			return new ResponseEntity<>(donationCenterComplaintDTOs, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/replied")
+	@Secured("ROLE_ADMINISTRATOR")
+	public ResponseEntity<List<DonationCenterComplaintDTO>> getRepliedComplaints() {
+		try {
+			List<DonationCenterComplaint> donationCenterComplaints = donationCenterComplaintService.findByReplied();
+			List<DonationCenterComplaintDTO> donationCenterComplaintDTOs = new ArrayList<DonationCenterComplaintDTO>();
+			for (DonationCenterComplaint dc : donationCenterComplaints) {
+				donationCenterComplaintDTOs.add(new DonationCenterComplaintDTO(dc));
+			}
+			return new ResponseEntity<>(donationCenterComplaintDTOs, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/create")
 	@Secured("ROLE_USER")
 	public ResponseEntity<String> createComplaint(@RequestBody DonationCenterComplaintCreateDTO complaintDTO, HttpServletRequest request)

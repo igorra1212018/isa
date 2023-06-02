@@ -9,4 +9,6 @@ public interface StaffComplaintRepository extends JpaRepository<StaffComplaint, 
 	Optional<StaffComplaint> findById(Integer id);
 	List<StaffComplaint> findByUserId(Integer userId);
 	List<StaffComplaint> findByStaffId(Integer staffId);
+	List<StaffComplaint> findByReplyIsNull();
+	List<StaffComplaint> findByReplyIsNotNull();
 }

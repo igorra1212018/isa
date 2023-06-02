@@ -33,6 +33,16 @@ INSERT INTO public.user_roles(user_id, role_id) VALUES (12, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (13, 0);
 
 
+--Admin
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (100, true, 'sasa.lukic@test.com', 'Saša', 'Lukić', null, null, null, null,
+'$2a$10$H9NzV9vgV.DpCJFCiQfla.cu/DoY4KE0tOgJ9h3B7cFvEztpm2m8a', 0, null, null, null, null, 0, 0, null);
+
+
+--Admin role
+INSERT INTO public.user_roles(user_id, role_id) VALUES (100, 1);
+
 --Donation centers
 INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
 VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
