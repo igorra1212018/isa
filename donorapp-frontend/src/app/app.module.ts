@@ -32,9 +32,10 @@ import { HomeComponent } from './home/home.component';
 import { UserFileComplaintComponent } from './user-file-complaint/user-file-complaint.component';
 import { UserComplaintsComponent } from './user-complaints/user-complaints.component'  
 import { AdminRegisterStaffComponent } from './admin-register-staff/admin-register-staff.component'  ;
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
+
 
 @NgModule({
   declarations: [

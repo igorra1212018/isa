@@ -52,6 +52,7 @@ export class StaffProfileComponent implements OnInit {
       this.gender = this.staffDTO.gender
       this.occupation = this.staffDTO.occupation
       this.occupationInfo = this.staffDTO.occupationInfo
+      console.log(data);
     },);
   }
 

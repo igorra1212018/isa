@@ -59,7 +59,7 @@ public class StaffController {
 	public ResponseEntity<User> registerStaff(@RequestBody StaffDTO newStaff)
 	{
 		User staff = new User(newStaff);
-		DonationCenter dc = donationCenterService.findByName(newStaff.getCenterName());
+		DonationCenter dc = donationCenterService.findById(newStaff.getCenterId());
 		staffService.registerStaff(staff, dc);
 		return new ResponseEntity<>(staff, HttpStatus.OK);
 	}

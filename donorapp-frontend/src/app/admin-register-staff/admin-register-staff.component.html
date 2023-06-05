@@ -109,15 +109,13 @@
                             </label>
                         </div>
                     </div>
-                    <div>
-                        <mat-form-field>
-                        <span class="keep_hovered">Donation center:</span>
-                        <mat-select [(ngModel)]="selectedValue" name="dc">
-                            <mat-option *ngFor="let dc of donationCenters" [value]="dc.name">
-                            {{dc.name}}
-                            </mat-option>
-                        </mat-select>
-                        </mat-form-field>
+                    <div class="row d-flex mt-2 col-md-10">
+                        <label>Doantion center:
+                            <select [(ngModel)]="selectedValue" name="dc" required="required">
+                                <option  *ngFor="let dc of donationCenters" [value]="dc.id">
+                                    {{dc.name}}</option>
+                            </select>
+                        </label>
                     </div>
                     <div class="row d-flex">
                         <div class="col-md-8"></div>

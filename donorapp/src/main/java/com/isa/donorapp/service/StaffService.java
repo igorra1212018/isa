@@ -76,21 +76,8 @@ public class StaffService {
 	
 	public List<User> findStaffFromCenter(int Center_id)
 	{
-		List<User> users = userRepository.findAll();
-		List<User> staff = new ArrayList<User>();
-		for (User u : users) {
-			if(u.getDonationCenter() == null) {
-				continue;
-			}
-			else {
-				if(u.getDonationCenter().getId() == Center_id) {
-					staff.add(u);
-				}
-				else
-					return null;
-			}
-		}
-		return staff;
+		List<User> staffs = userRepository.findByDonationCenterId(Center_id);
+		return staffs;
 	}
 		
 }

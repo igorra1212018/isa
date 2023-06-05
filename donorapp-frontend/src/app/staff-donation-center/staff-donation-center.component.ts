@@ -10,6 +10,7 @@ import OSM from 'ol/source/OSM';
 import { StaffDonationCenterService } from '../services/staff-donation-center.service';
 import { StaffDTO } from '../staff-profile/staffDTO';
 import { StaffService } from '../services/staff-service.service';
+import { DonationCenterDTO } from '../admin-donation-center/donation-center';
 
 useGeographic();
 
@@ -28,7 +29,11 @@ export class StaffDonationCenterComponent implements OnInit{
   public terms = [] as Term[];
   selectedSortOption = "date";
 
-  constructor(private route: ActivatedRoute, private router: Router, private _staffDonationCenterService: StaffDonationCenterService, private _staffService: StaffService) { }
+  displayedColumns: string[] = ['type', 'quantity'];
+  dataSource : any;
+  BLOODS: any;
+
+  constructor(private route: ActivatedRoute, private router: Router, private _staffDonationCenterService: StaffDonationCenterService, private _staffService: StaffService) {}
   
   loadTerms(centerId: number) {
     this._staffDonationCenterService.getFreeTerms(centerId).subscribe(data => {
@@ -44,6 +49,7 @@ export class StaffDonationCenterComponent implements OnInit{
   loadStaff(){
     this._staffService.getStaffByCenterId().subscribe(data => {
       this.staff = data;
+      console.log(data);
        this.staff.forEach(function(value){
         value.firstName
       })
@@ -57,10 +63,19 @@ export class StaffDonationCenterComponent implements OnInit{
       const latitude = this.center.latitude;
       const longitude = this.center.longitude;
       console.log(data);
+
       this.loadStaff();
       
       this.loadTerms(centerId);
-      
+
+      this.BLOODS = [
+        {type: 'A' , quantity: this.center.blood_a},
+        {type: 'B' , quantity: this.center.blood_b},
+        {type: 'AB' , quantity: this.center.blood_ab},
+        {type: 'O' , quantity: this.center.blood_o},
+      ];
+      this.dataSource = this.BLOODS;
+
       const view = new View({
         center: [longitude, latitude],
         zoom: 19,
