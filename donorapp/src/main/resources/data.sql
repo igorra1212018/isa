@@ -8,7 +8,7 @@ INSERT INTO public.role(id, name) VALUES (2,'STAFF');
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
 VALUES (10, true, 'marko.mekic@test.com', 'Marko', 'Mekić', 0, '8597742685357', 'Student', 'Fakultet tehničkih nauka Novi Sad',
-'$2a$10$JrBQZbE64oPnnPP9fRMe0urRWAm/IIXI.uytaBM72fF6QCkqtddJK', 0, '063241463', 'Braće Nemet 4', 'Novi Sad', 'Serbia', 45.23954, 19.80781, null);
+'$2a$10$JrBQZbE64oPnnPP9fRMe0urRWAm/IIXI.uytaBM72fF6QCkqtddJK', 0, '063241463', 'Braće Nemet 4', 'Novi Sad', 'Serbia', 45.23954, 19.80781, 1);
 
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
@@ -27,7 +27,7 @@ VALUES (13, true, 'milica.matic@test.com', 'Milica', 'Matić', 1, '4785296075844
 
 
 --User roles
-INSERT INTO public.user_roles(user_id, role_id) VALUES (10, 0);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (10, 2);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (11, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (12, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (13, 0);
