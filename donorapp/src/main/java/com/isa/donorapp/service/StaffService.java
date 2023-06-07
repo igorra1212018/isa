@@ -1,5 +1,6 @@
 package com.isa.donorapp.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,13 +11,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.isa.donorapp.dto.DonationCenterDTO;
+import com.isa.donorapp.dto.ProcessesReservationDTO;
 import com.isa.donorapp.dto.StaffDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Location;
+import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.Staff;
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.repository.RoleRepository;
 import com.isa.donorapp.repository.UserRepository;
@@ -28,6 +32,10 @@ public class StaffService {
 	private UserRepository userRepository;
 	@Autowired
 	private RoleRepository roleRepository;
+	@Autowired
+	ReservationService reservationService;
+	@Autowired
+	TermService termService;
 	@Autowired
 	private PasswordEncoder encoder;
 	
@@ -72,6 +80,25 @@ public class StaffService {
 		staff.setActivated(true);
 		staff.setDonationCenter(dc);
 		return userRepository.save(staff);
+	}
+	
+	public List<ProcessesReservationDTO> getProcessedUsers()
+	{
+		List<ProcessesReservationDTO> dto = new ArrayList<>();
+		List<User> allUsers = userRepository.findAll();
+		for(User u: allUsers) {
+			List<Reservation> allReservations = reservationService.findByUserId(u.getId());
+			for(Reservation r: allReservations) {
+				if(r.getStatus() == EReservationStatus.PROCESSED) {
+					dto.add(new ProcessesReservationDTO(u, termService.findById(r.getTerm().getId())));
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		return dto;
 	}
 	
 	public List<User> findStaffFromCenter(int Center_id)

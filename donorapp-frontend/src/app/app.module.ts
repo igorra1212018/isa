@@ -35,6 +35,8 @@ import { AdminRegisterStaffComponent } from './admin-register-staff/admin-regist
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
+import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
+import { MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
     UserFileComplaintComponent,
     UserComplaintsComponent,
     AdminRegisterStaffComponent,
-    AdminRepliedComplaintsComponent
+    AdminRepliedComplaintsComponent,
+    StaffProcessedReservationsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
     CommonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatSelectModule 
+    MatSelectModule,
+    MatSortModule
   ],
   providers: [
     AuthGuard,
