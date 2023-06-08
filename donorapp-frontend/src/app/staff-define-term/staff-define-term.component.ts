@@ -29,7 +29,7 @@ export class StaffDefineTermComponent implements OnInit {
         this.getFreeTermsForDate();
         this.showAlreadyDefinedTerms = true;
         this.overlapDetected = false;
-        //this.termHHMM = '';
+        this.termHHMM = '';
         this.parseTime();
         this.checkOverlap();
     }
@@ -58,6 +58,9 @@ export class StaffDefineTermComponent implements OnInit {
     }
 
     parseTime() {
+        var regexp = new RegExp("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
+        if (!regexp.test(this.termHHMM))
+            return;
         const hours = Number(this.termHHMM.split(':')[0]);
         const minutes = Number(this.termHHMM.split(':')[1]);
         const temp1 = new Date(this.selectedDate).setHours(hours, minutes);
