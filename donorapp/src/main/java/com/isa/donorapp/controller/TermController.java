@@ -16,6 +16,7 @@ import com.isa.donorapp.dto.ReservationQRDTO;
 import com.isa.donorapp.dto.TermAddDTO;
 import com.isa.donorapp.dto.TermDTO;
 import com.isa.donorapp.model.Term;
+import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Questionnaire;
 import com.isa.donorapp.model.QuestionnaireAnswer;
 import com.isa.donorapp.model.QuestionnaireQuestion;
@@ -113,13 +114,17 @@ public class TermController {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime date = LocalDateTime.parse(termDTO.getDate(), formatter);
 			Term term = new Term(date, termDTO.getDuration());
-			term.setCenter(donationCenterService.findById(termDTO.getCenterId()));
+			DonationCenter center = donationCenterService.findById(termDTO.getCenterId());
+			if (center == null)
+				return new ResponseEntity<>("Center does not exist!", HttpStatus.BAD_REQUEST);
+			
+			term.setCenter(center);
 			
 			if (!termService.checkIfOverlapExists(term)) {
-				termService.addTerm(term);	
+				termService.addTerm(term);
 				return new ResponseEntity<>("Term successfully added!", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>("Failed to add term (overlap detected)!", HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>("Failed to add term (overlap detected)!", HttpStatus.BAD_REQUEST);
 			}
 			
 			
