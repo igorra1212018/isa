@@ -23,6 +23,7 @@ import { UserComplaintsComponent } from './user-complaints/user-complaints.compo
 import { AdminRegisterStaffComponent } from './admin-register-staff/admin-register-staff.component';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
+import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: "staff-donation-center/:id", component: StaffDonationCenterComponent},
   { path: "staff-edit-donation-center/:id", component: StaffEditDonationCenterComponent},
   { path: "staff-bloodview", component: StaffBloodViewComponent},
+  { path: "staff-delivery-tracking", component: StaffDeliveryTrackingComponent},
   { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: "admin-register-staff", component: AdminRegisterStaffComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},

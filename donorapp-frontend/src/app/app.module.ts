@@ -36,6 +36,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
+import {WebSocketShareService} from "./services/web-socket-share.service";
+import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaint
     UserComplaintsComponent,
     AdminRegisterStaffComponent,
     AdminRepliedComplaintsComponent,
-    AdminNonrepliedComplaintsComponent
+    AdminNonrepliedComplaintsComponent,
+    StaffDeliveryTrackingComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,7 @@ import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaint
     CommonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatSelectModule 
+    MatSelectModule
   ],
   providers: [
     AuthGuard,
@@ -83,7 +86,8 @@ import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaint
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    WebSocketShareService
   ],
   bootstrap: [AppComponent]
 })
