@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.isa.donorapp.dto.TermDTO;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.DonationCenterScore;
 import com.isa.donorapp.model.Location;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.google.zxing.EncodeHintType;
+import com.isa.donorapp.dto.TermDTO;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Term;
@@ -106,6 +107,19 @@ public class TermService {
 		return freeTerms;
 	}
 	
+	public List<TermDTO> findFreeTermsByCenterIdForDate(Integer centerId, LocalDateTime date) {
+		List<Term> terms = termRepository.findByCenterId(centerId);
+		List<TermDTO> result = new ArrayList<TermDTO>();
+		
+		for (Term t : terms) {
+			if (t.getDate().toLocalDate().equals(date.toLocalDate()))
+				result.add(new TermDTO(t.getDate(), t.getDuration(), t.getCenter().getId()));
+		}
+		
+		return result;
+	}
+
+	
 	public List<Term> findAll()
 	{
 		List<Term> terms = termRepository.findAll();
@@ -115,5 +129,21 @@ public class TermService {
 	public Term save(Term term)
 	{
 		return termRepository.save(term);
+	}
+
+	public Term addTerm(Term term) {
+		return save(term);
+	}
+
+	public boolean checkIfOverlapExists(Term term) {
+		List<TermDTO> terms = findFreeTermsByCenterIdForDate(term.getCenter().getId(), term.getDate());
+		
+		for (TermDTO t : terms) {
+			if (term.getDate().isAfter(t.getDate().minusSeconds(1)) && term.getDate().isBefore(t.getDate().plusMinutes(t.getDuration()))) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

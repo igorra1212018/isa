@@ -21,12 +21,6 @@ public class Term {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "term_staff", 
-				joinColumns = @JoinColumn(name = "term_id", referencedColumnName = "id"),
-				inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
-	private Set<User> staff = new HashSet<>();
-	
 	@ManyToOne
 	private DonationCenter center;
 	
@@ -38,18 +32,11 @@ public class Term {
 	
 	public Term() {}
 	
-	public Term(Set<User> staff, LocalDateTime date, int duration) {
-		this.staff = staff;
+	public Term(LocalDateTime date, int duration) {
 		this.date = date;
 		this.duration = duration;
 	}
 	
-	public Set<User> getStaff() {
-		return staff;
-	}
-	public void setStaff(Set<User> staff) {
-		this.staff = staff;
-	}
 	public LocalDateTime getDate() {
 		return date;
 	}

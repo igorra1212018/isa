@@ -36,6 +36,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
+import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaint
     UserComplaintsComponent,
     AdminRegisterStaffComponent,
     AdminRepliedComplaintsComponent,
-    AdminNonrepliedComplaintsComponent
+    AdminNonrepliedComplaintsComponent,
+    StaffDefineTermComponent
   ],
   imports: [
     BrowserModule,

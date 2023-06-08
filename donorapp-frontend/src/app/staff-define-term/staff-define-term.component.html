@@ -1,0 +1,57 @@
+<h2>Define term</h2>
+<form #termForm="ngForm">
+    <label for="date">Select a date:</label>
+    <input type="date" id="date" name="date" [(ngModel)]="selectedDate" (change)="onDateChange()" />
+
+    <br /><br />
+
+    <div *ngIf="showAlreadyDefinedTerms">
+        <label for="additionalField">Already defined terms for selected date:</label>
+        <br />
+        <div class="row d-flex mt-2" style="border-bottom: 1px solid #9e9e9e" *ngFor="let t of terms">
+            <div class="col-md-2">
+                <div class="row d-flex">
+                    <h5 class="font-weight-bold" style="margin-bottom: 0px !important">
+                        {{ t.date | date : "HH:mm" }}
+                    </h5>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h5 class="font-weight-bold">{{ t.duration }} minutes</h5>
+            </div>
+        </div>
+        <br /><br />
+    </div>
+
+    <label for="text">Enter term starting time (hh:mm):</label>
+    <input
+        type="text"
+        id="termStart"
+        name="termStart"
+        [(ngModel)]="termHHMM"
+        (change)="onTimeChange()"
+        pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+        required
+    />
+    <div *ngIf="termForm.controls['termStart'].invalid">
+        <div *ngIf="termForm.controls['termStart'].errors?.['required']">Term starting time is required.</div>
+        <div *ngIf="termForm.controls['termStart'].errors?.['pattern']">
+            Term starting time must be in the format HH:mm.
+        </div>
+    </div>
+
+    <br /><br />
+
+    <label for="text">Enter term duration (minutes):</label>
+    <input type="text" id="termDuration" name="termDuration" [(ngModel)]="duration" />
+
+    <br /><br />
+
+    <input
+        type="submit"
+        value="Add term"
+        [disabled]="termForm.invalid || overlapDetected"
+        [ngClass]="{ 'disabled-button': termForm.invalid || overlapDetected }"
+        (click)="addTerm()"
+    />
+</form>
