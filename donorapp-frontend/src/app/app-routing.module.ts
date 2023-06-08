@@ -66,7 +66,7 @@ const routes: Routes = [
     { path: 'staff-donation-center/:id', component: StaffDonationCenterComponent },
     { path: 'staff-edit-donation-center/:id', component: StaffEditDonationCenterComponent },
     { path: 'staff-bloodview', component: StaffBloodViewComponent },
-    { path: 'staff-define-term', component: StaffDefineTermComponent },
+    { path: 'staff-define-term/:id', component: StaffDefineTermComponent },
     {
         path: 'admin-donation-center',
         component: AdminDonationCenterComponent,

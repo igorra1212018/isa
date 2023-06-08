@@ -7,6 +7,7 @@ body {
 
 h2 {
     color: #333;
+    text-align: center; /* Add this line to center the header */
 }
 
 form {
@@ -35,7 +36,7 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-    background-color: #4caf50;
+    background-color: #08d;
     color: #fff;
     border: none;
     padding: 12px 20px;
@@ -49,4 +50,50 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Bootstrap classes */
+
+form {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="date"],
+input[type="text"] {
+    padding: 10px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #08d;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #08d;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    pointer-events: none;
 }

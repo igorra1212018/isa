@@ -39,6 +39,7 @@ export class StaffDonationCenterComponent implements OnInit {
             (data) => {
                 this.terms = data;
                 this.terms.forEach(function (value) {
+                    console.log(value.date);
                     value.date = new Date(value.date);
                 });
                 this.sortTerms();
