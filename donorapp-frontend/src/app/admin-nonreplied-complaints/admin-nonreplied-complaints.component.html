@@ -1,0 +1,40 @@
+<div class="container col-md-6">
+    <div class="col-md-12" style="margin-top: 20px;">
+        <div class="row d-flex mt-2">
+            <label for="filter" class="col-md-6">Show complaints for:
+                <select name="filter" id="filter" [(ngModel)]="displayOption" (ngModelChange)="updateDisplay()">
+                    <option value="center" checked>Center</option>
+                    <option value="staff">Staff</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div *ngFor="let c of complaints">
+        <div class="card mt-5" (click)="selectComplaint(c.id)">
+            <div class="header gradient-blue">
+                <div class="row d-flex justify-content-center">
+                    <h3 class="text-white mb-1 mt-1 font-weight-bold">{{c.name}}</h3>
+                </div>
+            </div>
+            <div class="card-body mx-4">
+                <div class="row d-flex mt-2">
+                    <div [innerHTML]="c.text"></div>
+                </div>
+                <footer class="blockquote-footer" style="color: black;"><b>{{c.userFullName}}</b></footer>
+            </div>
+        </div>
+        <div *ngIf="c.id == selectedId" class="card mt-1 ml-5">
+            <div class="card-body mx-4">
+                <div class="row d-flex mt-2 justify-content-center">
+                    <textarea id="complaint-box" [(ngModel)]="text" style="resize: none;" name="complaint-box" rows="7" cols="100"></textarea>
+                </div>
+                <div class="row d-flex mt-2">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-1 mt-3">
+                        <button class="btn btn-blue btn-rounded" (click)="submitReply()" [disabled]="text == ''">Reply</button>
+                    <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

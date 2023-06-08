@@ -38,8 +38,8 @@ export class AdminRepliedComplaintsComponent {
         this.complaints = [];
         for(var i = 0; i < this.centerComplaints.length; i++){
           var centerComplaint = this.centerComplaints[i];
-          var complaint = new AdminComplaint(centerComplaint.centerName, centerComplaint.text, centerComplaint.reply,
-                                            centerComplaint.userFirstName + ' ' + centerComplaint.userLastName);
+          var complaint = new AdminComplaint(centerComplaint.centerId, 'center', centerComplaint.centerName, centerComplaint.text,
+                                            centerComplaint.reply, centerComplaint.userFirstName + ' ' + centerComplaint.userLastName);
           if(complaint.text != null)
             complaint.text = complaint.text.replaceAll("\n", "<br>");
           if(complaint.reply != null)
@@ -51,8 +51,8 @@ export class AdminRepliedComplaintsComponent {
         this.complaints = [];
         for(var i = 0; i < this.staffComplaints.length; i++){
           var staffComplaint = this.staffComplaints[i];
-          var complaint = new AdminComplaint(staffComplaint.staffFirstName + ' ' + staffComplaint.staffLastName, staffComplaint.text,
-                                            staffComplaint.reply, staffComplaint.userFirstName + ' ' + staffComplaint.userLastName);
+          var complaint = new AdminComplaint(staffComplaint.id, 'staff' ,staffComplaint.staffFirstName + ' ' + staffComplaint.staffLastName,
+                                    staffComplaint.text, staffComplaint.reply, staffComplaint.userFirstName + ' ' + staffComplaint.userLastName);
           if(complaint.text != null)
             complaint.text = complaint.text.replaceAll("\n", "<br>");
           if(complaint.reply != null)

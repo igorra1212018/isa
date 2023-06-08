@@ -18,6 +18,7 @@
     <a *ngIf="role === 'admin'" href="/admin-donation-center" id="admin-donation-center" style="float:none">Add new center</a>
     <a *ngIf="role === 'admin'" href="/admin-register-staff" id="admin-register-staff" style="float:none">Register staff</a>
     <a *ngIf="role === 'admin'" href="/admin-replied-complaints" id="admin-replied-complaints" style="float:none">Complaint history</a>
+    <a *ngIf="role === 'admin'" href="/admin-nonreplied-complaints" id="admin-nonreplied-complaints" style="float:none">New complaints</a>
     <a *ngIf="role === 'admin'" href="/" id="signout" (click)="signout()" style="float:none">Sign out</a>
 
 </nav>
