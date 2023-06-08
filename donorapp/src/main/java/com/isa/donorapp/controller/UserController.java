@@ -21,6 +21,7 @@ import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.model.Location;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.service.SocketService;
 import com.isa.donorapp.service.UserService;
 import com.isa.donorapp.repository.TokenRepository;
 import com.isa.donorapp.model.VerificationToken;
@@ -40,6 +41,8 @@ public class UserController {
 	JwtUtils jwtUtils;
 	@Autowired
 	TokenRepository tokenRepository;
+	@Autowired
+	SocketService socketService;
 	
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
@@ -146,6 +149,7 @@ public class UserController {
 		String[] passwords = {"marko123", "tijana123", "darko123", "milica123", "sasa123"} ;
 		for(String s : passwords)
 			System.out.println(encoder.encode(s));
+		socketService.processMsg("I AM HERE");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
