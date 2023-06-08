@@ -109,15 +109,24 @@ public class TermController {
 	@PostMapping("/center/addTerm")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> addTerm(@RequestBody TermAddDTO termDTO){
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		Term term = new Term(LocalDateTime.parse(termDTO.getDate(), formatter), termDTO.getDuration());
-		term.setCenter(donationCenterService.findById(termDTO.getCenterId()));
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime date = LocalDateTime.parse(termDTO.getDate(), formatter);
+			Term term = new Term(date, termDTO.getDuration());
+			term.setCenter(donationCenterService.findById(termDTO.getCenterId()));
+			
+			if (!termService.checkIfOverlapExists(term)) {
+				termService.addTerm(term);	
+				return new ResponseEntity<>("Term successfully added!", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Failed to add term (overlap detected)!", HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			
+		} catch(Exception e) {
+			return new ResponseEntity<>("Failed to add term!", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
-		termService.addTerm(term);
-		
-		return new ResponseEntity<>(
-			      "Term successfully added!",
-			      HttpStatus.OK);
 	}
 	
 	@GetMapping("/qr-codes")

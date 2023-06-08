@@ -134,4 +134,16 @@ public class TermService {
 	public Term addTerm(Term term) {
 		return save(term);
 	}
+
+	public boolean checkIfOverlapExists(Term term) {
+		List<TermDTO> terms = findFreeTermsByCenterIdForDate(term.getCenter().getId(), term.getDate());
+		
+		for (TermDTO t : terms) {
+			if (term.getDate().isAfter(t.getDate().minusSeconds(1)) && term.getDate().isBefore(t.getDate().plusMinutes(t.getDuration()))) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

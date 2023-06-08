@@ -29,6 +29,7 @@ export class StaffDefineTermComponent implements OnInit {
         this.getFreeTermsForDate();
         this.showAlreadyDefinedTerms = true;
         this.overlapDetected = false;
+        //this.termHHMM = '';
         this.parseTime();
         this.checkOverlap();
     }

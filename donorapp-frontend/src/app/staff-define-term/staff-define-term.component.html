@@ -33,12 +33,7 @@
         pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
         required
     />
-    <div
-        *ngIf="
-            termForm.controls['termStart'].invalid &&
-            (termForm.controls['termStart'].dirty || termForm.controls['termStart'].touched)
-        "
-    >
+    <div *ngIf="termForm.controls['termStart'].invalid">
         <div *ngIf="termForm.controls['termStart'].errors?.['required']">Term starting time is required.</div>
         <div *ngIf="termForm.controls['termStart'].errors?.['pattern']">
             Term starting time must be in the format HH:mm.
