@@ -1,28 +1,34 @@
 <style>
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
-.checked {
-  color: #4facfe;
-}
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+    .checked {
+        color: #4facfe;
+    }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<div class="container col-md-12" style="margin-top: 2%; margin-left: 1%;">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<div class="container col-md-12" style="margin-top: 2%; margin-left: 1%">
     <div class="row">
         <div class="col-md-2">
-            <div class="row" *ngIf="!loadUserFailed" >
+            <div class="row" *ngIf="!loadUserFailed">
                 <div class="card h-100">
                     <div class="card-body">
-                        <p class="card-text">Hello {{userInfo.firstName}}!</p>
-                        <p class="card-text">You currently have {{userInfo.penaltyCount}}/3 penalties.</p>
+                        <p class="card-text">Hello {{ userInfo.firstName }}!</p>
+                        <p class="card-text">You currently have {{ userInfo.penaltyCount }}/3 penalties.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <h2 class="mb-4">Donation Centers</h2>
-            <div class="col-md-2">
+            <div class="col-md-3" style="display: inline-block">
+                <label>
+                    <span>Search</span>
+                    <input type="text" name="search" [(ngModel)]="searchField" (keyup)="searchFilterAndSort()" />
+                </label>
+            </div>
+            <div class="col-md-2" style="display: inline-block">
                 <label for="sort">
                     <span>Sort by:</span>
                     <select name="sort" id="sort" [(ngModel)]="selectedSortOption" (ngModelChange)="sortCenters()">
@@ -32,16 +38,32 @@
                     </select>
                 </label>
             </div>
+            <div class="col-md-2" style="display: inline-block">
+                <label>
+                    <span>Filter by:</span>
+                    <select
+                        name="sort"
+                        id="sort"
+                        [(ngModel)]="selectedFilterOption"
+                        (ngModelChange)="searchFilterAndSort()"
+                    >
+                        <option value="-1">None</option>
+                        <option value="2">Rating > 2 star</option>
+                        <option value="3">Rating > 3 star</option>
+                        <option value="4">Rating > 4 star</option>
+                    </select>
+                </label>
+            </div>
 
-            <p *ngIf="errorMsg != null">{{errorMsg}}</p>
+            <p *ngIf="errorMsg != null">{{ errorMsg }}</p>
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let center of centers">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let center of centersSearchResult">
                     <div class="card h-100" (click)="openCenter(center.id)">
-                        <img class="card-img-top" src="../../assets/donation_center.png" alt="{{center.name}}">
+                        <img class="card-img-top" src="../../assets/donation_center.png" alt="{{ center.name }}" />
                         <div class="card-body">
-                            <h5 class="card-title">{{center.name}}</h5>
-                            <p class="card-text">{{center.address + " " + center.city + ", " + center.country}}</p>
-                            <p class="card-text">{{center.description}}</p>
+                            <h5 class="card-title">{{ center.name }}</h5>
+                            <p class="card-text">{{ center.address + " " + center.city + ", " + center.country }}</p>
+                            <p class="card-text">{{ center.description }}</p>
                             <div>
                                 <span *ngIf="center.rating < 1">
                                     <span class="far fa-star checked"></span>
@@ -52,20 +74,44 @@
                                 </span>
                                 <span *ngIf="center.rating >= 1" class="fas fa-star checked"></span>
 
-                                <span *ngIf="center.rating >= 1 && center.rating < 1.25" class="far fa-star checked"></span>
-                                <span *ngIf="center.rating >= 1.25 && center.rating < 1.75" class="fas fa-star-half-alt checked"></span>
+                                <span
+                                    *ngIf="center.rating >= 1 && center.rating < 1.25"
+                                    class="far fa-star checked"
+                                ></span>
+                                <span
+                                    *ngIf="center.rating >= 1.25 && center.rating < 1.75"
+                                    class="fas fa-star-half-alt checked"
+                                ></span>
                                 <span *ngIf="center.rating >= 1.75" class="fas fa-star checked"></span>
 
-                                <span *ngIf="center.rating >= 1 && center.rating < 2.25" class="far fa-star checked"></span>
-                                <span *ngIf="center.rating >= 2.25 && center.rating < 2.75" class="fas fa-star-half-alt checked"></span>
+                                <span
+                                    *ngIf="center.rating >= 1 && center.rating < 2.25"
+                                    class="far fa-star checked"
+                                ></span>
+                                <span
+                                    *ngIf="center.rating >= 2.25 && center.rating < 2.75"
+                                    class="fas fa-star-half-alt checked"
+                                ></span>
                                 <span *ngIf="center.rating >= 2.75" class="fas fa-star checked"></span>
 
-                                <span *ngIf="center.rating >= 1 && center.rating < 3.25" class="far fa-star checked"></span>
-                                <span *ngIf="center.rating >= 3.25 && center.rating < 3.75" class="fas fa-star-half-alt checked"></span>
+                                <span
+                                    *ngIf="center.rating >= 1 && center.rating < 3.25"
+                                    class="far fa-star checked"
+                                ></span>
+                                <span
+                                    *ngIf="center.rating >= 3.25 && center.rating < 3.75"
+                                    class="fas fa-star-half-alt checked"
+                                ></span>
                                 <span *ngIf="center.rating >= 3.75" class="fas fa-star checked"></span>
 
-                                <span *ngIf="center.rating >= 1 && center.rating < 4.25" class="far fa-star checked"></span>
-                                <span *ngIf="center.rating >= 4.25 && center.rating < 4.75" class="far fa-star-half-alt checked"></span>
+                                <span
+                                    *ngIf="center.rating >= 1 && center.rating < 4.25"
+                                    class="far fa-star checked"
+                                ></span>
+                                <span
+                                    *ngIf="center.rating >= 4.25 && center.rating < 4.75"
+                                    class="far fa-star-half-alt checked"
+                                ></span>
                                 <span *ngIf="center.rating >= 4.75" class="fas fa-star checked"></span>
                             </div>
                         </div>
