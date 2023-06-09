@@ -23,7 +23,7 @@
             <div id="map" class="map"></div>
             <h1 class="card-text">{{center.address + " " + center.city + ", " + center.country}}</h1>
             <h2 class="card-text">{{center.description}}</h2>
-            <!--<div>
+            <div *ngIf="center.canComplain === false">
                 <span *ngIf="center.rating < 1">
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span>
@@ -48,8 +48,8 @@
                 <span *ngIf="center.rating >= 1 && center.rating < 4.25" class="far fa-star checked"></span>
                 <span *ngIf="center.rating >= 4.25 && center.rating < 4.75" class="far fa-star-half-alt checked"></span>
                 <span *ngIf="center.rating >= 4.75" class="fas fa-star checked"></span>
-            </div> -->
-            <div>    
+            </div> 
+            <div *ngIf="center.canComplain === true">   
                 <h2>Rate us:</h2>
                 <mat-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></mat-star-rating>
             </div>
