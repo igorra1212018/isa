@@ -1,5 +1,6 @@
 package com.isa.donorapp.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,6 +55,28 @@ public class UserController {
 			}
 			else {
 				return new ResponseEntity<>(users, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/allUsers")
+	public ResponseEntity<List<UserHomepageDTO>> getAllUsersList() {
+		
+		try {
+			List<User> users = userService.findAll();
+			List<UserHomepageDTO> result = new ArrayList<UserHomepageDTO>();
+			if (users.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			else {
+				for (User u : users) {
+					for (Role r : u.getRoles())
+					    if (r.getName().toString().equals("USER"))
+					    	result.add(new UserHomepageDTO(u.getEmail(), u.getFirstName(), u.getLastName(), u.getPenaltyCount()));
+				}
+				return new ResponseEntity<>(result, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -37,6 +37,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
 import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.
     AdminRegisterStaffComponent,
     AdminRepliedComplaintsComponent,
     AdminNonrepliedComplaintsComponent,
-    StaffDefineTermComponent
+    StaffDefineTermComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

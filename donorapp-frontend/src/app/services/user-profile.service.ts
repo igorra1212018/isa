@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserRegister } from '../register/user-register';
+import { UserDTO } from '../user-list/userDTO';
 
 @Injectable({
     providedIn: 'root',
@@ -20,5 +21,9 @@ export class UserProfileService {
 
     changeUserData(newData: UserRegister): Observable<any> {
         return this.http.put(this._url, JSON.stringify(newData), this.httpOptions);
+    }
+
+    getAllUsers(): Observable<UserDTO[]> {
+        return this.http.get<UserDTO[]>('api/user/allUsers');
     }
 }
