@@ -28,8 +28,11 @@ public class DonationCenterScore {
 		this.user = user;
 		this.center = center;
 		this.score = score;
-	}
+	}	
 	
+	public Integer getId() {
+		return id;
+	}
 	public User getUser() {
 		return user;
 	}

@@ -35,6 +35,9 @@ import { AdminRegisterStaffComponent } from './admin-register-staff/admin-regist
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
     UserFileComplaintComponent,
     UserComplaintsComponent,
     AdminRegisterStaffComponent,
-    AdminRepliedComplaintsComponent
+    AdminRepliedComplaintsComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
     CommonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatSelectModule 
+    MatSelectModule,
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [
     AuthGuard,

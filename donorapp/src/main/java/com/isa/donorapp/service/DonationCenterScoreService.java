@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.isa.donorapp.dto.DonationCenterScoreDTO;
 import com.isa.donorapp.model.DonationCenterScore;
+import com.isa.donorapp.model.User;
 import com.isa.donorapp.repository.UserRepository;
 import com.isa.donorapp.repository.DonationCenterScoreRepository;
 import com.isa.donorapp.repository.RoleRepository;
@@ -47,6 +49,15 @@ public class DonationCenterScoreService {
 	public DonationCenterScore save(DonationCenterScore donationCenterScore)
 	{
 		return donationCenterScoreRepository.save(donationCenterScore);
+	}
+	
+	public Integer update(User u, DonationCenterScoreDTO updatedScore) 
+	{
+		DonationCenterScore centerScore = findById(updatedScore.getId());
+		centerScore.setScore(updatedScore.getScore());
+		save(centerScore);
+		
+		return updatedScore.getScore();
 	}
 	/*
 	public User getLoggedUser() {

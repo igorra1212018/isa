@@ -9,6 +9,8 @@ import { DonationCenter } from '../donation-center';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDonationCenterService } from '../services/user-donation-center.service';
 import { Term } from '../term';
+import { StarRatingColor } from '../star-rating/star-rating.component';
+import { DonationCenterScore } from '../donation-center-score';
 
 useGeographic();
 
@@ -23,6 +25,14 @@ export class UserDonationCenterComponent implements OnInit{
   errorMsg = "";
   public terms = [] as Term[];
   selectedSortOption = "date";
+  donationCenterScore: DonationCenterScore = new DonationCenterScore();
+
+  rating:number = 3;
+  starCount:number = 5;
+  starColor:StarRatingColor = StarRatingColor.accent;
+  starColorP:StarRatingColor = StarRatingColor.primary;
+  starColorW:StarRatingColor = StarRatingColor.warn;
+  public ratingExists: boolean = true;
 
   constructor(private route: ActivatedRoute, private router: Router, private _userDonationCenterService: UserDonationCenterService) { }
   
@@ -37,6 +47,17 @@ export class UserDonationCenterComponent implements OnInit{
       error => this.errorMsg += "\nCouldn't load terms");
   }
 
+  loadScore(centerId: number){
+    this._userDonationCenterService.getCenterScore(centerId).subscribe(data => {
+      this.donationCenterScore = data;
+      if(data == null){
+        this.rating = 0;
+      }else{
+        this.rating = this.donationCenterScore.score;
+      }
+     });
+  }
+
   ngOnInit() {
     let centerId = Number(this.route.snapshot.paramMap.get('id'));
     this._userDonationCenterService.getDonationCenter(centerId).subscribe(data => {
@@ -44,6 +65,17 @@ export class UserDonationCenterComponent implements OnInit{
       const latitude = this.center.latitude;
       const longitude = this.center.longitude;
       console.log(latitude + ", " + longitude);
+
+      this.loadScore(centerId);
+
+      if(this.center.rating == 0){
+        this.ratingExists = false
+      }else{
+        this.ratingExists = true;
+      }
+
+      console.log(this.ratingExists);
+      console.log(this.center.rating);
       
       this.loadTerms(centerId);
       
@@ -55,7 +87,7 @@ export class UserDonationCenterComponent implements OnInit{
       const layer = new TileLayer({
         source: new OSM(),
       });
-  
+
       this.map = new Map({
         target: 'map',
         layers: [layer],
@@ -66,7 +98,22 @@ export class UserDonationCenterComponent implements OnInit{
     },
       error => this.errorMsg = "Couldn't load center");
 
+  }
 
+  onRatingChanged(rating: number){
+    let newScore = new DonationCenterScore();
+    newScore.id = this.donationCenterScore.id;
+    newScore.score = rating;
+    newScore.centerId = this.center.id;
+    console.log(rating);
+    this.rating = rating;
+    console.log(newScore);
+    if(this.ratingExists == false){
+      this._userDonationCenterService.setCenterScore(newScore).subscribe();
+    }
+    else{
+      this._userDonationCenterService.updateCenterScore(newScore).subscribe();
+    }
   }
 
   reserve(id: number) {
