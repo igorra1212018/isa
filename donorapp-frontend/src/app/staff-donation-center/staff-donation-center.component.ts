@@ -101,6 +101,11 @@ export class StaffDonationCenterComponent implements OnInit {
     this.router.navigate(['staff-edit-donation-center/' + centerId]);
   }
 
+  defineTerms() {
+    let centerId = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.navigate(['staff-define-term/' + centerId]);
+  }
+
   sortTerms(): void {
     switch (this.selectedSortOption) {
       case 'date':
