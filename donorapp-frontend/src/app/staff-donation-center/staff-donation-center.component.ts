@@ -28,7 +28,6 @@ export class StaffDonationCenterComponent implements OnInit {
   public terms = [] as Term[];
   selectedSortOption = 'date';
 
-
   displayedColumns: string[] = ['type', 'quantity'];
   dataSource : any;
   BLOODS: any;
