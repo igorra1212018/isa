@@ -10,6 +10,10 @@ public class DonationCenterDTO {
 	String address;
 	String description;
 	
+	double blood_a;
+	double blood_b;
+	double blood_ab;
+	double blood_o;
 	double latitude;
 	double longitude;
 	double rating;
@@ -41,7 +45,11 @@ public class DonationCenterDTO {
 		this.latitude = donationCenter.getAddress().getLatitude();
 		this.longitude = donationCenter.getAddress().getLongitude();
 		this.rating = donationCenter.getRating();
-	}
+		this.blood_a = donationCenter.getBlood_A();
+		this.blood_b = donationCenter.getBlood_B();
+		this.blood_ab = donationCenter.getBlood_AB();
+		this.blood_o = donationCenter.getBlood_O();
+	}	
 
 	public Integer getId() {
 		return id;
@@ -121,5 +129,37 @@ public class DonationCenterDTO {
 
 	public void setCanComplain(boolean canComplain) {
 		this.canComplain = canComplain;
+	}
+
+	public double getBlood_a() {
+		return blood_a;
+	}
+
+	public void setBlood_a(double blood_a) {
+		this.blood_a = blood_a;
+	}
+
+	public double getBlood_b() {
+		return blood_b;
+	}
+
+	public void setBlood_b(double blood_b) {
+		this.blood_b = blood_b;
+	}
+
+	public double getBlood_ab() {
+		return blood_ab;
+	}
+
+	public void setBlood_ab(double blood_ab) {
+		this.blood_ab = blood_ab;
+	}
+
+	public double getBlood_o() {
+		return blood_o;
+	}
+
+	public void setBlood_o(double blood_o) {
+		this.blood_o = blood_o;
 	}
 }

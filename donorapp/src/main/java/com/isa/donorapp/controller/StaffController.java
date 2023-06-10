@@ -1,5 +1,6 @@
 package com.isa.donorapp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.donorapp.dto.DonationCenterDTO;
+import com.isa.donorapp.dto.ProcessesReservationDTO;
 import com.isa.donorapp.dto.StaffDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.model.DonationCenter;
+import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.service.DonationCenterService;
+import com.isa.donorapp.service.ReservationService;
 import com.isa.donorapp.service.StaffService;
 import com.isa.donorapp.service.UserService;
+
+import ch.qos.logback.core.util.ContentTypeUtil;
 
 @RestController
 @RequestMapping("/api/staff")
@@ -34,7 +41,7 @@ public class StaffController {
 	
 	@Autowired
 	UserService userService;
-	
+		
 	@Autowired
 	DonationCenterService donationCenterService;
 		
@@ -55,11 +62,11 @@ public class StaffController {
 		return new ResponseEntity<>(updatedStaffDTO, HttpStatus.OK);
 	}
 	
-	@PostMapping("register_staff")
+	@PostMapping("/register_staff")
 	public ResponseEntity<User> registerStaff(@RequestBody StaffDTO newStaff)
 	{
 		User staff = new User(newStaff);
-		DonationCenter dc = donationCenterService.findByName(newStaff.getCenterName());
+		DonationCenter dc = donationCenterService.findById(newStaff.getCenterId());
 		staffService.registerStaff(staff, dc);
 		return new ResponseEntity<>(staff, HttpStatus.OK);
 	}
@@ -75,9 +82,19 @@ public class StaffController {
 		else {
 			return new ResponseEntity<>(staff, HttpStatus.OK);
 		}
-
 	}
-		
+	
+	@GetMapping("/processed_users")
+    public ResponseEntity<List<ProcessesReservationDTO>> getProcessedUsers()
+    {
+        User currentUser = getCurrentUser();
+        List<ProcessesReservationDTO> processesReservations = staffService.getProcessedUsersForCenter(
+                currentUser.getDonationCenter().getId());
+        return new ResponseEntity<>(processesReservations, HttpStatus.OK);
+    } 
+
+
+			
 	private User getCurrentUser() 
 	{
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();

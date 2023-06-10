@@ -24,65 +24,32 @@ import { AdminRegisterStaffComponent } from './admin-register-staff/admin-regist
 import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.component';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
+import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
 
 const routes: Routes = [
-    { path: 'register', component: RegisterComponent },
-    { path: 'login', component: LoginComponent },
-    { path: '', component: HomeComponent },
-    { path: 'user-homepage', component: UserHomepageComponent, canActivate: [AuthGuard] },
-    {
-        path: 'user-upcoming-appointments',
-        component: UserUpcomingAppointmentsComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.User] },
-    },
-    {
-        path: 'user-questionnaire',
-        component: UserQuestionnaireComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.User] },
-    },
-    { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
-    { path: 'user-donation-center/:id', component: UserDonationCenterComponent },
-    { path: 'user-qr-codes', component: UserQrCodesComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
-    {
-        path: 'user-appointment-history',
-        component: UserAppointmentHistoryComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.User] },
-    },
-    {
-        path: 'user-file-complaint/:id',
-        component: UserFileComplaintComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.User] },
-    },
-    {
-        path: 'user-complaints',
-        component: UserComplaintsComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.User] },
-    },
-    { path: 'staff-profile', component: StaffProfileComponent, data: { roles: [Role.Staff] } },
-    { path: 'staff-homepage', component: StaffHomepageComponent },
-    { path: 'staff-donation-center/:id', component: StaffDonationCenterComponent },
-    { path: 'staff-edit-donation-center/:id', component: StaffEditDonationCenterComponent },
-    { path: 'staff-bloodview', component: StaffBloodViewComponent },
-    { path: 'staff-define-term/:id', component: StaffDefineTermComponent },
-    {
-        path: 'admin-donation-center',
-        component: AdminDonationCenterComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.Admin] },
-    },
-    {
-        path: 'admin-register-staff',
-        component: AdminRegisterStaffComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.Admin] },
-    },
-    { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
-    { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
+  { path: "register", component: RegisterComponent },
+  { path: "login", component: LoginComponent},
+  { path: "", component: HomeComponent},
+  { path: "user-homepage", component: UserHomepageComponent, canActivate: [AuthGuard]},
+  { path: "user-upcoming-appointments", component: UserUpcomingAppointmentsComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-questionnaire", component: UserQuestionnaireComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-donation-center/:id", component: UserDonationCenterComponent },
+  { path: "user-qr-codes", component: UserQrCodesComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-appointment-history", component: UserAppointmentHistoryComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-file-complaint/:id", component: UserFileComplaintComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "user-complaints", component: UserComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: "staff-profile", component: StaffProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-homepage", component: StaffHomepageComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-donation-center/:id", component: StaffDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-edit-donation-center/:id", component: StaffEditDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-processed-reservations", component: StaffProcessedReservationsComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-bloodview", component: StaffBloodViewComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: 'staff-define-term/:id', component: StaffDefineTermComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+  { path: "admin-register-staff", component: AdminRegisterStaffComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
+  { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
+  { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
 ];
 
 @NgModule({

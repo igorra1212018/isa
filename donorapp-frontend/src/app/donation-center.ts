@@ -1,5 +1,5 @@
 export class DonationCenter {
-    id: number = -1;
+    id: number = 0;
     name: string = "";
     city: string = "";
     country: string = "";
@@ -9,6 +9,10 @@ export class DonationCenter {
     longitude: number = 45;
     rating: number = 0;
     canComplain: boolean = false;
+    blood_a: number = 0;
+    blood_b: number = 0;
+    blood_ab: number = 0;
+    blood_o: number = 0;
      
     constructor() {}  
 }

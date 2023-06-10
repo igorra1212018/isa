@@ -32,11 +32,14 @@ import { HomeComponent } from './home/home.component';
 import { UserFileComplaintComponent } from './user-file-complaint/user-file-complaint.component';
 import { UserComplaintsComponent } from './user-complaints/user-complaints.component'  
 import { AdminRegisterStaffComponent } from './admin-register-staff/admin-register-staff.component'  ;
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule} from '@angular/material/select';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
 import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.component';
+import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
+import { MatSortModule} from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +66,8 @@ import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.
     AdminRegisterStaffComponent,
     AdminRepliedComplaintsComponent,
     AdminNonrepliedComplaintsComponent,
-    StaffDefineTermComponent
+    StaffDefineTermComponent,
+    StaffProcessedReservationsComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,8 @@ import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.
     CommonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatSelectModule 
+    MatSelectModule,
+    MatSortModule
   ],
   providers: [
     AuthGuard,

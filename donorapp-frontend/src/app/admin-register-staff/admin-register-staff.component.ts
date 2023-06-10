@@ -4,6 +4,7 @@ import { StaffService } from '../services/staff-service.service';
 import { StaffDTO } from '../staff-profile/staffDTO';
 import { AdminDonationCenterService } from '../services/admin-donation-center.service';
 import { DonationCenterDTO } from '../admin-donation-center/donation-center';
+import { DonationCenter } from '../donation-center';
 
 @Component({
   selector: 'app-admin-register-staff',
@@ -27,11 +28,11 @@ export class AdminRegisterStaffComponent implements OnInit {
 
   registrationCompleted: boolean = false;
   responseMessage: string = '';
-  donationCenters= [] as DonationCenterDTO[];
+  donationCenters= [] as DonationCenter[];
 
   value: string = "";
   viewValue: string = "";
-  selectedValue: string = "";
+  selectedValue: any;
 
   constructor(private router: Router, private _staffService: StaffService, private _adminDonationCenterService: AdminDonationCenterService) {}
 
@@ -57,7 +58,7 @@ export class AdminRegisterStaffComponent implements OnInit {
       staff.jmbg = this.jmbg;
       staff.occupation = this.occupation;
       staff.occupationInfo = this.occupationInfo;
-      staff.centerName = this.selectedValue;
+      staff.centerId = this.selectedValue;
 
       console.log(staff);
 

@@ -44,11 +44,11 @@ VALUES (100, true, 'sasa.lukic@test.com', 'Saša', 'Lukić', null, null, null, n
 INSERT INTO public.user_roles(user_id, role_id) VALUES (100, 1);
 
 --Donation centers
-INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
-VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
+VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 50, 60, 70, 80, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
 
-INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
-VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
+VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 50, 60, 70, 80, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
 
 
 --Terms
