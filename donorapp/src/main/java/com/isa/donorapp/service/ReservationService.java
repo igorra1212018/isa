@@ -140,4 +140,29 @@ public class ReservationService {
 		}
 		return false;
 	}
+	
+	public boolean isUserReservationProcessed(User user, int centerId) 
+	{	
+		System.out.println(user.getId());
+		System.out.println(centerId);
+		boolean check = true;
+		List<Reservation> userReservations = reservationRepository.findByUserId(user.getId());
+		System.out.println(userReservations);
+		System.out.println(userReservations.isEmpty());
+		if(userReservations.isEmpty() == false) {
+			for(Reservation r: userReservations) {
+				System.out.println(r.getId());
+				Term t = termService.findById(r.getTerm().getId());
+				System.out.println(t.getId());
+				if(t.getCenter().getId() == centerId && r.getStatus() == EReservationStatus.PROCESSED) {
+					check = true;;
+				}else
+					check = false;
+			}
+		}else {
+			check = false;
+		}
+		System.out.println(check);
+		return check;
+	}
 }

@@ -40,6 +40,9 @@ import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.
 import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
 import { MatSortModule} from '@angular/material/sort';
 
+import { StarRatingComponent } from './star-rating/star-rating.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,8 @@ import { MatSortModule} from '@angular/material/sort';
     AdminRepliedComplaintsComponent,
     AdminNonrepliedComplaintsComponent,
     StaffDefineTermComponent,
-    StaffProcessedReservationsComponent
+    StaffProcessedReservationsComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +84,9 @@ import { MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [
     AuthGuard,

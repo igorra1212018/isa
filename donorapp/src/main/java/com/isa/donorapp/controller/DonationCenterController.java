@@ -7,14 +7,17 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.isa.donorapp.dto.AppointmentDTO;
 import com.isa.donorapp.dto.CenterFileComplaintDTO;
 import com.isa.donorapp.dto.DonationCenterDTO;
+import com.isa.donorapp.dto.DonationCenterScoreDTO;
 import com.isa.donorapp.dto.StaffDTO;
 import com.isa.donorapp.dto.StaffFileComplaintDTO;
 import com.isa.donorapp.dto.TermDTO;
 import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
+import com.isa.donorapp.model.DonationCenterScore;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.model.enums.ERole;
+import com.isa.donorapp.service.DonationCenterScoreService;
 import com.isa.donorapp.service.DonationCenterService;
 import com.isa.donorapp.service.ReservationService;
 import com.isa.donorapp.service.StaffService;
@@ -54,6 +58,8 @@ public class DonationCenterController {
 	UserService userService;
 	@Autowired
 	StaffService staffService;
+	@Autowired
+	DonationCenterScoreService donationCenterScoreService;
 	@Autowired
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
@@ -150,6 +156,49 @@ public class DonationCenterController {
 		DonationCenter newCenter = new DonationCenter(newData);
 		donationCenterService.update(newCenter, user.getDonationCenter().getId());
 		
+		return new ResponseEntity<>(newCenter, HttpStatus.OK);
+	}
+	
+	@GetMapping("/get_score/{id}")
+	public ResponseEntity<DonationCenterScoreDTO> getCenterScore(@PathVariable("id") int id) {
+		DonationCenterScoreDTO centerScoreDTO = new DonationCenterScoreDTO();
+		List<DonationCenterScore> centerScores = donationCenterScoreService.findByCenterId(id);
+		for(DonationCenterScore cs: centerScores) {
+			if(cs.getUser().getId() == getCurrentUser().getId()) {
+				centerScoreDTO.setId(cs.getId());
+				centerScoreDTO.setCenterId(id);
+				centerScoreDTO.setScore(cs.getScore());
+			
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.OK);
+			}
+		}			
+		return new ResponseEntity<>(centerScoreDTO, HttpStatus.OK);	
+	}
+	
+	@PostMapping("/set_score")
+	public ResponseEntity<String> setScore(@RequestBody DonationCenterScoreDTO newScore, HttpServletRequest request){
+		User user = getCurrentUser();
+		DonationCenter center = donationCenterService.findById(newScore.getCenterId());
+		DonationCenterScore centerScore = new DonationCenterScore(user, center, newScore.getScore());
+		if(reservationService.isUserReservationProcessed(user,  newScore.getCenterId()) == true) {
+			donationCenterScoreService.save(centerScore);
+			System.out.println("ovde2");
+			return new ResponseEntity<>(
+				      "Center rated!",
+				      HttpStatus.CREATED);}
+		else {
+			System.out.println("ovde3");
+			return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+		}
+	}
+	
+	@PutMapping("/update_score")
+	public ResponseEntity<DonationCenterScoreDTO> updateScore(@RequestBody DonationCenterScoreDTO updatedScore){
+		User user = getCurrentUser();
+		DonationCenter center = donationCenterService.findById(updatedScore.getCenterId());
+		int savedScore = donationCenterScoreService.update(user, updatedScore);
+		DonationCenterScoreDTO newCenter = new DonationCenterScoreDTO(updatedScore.getId(), savedScore, center.getId());
 		return new ResponseEntity<>(newCenter, HttpStatus.OK);
 	}
 	
