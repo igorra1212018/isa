@@ -85,11 +85,15 @@ public class StaffController {
 	}
 	
 	@GetMapping("/processed_users")
-	public ResponseEntity<List<ProcessesReservationDTO>> getProcessedUsers()
-	{	
-		List<ProcessesReservationDTO> processesReservations = staffService.getProcessedUsers();
-		return new ResponseEntity<>(processesReservations, HttpStatus.OK);
-	}
+    public ResponseEntity<List<ProcessesReservationDTO>> getProcessedUsers()
+    {
+        User currentUser = getCurrentUser();
+        List<ProcessesReservationDTO> processesReservations = staffService.getProcessedUsersForCenter(
+                currentUser.getDonationCenter().getId());
+        return new ResponseEntity<>(processesReservations, HttpStatus.OK);
+    } 
+
+
 			
 	private User getCurrentUser() 
 	{

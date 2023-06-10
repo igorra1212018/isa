@@ -20,6 +20,7 @@ import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.Staff;
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.model.Term;
 import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.repository.RoleRepository;
@@ -82,24 +83,29 @@ public class StaffService {
 		return userRepository.save(staff);
 	}
 	
-	public List<ProcessesReservationDTO> getProcessedUsers()
-	{
-		List<ProcessesReservationDTO> dto = new ArrayList<>();
-		List<User> allUsers = userRepository.findAll();
-		for(User u: allUsers) {
-			List<Reservation> allReservations = reservationService.findByUserId(u.getId());
-			for(Reservation r: allReservations) {
-				if(r.getStatus() == EReservationStatus.PROCESSED) {
-					dto.add(new ProcessesReservationDTO(u, termService.findById(r.getTerm().getId())));
-				}
-				else
-				{
-					continue;
-				}
-			}
-		}
-		return dto;
-	}
+	public List<ProcessesReservationDTO> getProcessedUsersForCenter(Integer centerId)
+    {
+        List<ProcessesReservationDTO> dto = new ArrayList<>();
+        List<User> allUsers = userRepository.findAll();
+        for(User u: allUsers) {
+            List<Reservation> allReservations = reservationService.findByUserId(u.getId());
+            Term latest = null;
+            for(Reservation r: allReservations) {
+                if(r.getStatus() == EReservationStatus.PROCESSED && r.getTerm().getCenter().getId() == centerId) {
+                    if (latest == null || r.getTerm().getDate().isAfter(latest.getDate()))
+                        latest = r.getTerm();
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            if (latest != null)
+                dto.add(new ProcessesReservationDTO(u, latest));
+        }
+        return dto;
+    }
+
 	
 	public List<User> findStaffFromCenter(int Center_id)
 	{
