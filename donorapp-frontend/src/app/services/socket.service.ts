@@ -28,25 +28,28 @@ export class SocketService {
   _connect() {
     console.log("Initialize WebSocket Connection");
     let ws = new SockJS(this.webSocketEndPoint);
-    this.stompClient = Stomp.over(ws);
     const _this = this;
-    const token = localStorage.getItem("AccessToken");
-    let headers = {};
+    let token = localStorage.getItem("AccessToken");
     if(token){
-      headers = { Authorization: "Bearer " + token }
-      console.log(headers);
+      console.log(token);
+    
+      this.stompClient = Stomp.over(ws);
+      _this.stompClient.connect({ 'X-Authorization': "Bearer " + token }, () => {
+        _this.stompClient.subscribe(this._topic, (sdkEvent: any) => {
+          _this.onMessageReceived(sdkEvent);
+        }, { 'X-Authorization': "Bearer " + token });
+        //_this.stompClient.reconnect_delay = 2000;
+      }, this.errorCallBack);
     }
-    _this.stompClient.connect(headers, () => {
-      _this.stompClient.subscribe(this._topic, (sdkEvent: any) => {
-        _this.onMessageReceived(sdkEvent);
-      });
-      //_this.stompClient.reconnect_delay = 2000;
-    }, this.errorCallBack);
   };
 
   _disconnect() {
     if (this.stompClient !== null) {
-      this.stompClient.disconnect();
+      let token = localStorage.getItem("AccessToken");
+      if (token){
+        console.log(token);
+        this.stompClient.disconnect(() => {}, { 'X-Authorization': "Bearer " + token });
+      }
     }
     console.log("Disconnected");
   }
