@@ -30,7 +30,13 @@ export class SocketService {
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
     const _this = this;
-    _this.stompClient.connect({}, () => {
+    const token = localStorage.getItem("AccessToken");
+    let headers = {};
+    if(token){
+      headers = { Authorization: "Bearer " + token }
+      console.log(headers);
+    }
+    _this.stompClient.connect(headers, () => {
       _this.stompClient.subscribe(this._topic, (sdkEvent: any) => {
         _this.onMessageReceived(sdkEvent);
       });
