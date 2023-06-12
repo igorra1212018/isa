@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProcessedUser} from '../processedUsers';
+import { StaffQuestionnaireDTO } from '../staff-start-appointment/StaffQuestionnaireDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,9 @@ export class StaffReservationsService {
 
   reqsNotMetAppointment(id: number): Observable<any> {
     return this.http.put(this._url + "rejected/" + id, this.httpOptions);
+  }
+  startAppointment(newData: StaffQuestionnaireDTO): Observable<any>{
+    return this.http.post<any>(this._url + "startAppointment", JSON.stringify(newData), this.httpOptions);
   }
 }
 

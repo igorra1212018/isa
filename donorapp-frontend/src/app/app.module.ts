@@ -44,6 +44,7 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
+import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,9 @@ import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-cal
     StaffProcessedReservationsComponent,
     StarRatingComponent,
     StaffWorkCalendarComponent,
-    StaffWorkCalendarComponent
+    StaffWorkCalendarComponent,
+    StaffStartAppointmentComponent,
+    StaffStartAppointmentComponent
   ],
   imports: [
     BrowserModule,

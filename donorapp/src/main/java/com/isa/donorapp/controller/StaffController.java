@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isa.donorapp.dto.DonationCenterDTO;
 import com.isa.donorapp.dto.ProcessesReservationDTO;
 import com.isa.donorapp.dto.StaffDTO;
+import com.isa.donorapp.dto.StaffQuestionnaireDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.model.DonationCenter;
+import com.isa.donorapp.model.Equipment;
 import com.isa.donorapp.model.Reservation;
+import com.isa.donorapp.model.StaffQuestionnaire;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.service.DonationCenterService;
@@ -110,7 +113,7 @@ public class StaffController {
 		reservationService.stoodUpAppointment(id);
 
 		return new ResponseEntity<>(
-			      "Registration successful!",
+			      "User stood up the appointment!",
 			      HttpStatus.OK);
 	}	
 	
@@ -120,9 +123,24 @@ public class StaffController {
 		reservationService.reqsNotMetAppointment(id);
 
 		return new ResponseEntity<>(
-			      "Registration successful!",
+			      "Appointment rejected!",
 			      HttpStatus.OK);
 	}	
+	
+	@PostMapping("/startAppointment")
+	public ResponseEntity<String> startAppointment(@RequestBody StaffQuestionnaireDTO sqdto)
+	{
+		User user = getCurrentUser();
+		DonationCenter donationCenter = donationCenterService.findById(user.getDonationCenter().getId());
+		StaffQuestionnaire questionnaire = new StaffQuestionnaire(sqdto);
+		Reservation reservation = reservationService.findById(sqdto.getReservationId());
+		List<Equipment> equipment = sqdto.getEquipment();
+		staffService.startAppointment(questionnaire, donationCenter, equipment, reservation);
+		
+		return new ResponseEntity<>(
+			      "Equipment recorded",
+			      HttpStatus.OK);
+	}
 				
 	private User getCurrentUser() 
 	{

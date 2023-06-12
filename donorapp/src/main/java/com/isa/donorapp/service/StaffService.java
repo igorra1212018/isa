@@ -14,17 +14,25 @@ import org.springframework.stereotype.Service;
 import com.isa.donorapp.dto.DonationCenterDTO;
 import com.isa.donorapp.dto.ProcessesReservationDTO;
 import com.isa.donorapp.dto.StaffDTO;
+import com.isa.donorapp.dto.StaffQuestionnaireDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.model.DonationCenter;
+import com.isa.donorapp.model.Equipment;
 import com.isa.donorapp.model.Location;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.Staff;
+import com.isa.donorapp.model.StaffQuestionnaire;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.Term;
+import com.isa.donorapp.model.enums.EBloodType;
 import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.model.enums.ERole;
+import com.isa.donorapp.repository.DonationCenterRepository;
+import com.isa.donorapp.repository.EquipmentRepository;
+import com.isa.donorapp.repository.ReservationRepository;
 import com.isa.donorapp.repository.RoleRepository;
+import com.isa.donorapp.repository.StaffQuestionnaireRepository;
 import com.isa.donorapp.repository.UserRepository;
 
 import ch.qos.logback.core.util.ContentTypeUtil;
@@ -36,6 +44,14 @@ public class StaffService {
 	private UserRepository userRepository;
 	@Autowired
 	private RoleRepository roleRepository;
+	@Autowired
+	StaffQuestionnaireRepository staffQuestionnaireRepository;
+	@Autowired
+	EquipmentRepository equipmentRepository;
+	@Autowired
+	DonationCenterRepository donationCenterRepository;
+	@Autowired
+	ReservationRepository reservationRepository;
 	@Autowired
 	ReservationService reservationService;
 	@Autowired
@@ -149,6 +165,31 @@ public class StaffService {
 	{
 		List<User> staffs = userRepository.findByDonationCenterId(Center_id);
 		return staffs;
+	}
+
+	public void startAppointment(StaffQuestionnaire questionnaire, DonationCenter donationCenter, List<Equipment> equipment, Reservation reservation) {
+		for(Equipment e: equipment) {
+			equipmentRepository.save(e);
+		}
+		
+		staffQuestionnaireRepository.save(questionnaire);
+		
+		if(questionnaire.getKrvnaGrupa() == EBloodType.A) {
+			donationCenter.setBlood_A(donationCenter.getBlood_A() + questionnaire.getKolicinaUzeteKrvi());
+			donationCenterRepository.save(donationCenter);
+		}else if(questionnaire.getKrvnaGrupa() == EBloodType.AB) {
+			donationCenter.setBlood_AB(donationCenter.getBlood_AB() + questionnaire.getKolicinaUzeteKrvi());
+			donationCenterRepository.save(donationCenter);
+		}else if(questionnaire.getKrvnaGrupa() == EBloodType.B) {
+			donationCenter.setBlood_B(donationCenter.getBlood_A() + questionnaire.getKolicinaUzeteKrvi());
+			donationCenterRepository.save(donationCenter);
+		}else {
+			donationCenter.setBlood_O(donationCenter.getBlood_O() + questionnaire.getKolicinaUzeteKrvi());
+			donationCenterRepository.save(donationCenter);
+		}
+		
+		reservation.setStatus(EReservationStatus.PROCESSED);
+		reservationRepository.save(reservation);
 	}
 		
 }

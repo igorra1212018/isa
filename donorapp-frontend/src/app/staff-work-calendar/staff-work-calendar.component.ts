@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StaffReservationsService } from '../services/staff-reservations.service';
 import { ProcessedUser } from '../processedUsers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-staff-work-calendar',
@@ -11,7 +12,7 @@ export class StaffWorkCalendarComponent implements OnInit{
   public processedUsers = [] as ProcessedUser[];
   selectedSortOption = "today";
 
-  constructor(private _processedReservationsService: StaffReservationsService) { }
+  constructor(private router: Router, private _processedReservationsService: StaffReservationsService) { }
 
   ngOnInit(): void {
     this._processedReservationsService.getNewReservations(this.selectedSortOption).subscribe(data =>{
@@ -84,6 +85,8 @@ export class StaffWorkCalendarComponent implements OnInit{
     this._processedReservationsService.reqsNotMetAppointment(id).subscribe()
   }
 
-  startAppointment(id: number){}
+  startAppointment(id: number){
+    this.router.navigate(['staff-start-appointment/' + id]);
+  }
 
 }

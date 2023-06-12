@@ -26,6 +26,7 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
 import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
+import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: "staff-bloodview", component: StaffBloodViewComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-define-term/:id", component: StaffDefineTermComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-new-reservations", component: StaffWorkCalendarComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-start-appointment/:id", component: StaffStartAppointmentComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: "admin-register-staff", component: AdminRegisterStaffComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
   { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
