@@ -26,6 +26,7 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
 import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
 import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
+import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-appointment.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: "user-appointment-history", component: UserAppointmentHistoryComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-file-complaint/:id", component: UserFileComplaintComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "user-complaints", component: UserComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
+  { path: 'user-make-appointment', component: UserMakeAppointmentComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: "staff-profile", component: StaffProfileComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-homepage", component: StaffHomepageComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-donation-center/:id", component: StaffDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },

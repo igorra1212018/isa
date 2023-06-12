@@ -89,6 +89,10 @@ export class UserHomepageComponent implements OnInit {
         }
     }
 
+    newAppointment() {
+        this.router.navigate(['user-make-appointment']);
+    }
+
     openCenter(id: number): void {
         this.router.navigate(['user-donation-center/' + id]);
     }

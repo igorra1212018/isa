@@ -1,6 +1,7 @@
 package com.isa.donorapp.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -231,6 +233,18 @@ public class DonationCenterController {
 		int savedScore = donationCenterScoreService.update(user, updatedScore);
 		DonationCenterScoreDTO newCenter = new DonationCenterScoreDTO(updatedScore.getId(), savedScore, center.getId());
 		return new ResponseEntity<>(newCenter, HttpStatus.OK);
+	}
+	
+	@GetMapping("/allAvailable")
+	public ResponseEntity<List<DonationCenterDTO>> getAllAvailableCenters(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+		try {
+			date = date.plusHours(2);
+			List<DonationCenterDTO> donationCenterDtos = donationCenterService.findAvailableCenters(date);
+					
+			return new ResponseEntity<>(donationCenterDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	private User getCurrentUser() {

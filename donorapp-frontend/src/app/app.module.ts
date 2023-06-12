@@ -45,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { WebSocketShareService } from "./services/web-socket-share.service";
 import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
+import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-appointment.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-
     StaffDefineTermComponent,
     StaffProcessedReservationsComponent,
     StarRatingComponent,
-    StaffDeliveryTrackingComponent
+    StaffDeliveryTrackingComponent,
+    UserMakeAppointmentComponent
   ],
   imports: [
     BrowserModule,

@@ -68,6 +68,17 @@ public class ReservationService {
 		return reservations;
 	}
 	
+	public List<Reservation> findByCenterId(Integer centerId) {
+		List<Reservation> foundReservations = reservationRepository.findAll();
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		for (Reservation r : foundReservations) {
+			if (!r.isCanceled() && r.getTerm().getCenter().getId() == centerId) {
+				reservations.add(r);
+			}
+		}
+		return reservations;
+	}
+	
 	public Reservation reserveTerm(Integer termId, Integer userId)
 	{
 		Term term = termService.findById(termId);

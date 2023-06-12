@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.google.zxing.EncodeHintType;
+import com.isa.donorapp.dto.TermAddDTO;
 import com.isa.donorapp.dto.TermDTO;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Reservation;
@@ -107,7 +108,7 @@ public class TermService {
 		return freeTerms;
 	}
 	
-	public List<TermDTO> findFreeTermsByCenterIdForDate(Integer centerId, LocalDateTime date) {
+	public List<TermDTO> findFreeTermsByCenterIdForDate(int centerId, LocalDateTime date) {
 		List<Term> terms = termRepository.findByCenterId(centerId);
 		List<TermDTO> result = new ArrayList<TermDTO>();
 		
@@ -131,19 +132,37 @@ public class TermService {
 		return termRepository.save(term);
 	}
 
-	public Term addTerm(Term term) {
-		return save(term);
-	}
-
 	public boolean checkIfOverlapExists(Term term) {
-		List<TermDTO> terms = findFreeTermsByCenterIdForDate(term.getCenter().getId(), term.getDate());
+		List<Term> terms = termRepository.findByCenterId(term.getCenter().getId());
 		
-		for (TermDTO t : terms) {
-			if (term.getDate().isAfter(t.getDate().minusSeconds(1)) && term.getDate().isBefore(t.getDate().plusMinutes(t.getDuration()))) {
-				return true;
-			}
+		for (Term t : terms) {
+			if (!t.isDeleted())
+				if ((term.getDate().isAfter(t.getDate().minusSeconds(1)) && term.getDate().isBefore(t.getDate().plusMinutes(t.getDuration()))) ||
+					(term.getDate().plusMinutes(term.getDuration()).isAfter(t.getDate().minusSeconds(1)) && term.getDate().plusMinutes(term.getDuration()).isBefore(t.getDate().plusMinutes(t.getDuration())))) 
+					return true;
+			
 		}
 		
 		return false;
+	}
+
+	public Term handleOverlapingTerms(Term term) {
+		List<Term> terms = termRepository.findByCenterId(term.getCenter().getId());
+		
+		for (Term t : terms) {
+			if (!t.isDeleted())
+				if ((term.getDate().isAfter(t.getDate().minusSeconds(1)) && term.getDate().isBefore(t.getDate().plusMinutes(t.getDuration()))) ||
+					(term.getDate().plusMinutes(term.getDuration()).isAfter(t.getDate().minusSeconds(1)) && term.getDate().plusMinutes(term.getDuration()).isBefore(t.getDate().plusMinutes(t.getDuration())))) {
+					if (term.getDate().equals(t.getDate())) {
+						return t;
+					}
+					else {
+						t.setDeleted(true);
+						save(t);
+					}
+			}
+		}
+		
+		return save(term);
 	}
 }

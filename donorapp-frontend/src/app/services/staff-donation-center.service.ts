@@ -35,7 +35,16 @@ export class StaffDonationCenterService {
         return this.http.post('/api/term/center/addTerm', JSON.stringify(term), this.httpOptions);
     }
 
+    makeAppointment(term: TermAddDTO): Observable<any> {
+        return this.http.post('/api/term/center/makeAppointment', JSON.stringify(term), this.httpOptions);
+    }
+
     updateDonationCenterInfo(newData: DonationCenterDTO): Observable<any> {
         return this.http.put(this._url + 'update', JSON.stringify(newData), this.httpOptions);
+    }
+
+    getAvailableCenters(date: Date) : Observable<DonationCenter[]> {
+        const params = new HttpParams().set('date', date.toISOString());
+        return this.http.get<DonationCenter[]>(this._url + 'allAvailable',  { params });
     }
 }

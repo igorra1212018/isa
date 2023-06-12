@@ -19,6 +19,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" *ngIf="!loadUserFailed">
+                <div class="col-md-2"></div>
+                <div class="mt-5 col-md-8">
+                    <button (click)="newAppointment()" class="btn btn-blue btn-squared" style="width: 100%; height: 45px">New Appointment</button>
+                </div>
+            </div>
         </div>
         <div class="col-md-8">
             <h2 class="mb-4">Donation Centers</h2>
