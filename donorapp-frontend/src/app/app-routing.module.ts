@@ -24,6 +24,7 @@ import { AdminRegisterStaffComponent } from './admin-register-staff/admin-regist
 import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.component';
 import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admin-replied-complaints.component';
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
+import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-appointment.component';
 
 const routes: Routes = [
     { path: 'register', component: RegisterComponent },
@@ -82,7 +83,8 @@ const routes: Routes = [
         data: { roles: [Role.Admin] },
     },
     { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
-    { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
+    { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}, 
+    { path: 'user-make-appointment', component: UserMakeAppointmentComponent, canActivate: [AuthGuard], data: { roles: [Role.User] } }
 ];
 
 @NgModule({

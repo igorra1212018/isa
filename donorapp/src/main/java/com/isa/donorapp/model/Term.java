@@ -26,6 +26,7 @@ public class Term {
 	
 	private LocalDateTime date;
 	private int duration;
+	private boolean deleted = false;
 	
 	@Transient
 	private User reservedBy;
@@ -66,5 +67,11 @@ public class Term {
 	}
 	public void setCenter(DonationCenter center) {
 		this.center = center;
+	}
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

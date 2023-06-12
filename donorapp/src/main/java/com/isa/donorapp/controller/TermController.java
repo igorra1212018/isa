@@ -1,9 +1,13 @@
 package com.isa.donorapp.controller;
 
 import java.security.Principal;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -121,7 +125,7 @@ public class TermController {
 			term.setCenter(center);
 			
 			if (!termService.checkIfOverlapExists(term)) {
-				termService.addTerm(term);
+				termService.save(term);
 				return new ResponseEntity<>("Term successfully added!", HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>("Failed to add term (overlap detected)!", HttpStatus.BAD_REQUEST);
@@ -132,6 +136,37 @@ public class TermController {
 			return new ResponseEntity<>("Failed to add term!", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+	}
+	
+	@PostMapping("/center/makeAppointment")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<String> makeAppointment(@RequestBody TermAddDTO termDTO) {
+		try {
+			TemporalAccessor ta = DateTimeFormatter.ISO_INSTANT.parse(termDTO.getDate());
+		    Instant i = Instant.from(ta);
+		    Date d = Date.from(i);
+		    LocalDateTime date = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+			Term term = new Term(date, termDTO.getDuration());
+			term.setCenter(donationCenterService.findById(termDTO.getCenterId()));
+			
+			if (!userService.checkUserRequirements())
+				return new ResponseEntity<>("Failed to make appointment (user doesn't meet requirements)!", HttpStatus.BAD_REQUEST);
+			
+			if (!termService.checkIfOverlapExists(term)) {
+				termService.save(term);
+				reservationService.reserveTerm(term.getId(), getCurrentUser().getId());
+				return new ResponseEntity<>("Appointment made successfully!", HttpStatus.OK);
+			} else {
+				Term newTerm = termService.handleOverlapingTerms(term);
+				reservationService.reserveTerm(newTerm.getId(), getCurrentUser().getId());
+				return new ResponseEntity<>("Appointment made successfully!", HttpStatus.OK);
+			}
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Failed to make appointment!", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@GetMapping("/qr-codes")

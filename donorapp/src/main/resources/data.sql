@@ -4,6 +4,14 @@ INSERT INTO public.role(id, name) VALUES (1,'ADMINISTRATOR');
 INSERT INTO public.role(id, name) VALUES (2,'STAFF');
 
 
+--Donation centers
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
+VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
+
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
+VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
+
+
 --Users
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
@@ -43,21 +51,14 @@ VALUES (100, true, 'sasa.lukic@test.com', 'Saša', 'Lukić', null, null, null, n
 --Admin role
 INSERT INTO public.user_roles(user_id, role_id) VALUES (100, 1);
 
---Donation centers
-INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
-VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
-
-INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, description, name)
-VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
-
 
 --Terms
-INSERT INTO public.term(id, date, duration, center_id) VALUES (0, '2023/06/18 8:30', 25, 0);
-INSERT INTO public.term(id, date, duration, center_id) VALUES (1, '2023/06/18 9:30', 30, 0);
-INSERT INTO public.term(id, date, duration, center_id) VALUES (2, '2023/06/18 19:00', 20, 0);
-INSERT INTO public.term(id, date, duration, center_id) VALUES (3, '2023/06/18 9:30', 30, 1);
-INSERT INTO public.term(id, date, duration, center_id) VALUES (4, '2023/06/18 9:30', 30, 1);
-INSERT INTO public.term(id, date, duration, center_id) VALUES (5, '2023/06/18 19:00', 20, 1);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (0, '2023/06/18 8:30', 25, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (1, '2023/06/18 9:30', 30, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (2, '2023/06/18 19:00', 20, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (3, '2023/06/18 9:30', 30, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (4, '2023/06/18 9:30', 30, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (5, '2023/06/18 19:00', 20, 1, false);
 
 
 --Blood
