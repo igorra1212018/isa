@@ -57,6 +57,7 @@
                             </div>
                         </div>
                         <button (click)="sendCoordinates()" [disabled]="!contentIsValid()" class="btn btn-blue btn-rounded" style="width: 100%;">Send</button>
+                        <p>{{displayMessage}}</p>
                     </form>
                     <div id="map" class="map"></div>
                 </div>

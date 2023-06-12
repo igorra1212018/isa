@@ -35,6 +35,8 @@ export class StaffDeliveryTrackingComponent implements OnInit {
   endLat: string = '45.25232';
   endLong: string = '19.82115';
 
+  displayMessage = '';
+
   // Create a point feature
   point = new Feature({
     geometry: new Point([19.83517, 45.24365]) // Set the coordinates of the point
@@ -135,6 +137,7 @@ export class StaffDeliveryTrackingComponent implements OnInit {
 
   sendCoordinates(): void {
     let coordinates = new DeliveryCoordinates(Number(this.startLat), Number(this.startLong), Number(this.endLat), Number(this.endLong));
+    this.displayMessage = "Sent";
     this._deliveryTrackingService.startDelivery(coordinates).subscribe(
       (response) => {
           //this.registrationCompleted = true;
@@ -143,7 +146,9 @@ export class StaffDeliveryTrackingComponent implements OnInit {
       (error) => {
           //this.responseMessage = error.error;
           console.log(error.error);
+          this.displayMessage = "Failed";
       });
+    
   }
 
   isNumber(value?: string | number): boolean {
