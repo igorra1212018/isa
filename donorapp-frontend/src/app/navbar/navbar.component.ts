@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event, RouterEvent, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,8 +11,18 @@ export class NavbarComponent implements OnInit {
   
   public role: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    router.events.pipe(
+      filter((e: Event): e is RouterEvent => e instanceof RouterEvent)
+    ).subscribe((e: RouterEvent) => {
+      this.setRole();
+    });
+  }
   ngOnInit(): void {
+    this.setRole();
+  }
+
+  setRole(): void {
     this.role = localStorage.getItem('Role');
     console.log(this.role);
 
@@ -27,7 +38,6 @@ export class NavbarComponent implements OnInit {
     else {
       this.role = " ";
     }
-
   }
 
   signout(){
