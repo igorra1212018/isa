@@ -71,6 +71,11 @@ public class DonationCenterComplaintService {
 		return donationCenterComplaintRepository.save(complaint);
 	}
 	
+	public DonationCenterComplaint reply(DonationCenterComplaint newComplaint)
+	{
+		return save(newComplaint);
+	}
+	
     
 	public DonationCenterComplaint save(DonationCenterComplaint donationCenterComplaint)
 	{

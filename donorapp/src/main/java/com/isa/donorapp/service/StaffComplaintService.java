@@ -71,6 +71,11 @@ public class StaffComplaintService {
 		return staffComplaintRepository.save(complaint);
 	}
 	
+	public StaffComplaint reply(StaffComplaint staffComplaint)
+	{
+		return save(staffComplaint);
+	}
+	
     
 	public StaffComplaint save(StaffComplaint staffComplaint)
 	{

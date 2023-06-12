@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.isa.donorapp.dto.ComplaintReplyDTO;
 import com.isa.donorapp.dto.StaffComplaintCreateDTO;
 import com.isa.donorapp.dto.StaffComplaintDTO;
+import com.isa.donorapp.model.DonationCenterComplaint;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.StaffComplaint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -106,6 +109,19 @@ public class StaffComplaintController {
 		catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@PutMapping("/reply")
+	@Secured("ROLE_ADMINISTRATOR")
+	public ResponseEntity<String> reply(@RequestBody ComplaintReplyDTO replyDTO) {
+		StaffComplaint complaint = staffComplaintService.findById(replyDTO.getId());
+		if (complaint == null) {
+			return new ResponseEntity<>("Complaint not found.", HttpStatus.NOT_FOUND);
+		}
+		complaint.setReply(replyDTO.getReply());
+		staffComplaintService.reply(complaint);
+		
+		return new ResponseEntity<>("Reply successful.", HttpStatus.OK);
 	}
 	
 	private boolean canFileComplaint(Integer centerId) {

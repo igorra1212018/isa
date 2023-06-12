@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.isa.donorapp.dto.ComplaintReplyDTO;
 import com.isa.donorapp.dto.DonationCenterComplaintCreateDTO;
 import com.isa.donorapp.dto.DonationCenterComplaintDTO;
 import com.isa.donorapp.dto.StaffDTO;
@@ -23,6 +24,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -160,16 +162,20 @@ public class DonationCenterComplaintController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	/*
-	@PutMapping("/update")
-	public ResponseEntity<DonationCenterComplaint> updateDonationCenterComplaint(@RequestBody DonationCenterComplaintDTO newData){
-		User user = getCurrentUser();
-		DonationCenterComplaint newCenter = new DonationCenterComplaint(newData);
-		donationCenterComplaintService.update(newCenter, user.getDonationCenterComplaint().getId());
+	
+	
+	@PutMapping("/reply")
+	@Secured("ROLE_ADMINISTRATOR")
+	public ResponseEntity<String> reply(@RequestBody ComplaintReplyDTO replyDTO) {
+		DonationCenterComplaint complaint = donationCenterComplaintService.findById(replyDTO.getId());
+		if (complaint == null) {
+			return new ResponseEntity<>("Complaint not found.", HttpStatus.NOT_FOUND);
+		}
+		complaint.setReply(replyDTO.getReply());
+		donationCenterComplaintService.reply(complaint);
 		
-		return new ResponseEntity<>(newCenter, HttpStatus.OK);
+		return new ResponseEntity<>("Reply successful.", HttpStatus.OK);
 	}
-	*/
 	
 	private boolean canFileComplaint(Integer centerId) {
 		User currentUser = getCurrentUser();
