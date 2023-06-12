@@ -93,7 +93,13 @@ public class StaffController {
         return new ResponseEntity<>(processesReservations, HttpStatus.OK);
     } 
 
-
+	@GetMapping("/work_calendar/{parse}")
+	public ResponseEntity<List<ProcessesReservationDTO>> getNewReservations(@PathVariable("parse") String parse) 
+	{
+		User currentUser = getCurrentUser();
+        List<ProcessesReservationDTO> processesReservations = staffService.getNewReservations(parse, currentUser.getDonationCenter().getId());
+        return new ResponseEntity<>(processesReservations, HttpStatus.OK);
+	}
 			
 	private User getCurrentUser() 
 	{

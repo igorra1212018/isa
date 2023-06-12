@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="card mt-5">
+      <div class="header gradient-blue">
+        <div class="row d-flex justify-content-center">
+            <h3 class="text-white mb-1 mt-1 font-weight-bold">Processed user reservations</h3>
+        </div>
+      </div>
+      <div class="card-body mx-4">
+        <div class="col-md-2">
+            <label for="sort">
+                <span>Choose time frame:</span>
+                <select name="sort" id="sort" [(ngModel)]="selectedSortOption" (ngModelChange)="timeFrame()">
+                  <option value="today">Today</option>
+                  <option value="week">Weekly</option>
+                  <option value="month">Monthly</option>
+                  <option value="year">Yearly</option>
+                </select>
+            </label>
+        </div>
+        <div class="row d-flex mt-2" style="border-bottom: 1px solid #9e9e9e;" *ngFor = "let a of processedUsers">
+          <div class="col-md-1">
+              <div class="row d-flex">
+                  <h5 class="font-weight-bold" style="margin-bottom: 0px !important;">
+                      {{a.date | date:'HH:mm'}}
+                  </h5>
+              </div>
+              <div class="row d-flex">
+                  <span class="font-weight-bold header-text">
+                      {{a.date | date:'dd/MM/yyyy'}}
+                  </span>
+              </div>
+          </div>
+          <div class="col-md-2">
+              <h5 class="font-weight-bold">
+              {{a.duration}} minutes
+              </h5>
+          </div>
+          <div class="col-md-4">
+              <h5 class="font-weight-bold">
+              {{a.user.firstName}}
+              </h5>
+          </div>
+          <div class="col-md-5">
+              <h5 class="font-weight-bold">
+              {{a.user.lastName}}
+              </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

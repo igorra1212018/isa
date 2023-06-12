@@ -1,5 +1,6 @@
 package com.isa.donorapp.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.repository.RoleRepository;
 import com.isa.donorapp.repository.UserRepository;
+
+import ch.qos.logback.core.util.ContentTypeUtil;
 
 @Service
 public class StaffService {
@@ -106,6 +109,40 @@ public class StaffService {
         return dto;
     }
 
+	public List<ProcessesReservationDTO> getNewReservations(String parse, Integer centerId)
+	{
+		List<ProcessesReservationDTO> dto = new ArrayList<>();
+		 List<User> allUsers = userRepository.findAll();
+	        for(User u: allUsers) {
+	            List<Reservation> allReservations = reservationService.findByUserId(u.getId());
+	            for(Reservation r: allReservations) {
+	            	if(r.getStatus() == EReservationStatus.NEW && r.isCanceled() == false) {
+	            		if(parse.equals("week")) {
+	            			if(r.getTerm().getDate().toLocalDate().isAfter(LocalDate.now().minusDays(1)) && r.getTerm().getDate().toLocalDate().isBefore(LocalDate.of(2023, 06, 18)))
+		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            		}
+	            		else if(parse.equals("month")){
+	            			if(r.getTerm().getDate().toLocalDate().isAfter(LocalDate.now().minusDays(1)) && r.getTerm().getDate().toLocalDate().isBefore(LocalDate.of(2023, 06, 30)))
+		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            		}
+	            		else if(parse.equals("year")) {
+	            			if(r.getTerm().getDate().toLocalDate().isAfter(LocalDate.now().minusDays(1)) && r.getTerm().getDate().toLocalDate().isBefore(LocalDate.of(2023, 12, 31)))
+		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            		}
+	            		else {
+	            			if(r.getTerm().getDate().toLocalDate().isEqual(LocalDate.now()))
+		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            		}
+	            			
+	            	}
+	            	else
+	            	{
+	            		continue;
+	            	}
+	            }
+	        }
+		return dto;
+	}
 	
 	public List<User> findStaffFromCenter(int Center_id)
 	{

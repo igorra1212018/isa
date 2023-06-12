@@ -43,6 +43,7 @@ import { MatSortModule} from '@angular/material/sort';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
+import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,9 @@ import {MatIconModule} from '@angular/material/icon';
     AdminNonrepliedComplaintsComponent,
     StaffDefineTermComponent,
     StaffProcessedReservationsComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    StaffWorkCalendarComponent,
+    StaffWorkCalendarComponent
   ],
   imports: [
     BrowserModule,

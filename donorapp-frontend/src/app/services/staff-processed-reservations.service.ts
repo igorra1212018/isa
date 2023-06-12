@@ -17,5 +17,9 @@ export class StaffProcessedReservationsService {
   getProcessedUsers() : Observable<ProcessedUser[]> {
     return this.http.get<ProcessedUser[]>(this._url + "processed_users", this.httpOptions);
   }
+
+  getNewReservations(parse: string) : Observable<ProcessedUser[]> {
+    return this.http.get<ProcessedUser[]>(this._url + "work_calendar/" + parse, this.httpOptions);
+  }
 }
 
