@@ -15,11 +15,13 @@ import { Point } from 'ol/geom';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Style, Fill, Circle } from 'ol/style';
+import { DeliveryTrackingService } from '../services/delivery-tracking.service';
+import { DeliveryCoordinates } from '../delivery-coordinates';
 
 @Component({
   selector: 'app-staff-delivery-tracking',
   templateUrl: './staff-delivery-tracking.component.html',
-  styleUrls: ['./staff-delivery-tracking.component.css']
+  styleUrls: ['../shared-style.css', './staff-delivery-tracking.component.css']
 })
 export class StaffDeliveryTrackingComponent implements OnInit {
   map: Map | null = null;
@@ -27,6 +29,11 @@ export class StaffDeliveryTrackingComponent implements OnInit {
   displayValue: any;
   latitude!: number;
   longitude!: number;
+
+  startLat: string = '45.24365';
+  startLong: string = '19.83517';
+  endLat: string = '45.25232';
+  endLong: string = '19.82115';
 
   // Create a point feature
   point = new Feature({
@@ -40,7 +47,7 @@ export class StaffDeliveryTrackingComponent implements OnInit {
     );
 
   constructor(private websocketService: WebSocketShareService, private webSocketAPI: SocketService,
-              private breakpointObserver: BreakpointObserver, private router: Router) {
+              private breakpointObserver: BreakpointObserver, private router: Router, private _deliveryTrackingService: DeliveryTrackingService) {
   }
 
 
@@ -124,6 +131,37 @@ export class StaffDeliveryTrackingComponent implements OnInit {
         console.log(this.map?.getView().getCenter());
       }
     });
+  }
+
+  sendCoordinates(): void {
+    let coordinates = new DeliveryCoordinates(Number(this.startLat), Number(this.startLong), Number(this.endLat), Number(this.endLong));
+    this._deliveryTrackingService.startDelivery(coordinates).subscribe(
+      (response) => {
+          //this.registrationCompleted = true;
+          console.log(response);
+      },
+      (error) => {
+          //this.responseMessage = error.error;
+          console.log(error.error);
+      });
+  }
+
+  isNumber(value?: string | number): boolean {
+    return ((value != null) &&
+            (value !== '') &&
+            !isNaN(Number(value.toString())));
+  }
+
+  contentIsValid(): boolean {
+    if (!this.isNumber(this.startLat))
+      return false;
+    if (!this.isNumber(this.startLong))
+      return false;
+    if (!this.isNumber(this.endLat))
+      return false;
+    if (!this.isNumber(this.endLong))
+      return false;
+    return true;
   }
 
 }
