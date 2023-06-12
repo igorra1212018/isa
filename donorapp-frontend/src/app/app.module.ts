@@ -38,11 +38,13 @@ import { AdminRepliedComplaintsComponent } from './admin-replied-complaints/admi
 import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaints/admin-nonreplied-complaints.component';
 import { StaffDefineTermComponent } from './staff-define-term/staff-define-term.component';
 import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
-import { MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 
 import { StarRatingComponent } from './star-rating/star-rating.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { WebSocketShareService } from "./services/web-socket-share.service";
+import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,8 @@ import {MatIconModule} from '@angular/material/icon';
     AdminNonrepliedComplaintsComponent,
     StaffDefineTermComponent,
     StaffProcessedReservationsComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    StaffDeliveryTrackingComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatSelectModule,
     MatSortModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [
     AuthGuard,
@@ -96,7 +100,8 @@ import {MatIconModule} from '@angular/material/icon';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    WebSocketShareService
   ],
   bootstrap: [AppComponent]
 })

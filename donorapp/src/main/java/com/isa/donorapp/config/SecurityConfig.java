@@ -63,6 +63,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
 			.antMatchers("/api/test/**").permitAll()
 			.anyRequest().authenticated();*/
+		
+		/*http.authorizeRequests()
+	        .antMatchers("/ws/**").authenticated()//.hasRole("STAFF")
+	        .anyRequest().permitAll()
+	        .and()
+	        .csrf().disable();*/
+		
 		http.cors().and().csrf().disable()
 		 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 		 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

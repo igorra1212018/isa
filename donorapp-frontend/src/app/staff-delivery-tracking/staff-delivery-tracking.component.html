@@ -1,0 +1,67 @@
+<style>
+.map {
+    width: 100%;
+    height: 400px;
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.checked {
+  color: #4facfe;
+}
+</style>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <!--Header-->
+                <div class="header gradient-blue">
+                    <div class="row d-flex justify-content-center">
+                        <h3 class="text-white mb-1 mt-1 font-weight-bold">Delivery Tracking</h3>
+                    </div>
+                </div>
+        
+                <div style="padding: 5%; margin: auto;">
+                    <form>
+                        <div class="row d-flex mt-4">
+                            <span>Start:</span>
+                            <div class="col-md-5">
+                                <label>
+                                    <input type="text" name="start-lat" [(ngModel)]="startLat" required="required">
+                                    <span class="keep_hovered">Latitude</span>
+                                </label>
+                            </div>
+                            <div class="col-md-54">
+                                <label>
+                                    <input type="text" name="start-long" [(ngModel)]="startLong" required="required">
+                                    <span class="keep_hovered">Longitude</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-4">
+                            <span>End:</span>
+                            <div class="col-md-5">
+                                <label>
+                                    <input type="text" name="end-lat" [(ngModel)]="endLat" required="required">
+                                    <span class="keep_hovered">Latitude</span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <label>
+                                    <input type="text" name="end-long" [(ngModel)]="endLong" required="required">
+                                    <span class="keep_hovered">Longitude</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button (click)="sendCoordinates()" [disabled]="!contentIsValid()" class="btn btn-blue btn-rounded" style="width: 100%;">Send</button>
+                    </form>
+                    <div id="map" class="map"></div>
+                </div>
+            </div>
+        </div>
+    <!--<p>{{displayValue}}</p>-->
+</div>
+

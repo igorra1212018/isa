@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.isa.donorapp.dto.AppointmentDTO;
 import com.isa.donorapp.dto.CenterFileComplaintDTO;
+import com.isa.donorapp.dto.DeliveryCoordinatesDTO;
 import com.isa.donorapp.dto.DonationCenterDTO;
 import com.isa.donorapp.dto.DonationCenterScoreDTO;
 import com.isa.donorapp.dto.StaffDTO;
@@ -20,8 +21,14 @@ import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.DonationCenterScore;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.model.enums.EReservationStatus;
@@ -147,6 +155,29 @@ public class DonationCenterController {
 		
 		return new ResponseEntity<>(
 			      "Registration successful!",
+			      HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/start_delivery")
+	@Secured({"ROLE_STAFF", "ROLE_ADMINISTRATOR"})
+	public ResponseEntity<String> startDelivery(@RequestBody DeliveryCoordinatesDTO coordinatesDTO, HttpServletRequest request){
+		String locationSimulatorUrl = "http://localhost:5000/endpoint";
+
+	    RestTemplate restTemplate = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    JSONObject coordJsonObject = new JSONObject();
+	    coordJsonObject.put("start_latitude", coordinatesDTO.getStartLat());
+	    coordJsonObject.put("start_longitude", coordinatesDTO.getStartLong());
+	    coordJsonObject.put("end_latitude", coordinatesDTO.getEndLat());
+	    coordJsonObject.put("end_longitude", coordinatesDTO.getEndLong());
+	    
+	    HttpEntity<String> requestEntity = new HttpEntity<>(coordJsonObject.toString(), headers);
+	    ResponseEntity<String> responseEntity = restTemplate.exchange(locationSimulatorUrl, HttpMethod.POST, requestEntity, String.class);
+
+		return new ResponseEntity<>(
+			      "Sent",
 			      HttpStatus.OK);
 	}
 	
