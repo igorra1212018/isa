@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaffProcessedReservationsService } from '../services/staff-processed-reservations.service';
+import { StaffReservationsService } from '../services/staff-reservations.service';
 import { ProcessedUser } from '../processedUsers';
 
 @Component({
@@ -11,7 +11,7 @@ export class StaffWorkCalendarComponent implements OnInit{
   public processedUsers = [] as ProcessedUser[];
   selectedSortOption = "today";
 
-  constructor(private _processedReservationsService: StaffProcessedReservationsService) { }
+  constructor(private _processedReservationsService: StaffReservationsService) { }
 
   ngOnInit(): void {
     this._processedReservationsService.getNewReservations(this.selectedSortOption).subscribe(data =>{
@@ -20,7 +20,14 @@ export class StaffWorkCalendarComponent implements OnInit{
         this.processedUsers.forEach(function (value) {
         value.date = new Date(value.date);
       });
+      this.sortReservations();
     })
+  }
+
+  sortReservations(){
+    this.processedUsers.sort((a, b) => {
+      return a.date.getTime() - b.date.getTime();
+    });
   }
 
   timeFrame(){
@@ -32,6 +39,7 @@ export class StaffWorkCalendarComponent implements OnInit{
           this.processedUsers.forEach(function (value) {
           value.date = new Date(value.date);
         });
+        this.sortReservations();
       })
       break;
     case 'month':
@@ -41,6 +49,7 @@ export class StaffWorkCalendarComponent implements OnInit{
           this.processedUsers.forEach(function (value) {
           value.date = new Date(value.date);
         });
+        this.sortReservations();
       })
       break;
     case 'year':
@@ -50,6 +59,7 @@ export class StaffWorkCalendarComponent implements OnInit{
           this.processedUsers.forEach(function (value) {
           value.date = new Date(value.date);
         });
+        this.sortReservations();
       })
       break;
     default:
@@ -59,9 +69,21 @@ export class StaffWorkCalendarComponent implements OnInit{
           this.processedUsers.forEach(function (value) {
           value.date = new Date(value.date);
         });
+        this.sortReservations();
       })
       break;
     }
   }
+
+  stoodUpAppointment(id: number){
+    console.log(id);
+    this._processedReservationsService.stoodUpAppointment(id).subscribe()
+  }
+
+  reqsNotMetAppointment(id: number){
+    this._processedReservationsService.reqsNotMetAppointment(id).subscribe()
+  }
+
+  startAppointment(id: number){}
 
 }

@@ -44,6 +44,9 @@ public class StaffController {
 		
 	@Autowired
 	DonationCenterService donationCenterService;
+	
+	@Autowired
+	ReservationService reservationService;
 		
 	@GetMapping("/profile")
 	public ResponseEntity<UserProfileDTO> getUserProfile() 
@@ -100,7 +103,27 @@ public class StaffController {
         List<ProcessesReservationDTO> processesReservations = staffService.getNewReservations(parse, currentUser.getDonationCenter().getId());
         return new ResponseEntity<>(processesReservations, HttpStatus.OK);
 	}
-			
+	
+	@PutMapping("/stood_up/{id}")
+	public ResponseEntity<String> stoodUpAppointment(@PathVariable Integer id) 
+	{
+		reservationService.stoodUpAppointment(id);
+
+		return new ResponseEntity<>(
+			      "Registration successful!",
+			      HttpStatus.OK);
+	}	
+	
+	@PutMapping("/rejected/{id}")
+	public ResponseEntity<String> reqsNotMetAppointment(@PathVariable Integer id) 
+	{
+		reservationService.reqsNotMetAppointment(id);
+
+		return new ResponseEntity<>(
+			      "Registration successful!",
+			      HttpStatus.OK);
+	}	
+				
 	private User getCurrentUser() 
 	{
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -88,6 +88,7 @@ public class StaffService {
 	
 	public List<ProcessesReservationDTO> getProcessedUsersForCenter(Integer centerId)
     {
+		int reservationId = 0;
         List<ProcessesReservationDTO> dto = new ArrayList<>();
         List<User> allUsers = userRepository.findAll();
         for(User u: allUsers) {
@@ -119,19 +120,19 @@ public class StaffService {
 	            	if(r.getStatus() == EReservationStatus.NEW && r.isCanceled() == false) {
 	            		if(parse.equals("week")) {
 	            			if(r.getTerm().getDate().toLocalDate().isAfter(LocalDate.now().minusDays(1)) && r.getTerm().getDate().toLocalDate().isBefore(LocalDate.of(2023, 06, 18)))
-		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+		            			dto.add(new ProcessesReservationDTO(r.getId(), u, r.getTerm()));
 	            		}
 	            		else if(parse.equals("month")){
 	            			if(r.getTerm().getDate().toLocalDate().isAfter(LocalDate.now().minusDays(1)) && r.getTerm().getDate().toLocalDate().isBefore(LocalDate.of(2023, 06, 30)))
-		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            				dto.add(new ProcessesReservationDTO(r.getId(), u, r.getTerm()));
 	            		}
 	            		else if(parse.equals("year")) {
 	            			if(r.getTerm().getDate().toLocalDate().isAfter(LocalDate.now().minusDays(1)) && r.getTerm().getDate().toLocalDate().isBefore(LocalDate.of(2023, 12, 31)))
-		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            				dto.add(new ProcessesReservationDTO(r.getId(), u, r.getTerm()));
 	            		}
 	            		else {
 	            			if(r.getTerm().getDate().toLocalDate().isEqual(LocalDate.now()))
-		            			dto.add(new ProcessesReservationDTO(u, r.getTerm()));
+	            				dto.add(new ProcessesReservationDTO(r.getId(), u, r.getTerm()));
 	            		}
 	            			
 	            	}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaffProcessedReservationsService } from '../services/staff-processed-reservations.service';
+import { StaffReservationsService } from '../services/staff-reservations.service';
 import { ProcessedUser } from '../processedUsers';
 
 @Component({
@@ -19,7 +19,7 @@ export class StaffProcessedReservationsComponent implements OnInit{
   dataSource: any;  
   displayedColumns: string[] = ['firstName', 'lastName', 'duration', 'date'];*/
 
-  constructor(private _processedReservationsService: StaffProcessedReservationsService) { }
+  constructor(private _processedReservationsService: StaffReservationsService) { }
 
   ngOnInit(): void {
     this._processedReservationsService.getProcessedUsers().subscribe(data =>{

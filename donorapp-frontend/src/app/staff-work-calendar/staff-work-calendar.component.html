@@ -2,7 +2,7 @@
     <div class="card mt-5">
       <div class="header gradient-blue">
         <div class="row d-flex justify-content-center">
-            <h3 class="text-white mb-1 mt-1 font-weight-bold">Processed user reservations</h3>
+            <h3 class="text-white mb-1 mt-1 font-weight-bold">Work calendar</h3>
         </div>
       </div>
       <div class="card-body mx-4">
@@ -35,15 +35,24 @@
               {{a.duration}} minutes
               </h5>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-1">
               <h5 class="font-weight-bold">
               {{a.user.firstName}}
               </h5>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-1">
               <h5 class="font-weight-bold">
               {{a.user.lastName}}
               </h5>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-blue btn-rounded" (click)="startAppointment(a.id)">Start</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-blue btn-rounded" (click)="stoodUpAppointment(a.id)">Stood up</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-blue btn-rounded" (click)="reqsNotMetAppointment(a.id)">DNMC</button>
           </div>
         </div>
       </div>

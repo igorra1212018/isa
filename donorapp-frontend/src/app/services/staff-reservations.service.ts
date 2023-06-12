@@ -6,7 +6,7 @@ import { ProcessedUser} from '../processedUsers';
 @Injectable({
   providedIn: 'root'
 })
-export class StaffProcessedReservationsService {
+export class StaffReservationsService {
   private _url: string = 'api/staff/';
     httpOptions = {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -20,6 +20,14 @@ export class StaffProcessedReservationsService {
 
   getNewReservations(parse: string) : Observable<ProcessedUser[]> {
     return this.http.get<ProcessedUser[]>(this._url + "work_calendar/" + parse, this.httpOptions);
+  }
+
+  stoodUpAppointment(id: number): Observable<any> {
+    return this.http.put(this._url + "stood_up/" + id, this.httpOptions);
+  }
+
+  reqsNotMetAppointment(id: number): Observable<any> {
+    return this.http.put(this._url + "rejected/" + id, this.httpOptions);
   }
 }
 
