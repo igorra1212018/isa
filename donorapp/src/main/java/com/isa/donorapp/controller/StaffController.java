@@ -105,6 +105,7 @@ public class StaffController {
     } 
 
 	@GetMapping("/work_calendar/{parse}")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<List<ProcessesReservationDTO>> getNewReservations(@PathVariable("parse") String parse) 
 	{
 		User currentUser = getCurrentUser();
@@ -113,6 +114,7 @@ public class StaffController {
 	}
 	
 	@PutMapping("/stood_up/{id}")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<String> stoodUpAppointment(@PathVariable Integer id) 
 	{
 		reservationService.stoodUpAppointment(id);
@@ -123,6 +125,7 @@ public class StaffController {
 	}	
 	
 	@PutMapping("/rejected/{id}")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<String> reqsNotMetAppointment(@PathVariable Integer id) 
 	{
 		reservationService.reqsNotMetAppointment(id);
@@ -133,6 +136,7 @@ public class StaffController {
 	}	
 	
 	@PostMapping("/startAppointment")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<String> startAppointment(@RequestBody StaffQuestionnaireDTO sqdto)
 	{
 		try {
@@ -161,6 +165,7 @@ public class StaffController {
 	}
 	
 	@GetMapping("/equipment")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<List<Equipment>> getEquipmentByCenterId() 
 	{
 		User user = getCurrentUser();
