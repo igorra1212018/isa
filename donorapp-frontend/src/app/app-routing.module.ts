@@ -27,6 +27,7 @@ import { AdminNonrepliedComplaintsComponent } from './admin-nonreplied-complaint
 import { StaffProcessedReservationsComponent } from './staff-processed-reservations/staff-processed-reservations.component';
 import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
 import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-appointment.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -53,7 +54,8 @@ const routes: Routes = [
   { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: "admin-register-staff", component: AdminRegisterStaffComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
   { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
-  { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
+  { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
+  { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff, Role.Admin] } },
 ];
 
 @NgModule({

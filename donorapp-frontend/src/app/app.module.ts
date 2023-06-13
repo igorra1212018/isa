@@ -46,6 +46,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { WebSocketShareService } from "./services/web-socket-share.service";
 import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
 import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-appointment.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-
     StaffProcessedReservationsComponent,
     StarRatingComponent,
     StaffDeliveryTrackingComponent,
-    UserMakeAppointmentComponent
+    UserMakeAppointmentComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
