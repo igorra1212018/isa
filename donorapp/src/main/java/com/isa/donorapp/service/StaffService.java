@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.constraints.Max;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.Equipment;
 import com.isa.donorapp.model.Location;
+import com.isa.donorapp.model.LoyaltyProgram;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.Staff;
@@ -58,6 +60,10 @@ public class StaffService {
 	ReservationService reservationService;
 	@Autowired
 	TermService termService;
+	@Autowired
+	LoyaltyProgramService loyaltyProgramService;
+	@Autowired
+	UserService userService;
 	@Autowired
 	private PasswordEncoder encoder;
 	
@@ -169,6 +175,7 @@ public class StaffService {
 		return staffs;
 	}
 
+	@Transactional
 	public void startAppointment(StaffQuestionnaire questionnaire, DonationCenter donationCenter, List<Equipment> equipment, Reservation reservation) {
 		System.out.println("ovde6.1");
 		for(Equipment e: equipment) {
@@ -199,6 +206,11 @@ public class StaffService {
 		reservation.setStatus(EReservationStatus.PROCESSED);
 		System.out.println("ovde8");
 		reservationRepository.save(reservation);
+		
+		User donator = reservation.getUser();
+		LoyaltyProgram lp = loyaltyProgramService.getLoyaltyProgram();
+		donator.setLoyaltyPoints(donator.getLoyaltyPoints() + lp.getPointsPerDonation());
+		userService.save(donator);
 	}
 
 	public List<Equipment> getEquipmentByCenterId(Integer centerId) {
