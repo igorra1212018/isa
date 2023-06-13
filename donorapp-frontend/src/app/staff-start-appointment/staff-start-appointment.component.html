@@ -16,7 +16,7 @@
                             <h5>Registracija i prijem davaoca</h5>
                             <div class="col-md-6">
                                 <label>
-                                    <input type="text" name="krvnaGrupa" [(ngModel)]="krvnaGrupa" required="required">
+                                    <input type="text" name="krvnaGrupa" [(ngModel)]="krvnaGrupa" required="required" pattern="[A-Z]{A, B, AB, O}">
                                     <span class="keep_hovered">Krvna grupa:</span>
                                 </label>
                             </div>
@@ -95,7 +95,7 @@
                             <div class="col-md-6">
                                 <label>
                                     <span class="keep_hovered">Prihvacen/Odbijen:</span>
-                                    <select [(ngModel)]="selectedValue" name="selectedValue">
+                                    <select [(ngModel)]="selectedValueRejected" name="selectedValueRejected">
                                         <option value="true">Odbijen</option>
                                         <option value="false">Prihvacen</option>                                        
                                     </select>
@@ -162,21 +162,25 @@
                         </div>
                         <div class="row d-flex mt-6">
                             <h5>Koriscena oprema</h5>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label>
-                                    <input type="text" name="nazivOpreme" [(ngModel)]="nazivOpreme" required="required">
-                                    <span class="keep_hovered">Oprema:</span>
+                                    <select [(ngModel)]="selectedValue" name="eq" required="required">
+                                        <option  *ngFor="let eq of centerEquipment" [value]="eq.id">
+                                            {{eq.name}}</option>
+                                    </select>
+                                    <span class="keep_hovered">Tip opreme:</span>
                                 </label>
                             </div>
                             <div class="col-md-6">
                                 <label>
-                                    <input type="text" name="kolicinaOpreme" [(ngModel)]="kolicinaOpreme" required="required">
+                                    <input type="text" name="kolicinaOpreme" [(ngModel)]="kolicinaOpreme" required="required" pattern="[0-9]">
                                     <span class="keep_hovered">Kolicina opreme:</span>
                                 </label>
                             </div>
                             <div class="col-md-6">
-                                <button (click)="add()">Dodaj opremu</button>
+                                <button type="button" (click)="add()">Dodaj opremu</button>
                             </div>
+                            <p>Potrosena oprema: {{this.viewValue}}</p>
                         </div>
                         <div class="row d-flex">
                             <div class="col-md-6"></div>

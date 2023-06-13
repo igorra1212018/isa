@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.constraints.Max;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -168,14 +170,20 @@ public class StaffService {
 	}
 
 	public void startAppointment(StaffQuestionnaire questionnaire, DonationCenter donationCenter, List<Equipment> equipment, Reservation reservation) {
+		System.out.println("ovde6.1");
 		for(Equipment e: equipment) {
-			equipmentRepository.save(e);
+			Equipment newEquipment = equipmentRepository.findById(e.getId()).get();
+			newEquipment.setQuantity(Math.max(0,(newEquipment.getQuantity() - e.getQuantity())));
+			System.out.println("ovde6");
+			equipmentRepository.save(newEquipment);
 		}
-		
+			
+		System.out.println("ovde6.5");
 		staffQuestionnaireRepository.save(questionnaire);
-		
+		System.out.println("ovde6.6");
 		if(questionnaire.getKrvnaGrupa() == EBloodType.A) {
 			donationCenter.setBlood_A(donationCenter.getBlood_A() + questionnaire.getKolicinaUzeteKrvi());
+			System.out.println("ovde7");
 			donationCenterRepository.save(donationCenter);
 		}else if(questionnaire.getKrvnaGrupa() == EBloodType.AB) {
 			donationCenter.setBlood_AB(donationCenter.getBlood_AB() + questionnaire.getKolicinaUzeteKrvi());
@@ -189,7 +197,13 @@ public class StaffService {
 		}
 		
 		reservation.setStatus(EReservationStatus.PROCESSED);
+		System.out.println("ovde8");
 		reservationRepository.save(reservation);
+	}
+
+	public List<Equipment> getEquipmentByCenterId(Integer centerId) {
+		List<Equipment> equipment = equipmentRepository.findByDonationCenterId(centerId);
+		return equipment;
 	}
 		
 }

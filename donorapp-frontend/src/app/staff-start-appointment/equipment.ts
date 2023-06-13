@@ -1,8 +1,10 @@
 export class Equipment {
-    name: String = "";
+    id: number = 0;
+    name: string;
     quantity: number = 0;
 
-    constructor(quantity: number, name: String) {
+    constructor(id: number,quantity: number, name: string) {
+        this.id = id;
         this.quantity = quantity;
         this.name = name;
     }  

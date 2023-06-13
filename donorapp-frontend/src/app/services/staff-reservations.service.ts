@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProcessedUser} from '../processedUsers';
 import { StaffQuestionnaireDTO } from '../staff-start-appointment/StaffQuestionnaireDTO';
+import { Equipment } from '../staff-start-appointment/equipment';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,13 @@ export class StaffReservationsService {
   reqsNotMetAppointment(id: number): Observable<any> {
     return this.http.put(this._url + "rejected/" + id, this.httpOptions);
   }
+
   startAppointment(newData: StaffQuestionnaireDTO): Observable<any>{
     return this.http.post<any>(this._url + "startAppointment", JSON.stringify(newData), this.httpOptions);
   }
+  getEquipmentFromCenter() : Observable<Equipment[]> {
+    return this.http.get<Equipment[]>(this._url + "equipment", this.httpOptions);
+  }
+
 }
 

@@ -130,16 +130,42 @@ public class StaffController {
 	@PostMapping("/startAppointment")
 	public ResponseEntity<String> startAppointment(@RequestBody StaffQuestionnaireDTO sqdto)
 	{
+		try {
+			System.out.println("ovde1");
+			User user = getCurrentUser();
+			DonationCenter donationCenter = donationCenterService.findById(user.getDonationCenter().getId());
+			System.out.println("ovde2");
+			StaffQuestionnaire questionnaire = new StaffQuestionnaire(sqdto);
+			System.out.println("ovde3");
+			Reservation reservation = reservationService.findById(sqdto.getReservationId());
+			System.out.println("ovde4");
+			List<Equipment> equipment = sqdto.getEquipment();
+			System.out.println("ovde5");
+			staffService.startAppointment(questionnaire, donationCenter, equipment, reservation);
+			
+			return new ResponseEntity<>(
+				      "Equipment recorded",
+				      HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(
+				      "Not successful",
+				      HttpStatus.BAD_REQUEST);
+		}
+	
+	}
+	
+	@GetMapping("/equipment")
+	public ResponseEntity<List<Equipment>> getEquipmentByCenterId() 
+	{
 		User user = getCurrentUser();
-		DonationCenter donationCenter = donationCenterService.findById(user.getDonationCenter().getId());
-		StaffQuestionnaire questionnaire = new StaffQuestionnaire(sqdto);
-		Reservation reservation = reservationService.findById(sqdto.getReservationId());
-		List<Equipment> equipment = sqdto.getEquipment();
-		staffService.startAppointment(questionnaire, donationCenter, equipment, reservation);
-		
-		return new ResponseEntity<>(
-			      "Equipment recorded",
-			      HttpStatus.OK);
+		List<Equipment> equipment = staffService.getEquipmentByCenterId(user.getDonationCenter().getId());
+		if (equipment.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		else {
+			return new ResponseEntity<>(equipment, HttpStatus.OK);
+		}
 	}
 				
 	private User getCurrentUser() 

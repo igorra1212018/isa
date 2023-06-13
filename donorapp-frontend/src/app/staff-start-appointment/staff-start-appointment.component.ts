@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StaffReservationsService } from '../services/staff-reservations.service';
 import { Equipment } from './equipment';
 import { StaffQuestionnaireDTO } from './StaffQuestionnaireDTO';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-staff-start-appointment',
@@ -30,25 +31,65 @@ export class StaffStartAppointmentComponent implements OnInit {
 	pocetakDavanja: any;
 	zavrsetakDavanja: any;
 	razlogPrekida: string = "";	
-  selectedValue: any;
+  selectedValueRejected: any;
   nazivOpreme: string = "";
   kolicinaOpreme: number = 0;
 
+
   responseMessage: string = '';
+  centerEquipment = [] as Equipment[];
   usedEquipment = [] as Equipment[];
   reservationId: number = 0;
-
+  viewValue: string = "";
+  selectedValue: any;
+  equipmentName: string = "";
   
-  constructor(private route: ActivatedRoute, private router: Router, private _processedReservationsService: StaffReservationsService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private _processedReservationsService: StaffReservationsService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.reservationId = Number(this.route.snapshot.paramMap.get('id'));
+    this.initEquipment();
+  }
+
+  initEquipment() {
+    this._processedReservationsService.getEquipmentFromCenter().subscribe(data =>{
+      this.centerEquipment = data;
+      console.log(data);
+   });
   }
 
   add() {
-    let equipment = new Equipment(this.kolicinaOpreme, this.nazivOpreme);
-    this.usedEquipment.push(equipment);
-    console.log(this.usedEquipment);
+         this.centerEquipment.forEach(element => {
+        if(element.id == this.selectedValue){
+        this.equipmentName = element.name
+        }
+      });
+      if(this.equipmentName != ""){
+      let equipment = new Equipment(this.selectedValue, this.kolicinaOpreme, this.equipmentName);
+      console.log(equipment);
+      console.log(this.usedEquipment);
+      if(this.usedEquipment.length == 0){ 
+        this.usedEquipment.push(equipment);
+        console.log(this.usedEquipment);
+        this.viewValue = this.viewValue.concat(this.equipmentName + "-" + this.kolicinaOpreme + ", ");
+      }else {
+      this.usedEquipment.forEach(element => {      
+        if(element.id == this.selectedValue){ 
+          this.snackBar.open('Ta oprema je vec dodata', '', {
+            duration: 2000
+          });}
+          else{
+            this.usedEquipment.push(equipment);
+            console.log(this.usedEquipment);
+            this.viewValue = this.viewValue.concat(this.equipmentName + "-" + this.kolicinaOpreme + ", ");
+          }
+        });    
+      }
+    }else{
+      this.snackBar.open('Niste izabrali opremu', '', {
+        duration: 2000
+      });
+    }
   }
 
   saveAppointment() {
@@ -64,7 +105,7 @@ export class StaffStartAppointmentComponent implements OnInit {
     staffQuestionnaireDTO.gornjiPritisak = this.gornjiPritisak;
     staffQuestionnaireDTO.donjiPritisak = this.donjiPritisak;
     staffQuestionnaireDTO.trombinskoVreme = this.trombinskoVreme;
-    staffQuestionnaireDTO.odbijen = this.selectedValue;
+    staffQuestionnaireDTO.odbijen = this.selectedValueRejected;
     staffQuestionnaireDTO.razlogOdbijanja = this.razlogOdbijanja;
     staffQuestionnaireDTO.tipKese = this.tipKese;
     staffQuestionnaireDTO.brojLotaKese = this.brojLotaKese;
