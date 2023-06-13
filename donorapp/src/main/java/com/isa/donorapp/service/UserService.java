@@ -94,9 +94,4 @@ public class UserService {
 		
 		return user;
 	}
-
-	public boolean checkUserRequirements() {
-		
-		return true;
-	}
 }

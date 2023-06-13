@@ -42,7 +42,7 @@ public class TermService {
 	public Term findById(Integer id)
 	{
 		Optional<Term> foundTerm = termRepository.findById(id);
-		if(foundTerm.isEmpty())
+		if(foundTerm.isEmpty() || foundTerm.get().isDeleted())
 			return null;
 		else
 			return foundTerm.get();
@@ -92,7 +92,7 @@ public class TermService {
 		List<Term> terms = termRepository.findByCenterId(centerId);
 		List<Term> freeTerms = new ArrayList<Term>();
 		for (Term t : terms) {
-			if(t.getDate().isAfter(LocalDateTime.now())) {
+			if(!t.isDeleted() && t.getDate().isAfter(LocalDateTime.now())) {
 				List<Reservation> termReservations = reservationRepository.findByTermId(t.getId());
 				boolean found = false;
 				for (Reservation r : termReservations) {
@@ -113,7 +113,7 @@ public class TermService {
 		List<TermDTO> result = new ArrayList<TermDTO>();
 		
 		for (Term t : terms) {
-			if (t.getDate().toLocalDate().equals(date.toLocalDate()))
+			if (!t.isDeleted() && t.getDate().toLocalDate().equals(date.toLocalDate()))
 				result.add(new TermDTO(t.getDate(), t.getDuration(), t.getCenter().getId()));
 		}
 		

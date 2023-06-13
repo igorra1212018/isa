@@ -185,3 +185,5 @@ INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (36,false
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (37,true,'Da li ste u drugom stanju?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (38,true,'Da li trenutno imate menstruaciju?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (39,true,'Da li ste u poslednjih 6 meseci imali porođaj ili prekid trudnoće?');
+INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (40,false,'Da li imate manje od 50kg?');
+INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (41,false,'Da li imate suviše visok ili suviše nizak pritisak?');

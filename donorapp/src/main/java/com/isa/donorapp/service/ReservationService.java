@@ -9,17 +9,23 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.google.zxing.EncodeHintType;
+import com.isa.donorapp.dto.AnswerUserDTO;
 import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.event.OnReservationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
+import com.isa.donorapp.model.Questionnaire;
+import com.isa.donorapp.model.QuestionnaireAnswer;
+import com.isa.donorapp.model.QuestionnaireQuestion;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Term;
 import com.isa.donorapp.model.User;
+import com.isa.donorapp.model.enums.EGender;
 import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.repository.UserRepository;
 
@@ -38,6 +44,8 @@ public class ReservationService {
 	private UserService userService;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private QuestionnaireService questionnaireService;
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
 	
@@ -126,7 +134,12 @@ public class ReservationService {
 		reservationInfo += "Address: " + center.getAddress().getAddress() + ", " + center.getAddress().getCity() + "\n";
 		LocalDateTime date = term.getDate();
 		reservationInfo += "Date: " + date.getDayOfMonth() + "." + date.getMonthValue() + "." + date.getYear() + ".\n";
-		reservationInfo += "Time: " + date.getHour() + ":" + date.getMinute() + "\n";
+		String minutes = "";
+		if (date.getMinute() < 10)
+			minutes = "0" + date.getMinute();
+		else
+			minutes += date.getMinute();
+		reservationInfo += "Time: " + date.getHour() + ":" + minutes + "\n";
 		reservationInfo += "Duration: " + term.getDuration() + " minutes"; 
 		return reservationInfo;
 	}
@@ -175,5 +188,64 @@ public class ReservationService {
 		}
 		System.out.println(check);
 		return check;
+	}
+	
+	private boolean checkImportantAnswers(QuestionnaireAnswer answer) {
+		if (answer.getQuestion().getId() == 22 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 40 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 3 && !answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 18 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 41 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 6 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 7 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 8 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 11 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 38 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 10 && answer.isAnswer())
+			return false;
+		if (answer.getQuestion().getId() == 20 && answer.isAnswer())
+			return false;
+		
+		return true;
+	}
+	
+
+	public boolean checkUserRequirements(User currentUser) {
+		Questionnaire questionnaire = questionnaireService.findByUserId(currentUser.getId());
+		if (questionnaire == null)
+			return false;
+		List<Reservation> reservations = findByUserId(currentUser.getId());
+		for (Reservation r : reservations) {
+			if (r.getStatus() == EReservationStatus.PROCESSED && r.getTerm().getDate().isAfter(LocalDateTime.now().minusMonths(6)))
+				return false;
+		}
+		List<QuestionnaireQuestion> questions = questionnaireService.findQuestionsAll();
+		for (QuestionnaireQuestion q : questions) {
+			if (currentUser.getGender() == EGender.FEMALE || !q.isWomanOnly()) {
+				boolean found = false;
+				for (QuestionnaireAnswer a : questionnaire.getAnswers()) {
+					if (a.getQuestion().getId() == q.getId()) {
+						if (!checkImportantAnswers(a))
+							return false;
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
