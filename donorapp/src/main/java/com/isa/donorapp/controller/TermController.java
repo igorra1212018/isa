@@ -153,6 +153,8 @@ public class TermController {
 			User currentUser = getCurrentUser();
 			if (!reservationService.checkUserRequirements(currentUser))
 				return new ResponseEntity<>("Failed to make appointment (user doesn't meet requirements)!", HttpStatus.BAD_REQUEST);
+			if (currentUser.getPenaltyCount() >= 3)
+				return new ResponseEntity<>("Failed to make appointment. You have 3 penalties.", HttpStatus.FORBIDDEN);
 			
 			if (!termService.checkIfOverlapExists(term)) {
 				termService.save(term);
