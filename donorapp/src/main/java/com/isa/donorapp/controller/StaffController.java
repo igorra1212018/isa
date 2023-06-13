@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +56,7 @@ public class StaffController {
 	}
 		
 	@PutMapping("/update")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<StaffDTO> updateStaffInfo(@RequestBody StaffDTO newData) 
 	{
 		StaffDTO updatedStaffDTO = new StaffDTO(staffService.updateStaff(newData));
@@ -63,6 +65,7 @@ public class StaffController {
 	}
 	
 	@PostMapping("/register_staff")
+	@Secured("ROLE_ADMINISTRATOR")
 	public ResponseEntity<User> registerStaff(@RequestBody StaffDTO newStaff)
 	{
 		User staff = new User(newStaff);
@@ -72,6 +75,7 @@ public class StaffController {
 	}
 		
 	@GetMapping("/users")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<List<User>> getStaffByCenterId() 
 	{
 		User user = getCurrentUser();
@@ -85,6 +89,7 @@ public class StaffController {
 	}
 	
 	@GetMapping("/processed_users")
+	@Secured("ROLE_STAFF")
     public ResponseEntity<List<ProcessesReservationDTO>> getProcessedUsers()
     {
         User currentUser = getCurrentUser();

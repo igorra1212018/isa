@@ -22,6 +22,7 @@ import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,7 +54,7 @@ public class QuestionnaireController {
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	@GetMapping("/my_questionnaire")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<QuestionnaireUserDTO> getQuestionnaireByUserId() {
 		User currentUser = getCurrentUser();
 		Questionnaire questionnaireData = questionnaireService.findByUserId(currentUser.getId());
@@ -66,7 +67,7 @@ public class QuestionnaireController {
 	}
 	
 	@GetMapping("/questions")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<QuestionnaireQuestion>> getQuestions() {
 		try {
 			User currentUser = getCurrentUser();
@@ -83,7 +84,7 @@ public class QuestionnaireController {
 	}
 	
 	@PostMapping("/my_questionnaire")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<String> submitQuestionnaire(@RequestBody QuestionnaireUserDTO questionnaireDto, HttpServletRequest request)
 	{
 		User currentUser = getCurrentUser();
@@ -112,14 +113,15 @@ public class QuestionnaireController {
 				}
 			}
 		}
-		for (QuestionnaireAnswer aNew : newAnswers) {
-			for (QuestionnaireAnswer aOld : oldQuestionnaire.getAnswers()) {
-				if (aNew.getQuestion().getId() == aOld.getQuestion().getId()) {
-					aNew.setId(aOld.getId());
-					break;
+		if (oldQuestionnaire != null)
+			for (QuestionnaireAnswer aNew : newAnswers) {
+				for (QuestionnaireAnswer aOld : oldQuestionnaire.getAnswers()) {
+					if (aNew.getQuestion().getId() == aOld.getQuestion().getId()) {
+						aNew.setId(aOld.getId());
+						break;
+					}
 				}
 			}
-		}
 		
 		newQuestionnaire.setAnswers(newAnswers);
 		newQuestionnaire.setDate(questionnaireDto.getDate());

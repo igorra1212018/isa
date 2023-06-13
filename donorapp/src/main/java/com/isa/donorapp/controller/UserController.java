@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,6 +48,7 @@ public class UserController {
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
 	
+	/*
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUsers() {
 		
@@ -72,9 +74,9 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	*/
 
 	@PostMapping("/register")
-	@PreAuthorize("not(isAuthenticated())")
 	public ResponseEntity<String> register(@RequestBody UserRegisterDTO signUpRequest, HttpServletRequest request)
 	{
 		if (userService.findByEmail(signUpRequest.getEmail()) != null) {
@@ -83,7 +85,7 @@ public class UserController {
 					.body("Email already taken!");
 		}
 		signUpRequest.setPassword(encoder.encode(signUpRequest.getPassword()));
-		signUpRequest.setPassword(signUpRequest.getPassword());
+		//signUpRequest.setPassword(signUpRequest.getPassword());
 		User registeredUser = new User(signUpRequest);
 		
 		userService.registerUser(registeredUser);
@@ -122,7 +124,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<UserProfileDTO> getUserProfile() {
 		User user = getCurrentUser();
 		UserProfileDTO userDTO = new UserProfileDTO(user);
@@ -131,7 +133,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/homepage_info")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<UserHomepageDTO> getUserHomepageInfo() {
 		try {
 			User user = getCurrentUser();
@@ -154,7 +156,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/profile")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<UserProfileDTO> changeUserInfo(@RequestBody UserProfileDTO newData) {
 		User user = getCurrentUser();
 		

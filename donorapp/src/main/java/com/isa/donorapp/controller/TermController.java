@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -68,7 +69,7 @@ public class TermController {
 	
 	
 	@GetMapping("/upcoming")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<AppointmentDTO>> getUpcomingAppointments() {
 		try {
 			User currentUser = getCurrentUser();
@@ -84,7 +85,7 @@ public class TermController {
 	}
 	
 	@GetMapping("/center/{id}")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<AppointmentDTO>> getFreeTermsByCenter(@PathVariable("id") int id) {
 		try {
 			User currentUser = getCurrentUser();
@@ -100,7 +101,7 @@ public class TermController {
 	}
 	
 	@GetMapping("/center/date/{id}")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<TermDTO>> getFreeTermsByCenterForDate(@PathVariable("id") int id, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
 		try {
 			List<TermDTO> terms = termService.findFreeTermsByCenterIdForDate(id, date);
@@ -112,7 +113,7 @@ public class TermController {
 	}
 	
 	@PostMapping("/center/addTerm")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<String> addTerm(@RequestBody TermAddDTO termDTO){
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -139,7 +140,7 @@ public class TermController {
 	}
 	
 	@PostMapping("/center/makeAppointment")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<String> makeAppointment(@RequestBody TermAddDTO termDTO) {
 		try {
 			TemporalAccessor ta = DateTimeFormatter.ISO_INSTANT.parse(termDTO.getDate());
@@ -149,7 +150,8 @@ public class TermController {
 			Term term = new Term(date, termDTO.getDuration());
 			term.setCenter(donationCenterService.findById(termDTO.getCenterId()));
 			
-			if (!userService.checkUserRequirements())
+			User currentUser = getCurrentUser();
+			if (!reservationService.checkUserRequirements(currentUser))
 				return new ResponseEntity<>("Failed to make appointment (user doesn't meet requirements)!", HttpStatus.BAD_REQUEST);
 			
 			if (!termService.checkIfOverlapExists(term)) {
@@ -170,7 +172,7 @@ public class TermController {
 	}
 	
 	@GetMapping("/qr-codes")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<ReservationQRDTO>> getAllQRReservations() {
 		try {
 			User currentUser = getCurrentUser();
@@ -186,7 +188,7 @@ public class TermController {
 	}
 	
 	@GetMapping("/visited")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<AppointmentDTO>> getVisitedAppointments() {
 		try {
 			User currentUser = getCurrentUser();
@@ -202,11 +204,14 @@ public class TermController {
 	}
 	
 	@PostMapping("/reserve/{id}")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<String> reserve(@PathVariable("id") int id)
 	{
 		try {
 			User currentUser = getCurrentUser();
+			if (!reservationService.checkUserRequirements(currentUser))
+				return new ResponseEntity<>("Failed to make appointment (user doesn't meet requirements)!", HttpStatus.FORBIDDEN);
+			
 			if (reservationService.reserveTerm(id, currentUser.getId()) != null)
 				return new ResponseEntity<>(HttpStatus.OK);
 			else
@@ -217,7 +222,7 @@ public class TermController {
 	}
 	
 	@PutMapping("/cancel/{id}")
-	@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_USER")
 	public ResponseEntity<String> cancel(@PathVariable("id") int id)
 	{
 		try {
@@ -231,18 +236,6 @@ public class TermController {
 		}
 	}
 	
-	// Treba DTO
-	/*
-	@GetMapping("/{id}")
-	public ResponseEntity<Term> getTermById(@PathVariable("id") Integer id) {
-		Term termData = termService.findById(id);
-		if (termData != null) {
-			return new ResponseEntity<>(termData, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	*/
 	private User getCurrentUser() {
 		String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.findByEmail(currentUserEmail);

@@ -74,7 +74,6 @@ public class DonationCenterController {
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	@GetMapping("/all")
-	//@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<List<DonationCenterDTO>> getAllDonationCenters() {
 		try {
 			List<DonationCenter> donationCenters = donationCenterService.findAll();
@@ -93,7 +92,6 @@ public class DonationCenterController {
 	}
 	
 	@GetMapping("/{id}")
-	//@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<DonationCenterDTO> getDonationCenterById(@PathVariable("id") int id) {
 		DonationCenter donationCenterData = donationCenterService.findById(id);
 		if (donationCenterData != null) {
@@ -135,7 +133,7 @@ public class DonationCenterController {
 	}
 	
 	@GetMapping("/staff_center")
-	//@PreAuthorize("isAuthenticated()")
+	@Secured("ROLE_STAFF")
 	public ResponseEntity<DonationCenterDTO> getDonationCenterByStaffId() 
 	{
 		User user = getCurrentUser();
@@ -151,6 +149,7 @@ public class DonationCenterController {
 	}	
 	
 	@PostMapping("/register")
+	@Secured("ROLE_ADMINISTRATOR")
 	public ResponseEntity<String> registerCenter(@RequestBody DonationCenterDTO donationCenterDTO, HttpServletRequest request){
 		DonationCenter newCenter = new DonationCenter(donationCenterDTO);
 		donationCenterService.save(newCenter);
@@ -184,6 +183,7 @@ public class DonationCenterController {
 	}
 	
 	@PutMapping("/update")
+	@Secured("ROLE_ADMINISTRATOR")
 	public ResponseEntity<DonationCenter> updateDonationCenter(@RequestBody DonationCenterDTO newData){
 		User user = getCurrentUser();
 		DonationCenter newCenter = new DonationCenter(newData);
@@ -193,6 +193,7 @@ public class DonationCenterController {
 	}
 	
 	@GetMapping("/get_score/{id}")
+	@Secured("ROLE_USER")
 	public ResponseEntity<DonationCenterScoreDTO> getCenterScore(@PathVariable("id") int id) {
 		DonationCenterScoreDTO centerScoreDTO = new DonationCenterScoreDTO();
 		List<DonationCenterScore> centerScores = donationCenterScoreService.findByCenterId(id);
@@ -210,9 +211,12 @@ public class DonationCenterController {
 	}
 	
 	@PostMapping("/set_score")
+	@Secured("ROLE_USER")
 	public ResponseEntity<String> setScore(@RequestBody DonationCenterScoreDTO newScore, HttpServletRequest request){
 		User user = getCurrentUser();
 		DonationCenter center = donationCenterService.findById(newScore.getCenterId());
+		if (newScore.getScore() < 1 || newScore.getScore() > 5)
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		DonationCenterScore centerScore = new DonationCenterScore(user, center, newScore.getScore());
 		if(reservationService.isUserReservationProcessed(user,  newScore.getCenterId()) == true) {
 			donationCenterScoreService.save(centerScore);
@@ -227,15 +231,20 @@ public class DonationCenterController {
 	}
 	
 	@PutMapping("/update_score")
+	@Secured("ROLE_USER")
 	public ResponseEntity<DonationCenterScoreDTO> updateScore(@RequestBody DonationCenterScoreDTO updatedScore){
 		User user = getCurrentUser();
-		DonationCenter center = donationCenterService.findById(updatedScore.getCenterId());
+		DonationCenterScore previousScore = donationCenterScoreService.findById(updatedScore.getId());
+		if (previousScore == null)
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		DonationCenter center = donationCenterService.findById(previousScore.getCenter().getId());
 		int savedScore = donationCenterScoreService.update(user, updatedScore);
-		DonationCenterScoreDTO newCenter = new DonationCenterScoreDTO(updatedScore.getId(), savedScore, center.getId());
-		return new ResponseEntity<>(newCenter, HttpStatus.OK);
+		DonationCenterScoreDTO newCenterScore = new DonationCenterScoreDTO(updatedScore.getId(), savedScore, center.getId());
+		return new ResponseEntity<>(newCenterScore, HttpStatus.OK);
 	}
 	
 	@GetMapping("/allAvailable")
+	@Secured("ROLE_USER")
 	public ResponseEntity<List<DonationCenterDTO>> getAllAvailableCenters(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
 		try {
 			date = date.plusHours(2);
