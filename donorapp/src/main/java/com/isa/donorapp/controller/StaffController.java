@@ -117,7 +117,9 @@ public class StaffController {
 	@Secured("ROLE_STAFF")
 	public ResponseEntity<String> stoodUpAppointment(@PathVariable Integer id) 
 	{
+		System.out.println("d1");
 		reservationService.stoodUpAppointment(id);
+		System.out.println("d done");
 
 		return new ResponseEntity<>(
 			      "User stood up the appointment!",
@@ -140,16 +142,11 @@ public class StaffController {
 	public ResponseEntity<String> startAppointment(@RequestBody StaffQuestionnaireDTO sqdto)
 	{
 		try {
-			System.out.println("ovde1");
 			User user = getCurrentUser();
 			DonationCenter donationCenter = donationCenterService.findById(user.getDonationCenter().getId());
-			System.out.println("ovde2");
 			StaffQuestionnaire questionnaire = new StaffQuestionnaire(sqdto);
-			System.out.println("ovde3");
 			Reservation reservation = reservationService.findById(sqdto.getReservationId());
-			System.out.println("ovde4");
 			List<Equipment> equipment = sqdto.getEquipment();
-			System.out.println("ovde5");
 			staffService.startAppointment(questionnaire, donationCenter, equipment, reservation);
 			
 			return new ResponseEntity<>(

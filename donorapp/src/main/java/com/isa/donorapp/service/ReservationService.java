@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import com.google.zxing.EncodeHintType;
@@ -249,6 +250,7 @@ public class ReservationService {
 		return true;
 	}
 
+	@Transactional
 	public void stoodUpAppointment(Integer reservationId) {
 		Reservation reservation = reservationRepository.findById(reservationId).get();
 		User user = userService.findById(reservation.getUser().getId());

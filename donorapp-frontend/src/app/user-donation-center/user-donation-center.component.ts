@@ -125,8 +125,11 @@ export class UserDonationCenterComponent implements OnInit{
         this.sortTerms();
       },
       error => {
-        if (error.status == 403)
+        if (error.status == 403 && error.error != "Failed to make appointment. You have 3 penalties.")
           this.router.navigate(['user-questionnaire']);
+        else {
+          this.errorMsg = error.error;
+        }
         console.log(error.error);
       });
   }

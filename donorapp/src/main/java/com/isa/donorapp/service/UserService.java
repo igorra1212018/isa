@@ -94,4 +94,12 @@ public class UserService {
 		
 		return user;
 	}
+	
+    public void resetUserAttributeToZero() {
+        List<User> users = userRepository.findAll();
+        for (User u : users) {
+            u.setPenaltyCount(0);
+        }
+        userRepository.saveAll(users);
+    }
 }
