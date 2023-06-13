@@ -12,8 +12,8 @@
 
                 <div style="padding: 5%; margin: auto">
                     <form #form="ngForm">
+                        <h5 style="margin-bottom: 50px;">Registracija i prijem davaoca</h5>
                         <div class="row d-flex mt-6">
-                            <h5>Registracija i prijem davaoca</h5>
                             <div class="col-md-6">
                                 <label>
                                     <input type="text" name="krvnaGrupa" [(ngModel)]="krvnaGrupa" required="required" pattern="[A-Z]{A, B, AB, O}">
@@ -27,8 +27,8 @@
                                 </label>
                             </div>
                         </div>
+                        <h5 style="margin-bottom: 50px;">Odredjivanje hemoglobina</h5>
                         <div class="row d-flex mt-6">
-                            <h5>Odredjivanje hemoglobina</h5>
                             <div class="col-md-6">
                                 <label>
                                     <input type="text" name="bakarSulfat" [(ngModel)]="bakarSulfat" required="required">
@@ -56,8 +56,8 @@
                                 </label>
                             </div>
                         </div>
+                        <h5 style="margin-bottom: 50px;">Zdravstveni pregled davaoca</h5>
                         <div class="row d-flex mt-6">
-                            <h5>Zdravstveni pregled davaoca</h5>
                             <div class="col-md-6">
                                 <label>
                                     <input type="text" name="pluca" [(ngModel)]="pluca" required="required">
@@ -108,8 +108,9 @@
                                 </label>
                             </div>
                         </div>
+                        <h5 style="margin-bottom: 50px;">Priprema kese</h5>
                         <div class="row d-flex mt-6">
-                            <h5>Priprema kese</h5>
+                            
                             <div class="col-md-6">
                                 <label>
                                     <input type="text" name="tipKese" [(ngModel)]="tipKese" required="required">
@@ -123,8 +124,9 @@
                                 </label>
                             </div>
                         </div>
+                        <h5 style="margin-bottom: 50px;">Venepunkcija</h5>
                         <div class="row d-flex mt-6">
-                            <h5>Venepunkcija</h5>
+                            
                             <div class="col-md-6">
                                 <label>
                                     <input type="text" name="mestoPunkcije" [(ngModel)]="mestoPunkcije" required="required">
@@ -160,8 +162,9 @@
                                 </label>
                             </div>
                         </div>
+                        <h5 style="margin-bottom: 50px;">Koriscena oprema</h5>
                         <div class="row d-flex mt-6">
-                            <h5>Koriscena oprema</h5>
+                            
                             <div class="col-md-12">
                                 <label>
                                     <select [(ngModel)]="selectedValue" name="eq" required="required">
