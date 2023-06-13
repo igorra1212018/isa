@@ -6,11 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class DonationCenterScore {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "center_score_sequence_generator", sequenceName = "center_score_sequence", initialValue = 100)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="center_score_sequence_generator")
 	protected Integer id;
 	
 	@ManyToOne

@@ -4,6 +4,20 @@ INSERT INTO public.role(id, name) VALUES (1,'ADMINISTRATOR');
 INSERT INTO public.role(id, name) VALUES (2,'STAFF');
 
 
+--Donation centers
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
+VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 50, 60, 70, 80, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
+
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
+VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 20, 30, 23, 18, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
+
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
+VALUES (2, 'Bulevar cara Lazara 75', 'Novi Sad', 'Serbia', 45.24057, 19.83044, 75, 22, 42, 88, 'Javni zdravstveni centar', 'Dom zdravlja "Novi Sad"');
+
+INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
+VALUES (3, 'Zmaj Ognjena Vuka 19', 'Novi Sad', 'Serbia', 45.26145, 19.83687, 12, 105, 82, 74, 'Javni zdravstveni centar', 'Dom Zdravlja "Jovan Jovanović Zmaj"');
+
+
 --Users
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
@@ -33,39 +47,102 @@ INSERT INTO public.user_roles(user_id, role_id) VALUES (12, 0);
 INSERT INTO public.user_roles(user_id, role_id) VALUES (13, 0);
 
 
+--Staff
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (20, true, 'dunja.bozic@test.com', 'Dunja', 'Božić', null, null, null, null,
+'$2a$10$7kZVwuCsu7lk8OsZAZ2KdOea59iQkiyEEb3yi2mUndnZeGa5eNqS2', 0, null, null, null, null, 0, 0, 0);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (21, true, 'nikola.curcic@test.com', 'Nikola', 'Ćurčić', null, null, null, null,
+'$2a$10$95OZCS0XJJTCPXGLqRWp2uaDrsUMLvmWVUu3HPZMlEA6YkvnxcsYK', 0, null, null, null, null, 0, 0, 1);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (22, true, 'marko.markovic@test.com', 'Marko', 'Marković', null, null, null, null,
+'$2a$10$so1BJu0h1cuxVkA9CXI6Cen8v.soHtup8LBWplm3z94PPOLMD40VG', 0, null, null, null, null, 0, 0, 0);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (23, true, 'milica.petrovic@test.com', 'Milica', 'Petrović', null, null, null, null,
+'$2a$10$p5u1dyM3dbs/87iD7Okmx.w9jLzVoJn/K9FVu2whELo6y28n9pRCG', 0, null, null, null, null, 0, 0, 1);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (24, true, 'ivan.jovanovic@test.com', 'Ivan', 'Jovanović', null, null, null, null,
+'$2a$10$Sf00lIeb7jiHmeupVikz6uMSuwsH4I1KcY.qKc2ABA3Z6gdHqv8sO', 0, null, null, null, null, 0, 0, 2);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (25, true, 'ana.pavlovic@test.com', 'Ana', 'Pavlović', null, null, null, null,
+'$2a$10$lVsnZYd00kF9XPr9ieBSL.9Or33usGlsKKAW7Nv3fAfHOlr18bGJi', 0, null, null, null, null, 0, 0, 3);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (26, true, 'luka.jankovic@test.com', 'Luka', 'Janković', null, null, null, null,
+'$2a$10$FHKLzz1cBFrE2uuZXzn1kehE22eoPf0pl9zdwaWWs6Z7jSyj0R8Lq', 0, null, null, null, null, 0, 0, 2);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (27, true, 'jovana.milic@test.com', 'Jovana', 'Milić', null, null, null, null,
+'$2a$10$lQyjSwTDLriYexW4DbKSlubyq/iwNWmBOgII9UnVWd5uM/lPCvuNy', 0, null, null, null, null, 0, 0, 1);
+
+INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
+occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
+VALUES (28, true, 'stefan.petrovic@test.com', 'Stefan', 'Petrović', null, null, null, null,
+'$2a$10$BimxadcsVc3Uk9sEUg85Iuw6yV2Q2nzQDMuiPKM36WYb8fCnnfmMO', 0, null, null, null, null, 0, 0, 3);
+
+
+--Staff roles
+INSERT INTO public.user_roles(user_id, role_id) VALUES (20, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (21, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (22, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (23, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (24, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (25, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (26, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (27, 2);
+INSERT INTO public.user_roles(user_id, role_id) VALUES (28, 2);
+
+
 --Admin
 INSERT INTO public.user_table(id, activated, email, first_name, last_name, gender, jmbg, occupation,
 occupation_info, password, penalty_count, phone_number, address, city, country, latitude, longitude, center_id)
-VALUES (100, true, 'sasa.lukic@test.com', 'Saša', 'Lukić', null, null, null, null,
+VALUES (50, true, 'sasa.lukic@test.com', 'Saša', 'Lukić', null, null, null, null,
 '$2a$10$H9NzV9vgV.DpCJFCiQfla.cu/DoY4KE0tOgJ9h3B7cFvEztpm2m8a', 0, null, null, null, null, 0, 0, null);
 
 
 --Admin role
-INSERT INTO public.user_roles(user_id, role_id) VALUES (100, 1);
-
-
---Donation centers
-INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
-VALUES (0, 'Dr Sime Miloševića', 'Novi Sad', 'Serbia', 45.24903, 19.84820, 50, 60, 70, 80, 'Donacioni centar', 'Zavod za zdravstvenu zaštitu studenata');
-
-INSERT INTO public.donation_center(id, address, city, country, latitude, longitude, blood_a, blood_b, blood_ab, blood_o, description, name)
-VALUES (1, 'Bulevar slobodana Jovanovića 9', 'Novi Sad', 'Serbia', 45.25133, 19.80501, 50, 60, 70, 80, 'Javni zdravstveni centar', 'Dom Zdravlja Novo Naselje - Bistrica');
+INSERT INTO public.user_roles(user_id, role_id) VALUES (50, 1);
 
 
 --Terms
-INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (0, '2023/06/18 8:30', 25, 0, false);
-INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (1, '2023/06/18 9:30', 30, 0, false);
-INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (2, '2023/06/18 19:00', 20, 0, false);
-INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (3, '2023/06/18 9:30', 30, 1, false);
-INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (4, '2023/06/18 9:30', 30, 1, false);
-INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (5, '2023/06/18 19:00', 20, 1, false);
-
-
---Blood
-INSERT INTO public.blood_table(	id, quantity, type)	VALUES (1, 50, 0);
-INSERT INTO public.blood_table(	id, quantity, type)	VALUES (2, 60, 1);
-INSERT INTO public.blood_table(	id, quantity, type)	VALUES (3, 70, 2);
-INSERT INTO public.blood_table(	id, quantity, type)	VALUES (4, 80, 3);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (0,  '2023/06/18 8:30', 25, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (1,  '2023/06/18 9:30', 30, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (2,  '2023/06/18 19:00', 20, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (3,  '2023/06/18 9:30', 30, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (4,  '2023/06/18 9:30', 30, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (5,  '2023/06/18 19:00', 20, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (6,  '2023/01/10 12:30', 25, 2, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (7,  '2023/01/12 16:00', 20, 3, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (8,  '2023/02/05 14:30', 30, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (9,  '2023/02/08 09:30', 20, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (10, '2023/02/10 15:00', 25, 2, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (11, '2023/02/15 18:30', 30, 3, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (12, '2023/03/02 10:00', 20, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (13, '2023/03/05 13:30', 25, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (14, '2023/03/10 17:00', 30, 2, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (15, '2023/03/12 11:30', 20, 3, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (16, '2023/03/15 08:00', 25, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (17, '2023/04/01 16:30', 20, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (18, '2023/04/03 13:00', 30, 2, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (19, '2023/04/08 09:30', 25, 3, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (20, '2023/04/12 12:00', 20, 0, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (21, '2023/04/18 14:30', 30, 1, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (22, '2023/05/02 11:00', 25, 2, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (23, '2023/05/05 15:30', 20, 3, false);
+INSERT INTO public.term(id, date, duration, center_id, deleted) VALUES (24, '2023/05/08 10:00', 30, 0, false);
 
 
 --Questionnaire questions

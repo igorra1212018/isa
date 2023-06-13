@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import com.isa.donorapp.dto.DonationCenterDTO;
@@ -12,7 +13,8 @@ import com.isa.donorapp.dto.DonationCenterDTO;
 @Entity
 public class DonationCenter {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "center_sequence_generator", sequenceName = "center_sequence", initialValue = 100)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="center_sequence_generator")
 	protected Integer id;
 	
 	String name;

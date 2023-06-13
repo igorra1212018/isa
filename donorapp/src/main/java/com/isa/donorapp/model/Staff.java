@@ -10,7 +10,8 @@ import com.isa.donorapp.model.enums.EGender;
 @Table(name = "user_table")
 public class Staff {	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "staff_sequence_generator", sequenceName = "staff_sequence", initialValue = 100)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="staff_sequence_generator")
 	protected Integer id;
 	
 	@Column(name = "email")
@@ -18,7 +19,7 @@ public class Staff {
 	@Column(name = "password")
 	private String password;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))

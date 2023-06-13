@@ -146,10 +146,10 @@ public class UserController {
 	
 	@GetMapping("/test")
 	public ResponseEntity<String> test() {
-		String[] passwords = {"marko123", "tijana123", "darko123", "milica123", "sasa123"} ;
+		String[] passwords = {"dunja123", "nikola123", "marko123", "milica123", "ivan123", "ana123", "luka123", "jovana123", "stefan123"};
 		for(String s : passwords)
 			System.out.println(encoder.encode(s));
-		socketService.processMsg("I AM HERE");
+		//socketService.processMsg("I AM HERE");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	

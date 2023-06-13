@@ -7,13 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import com.isa.donorapp.model.enums.EReservationStatus;
 
 @Entity
 public class Reservation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "reservation_sequence_generator", sequenceName = "reservation_sequence", initialValue = 100)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="reservation_sequence_generator")
 	protected Integer id;
 	
 	@ManyToOne

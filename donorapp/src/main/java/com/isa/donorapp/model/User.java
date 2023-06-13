@@ -13,7 +13,8 @@ import com.isa.donorapp.model.enums.EGender;
 @Table(name = "user_table")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "user_sequence_generator", sequenceName = "user_sequence", initialValue = 100)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="user_sequence_generator")
 	protected Integer id;
 	
 	@Column(name = "email")

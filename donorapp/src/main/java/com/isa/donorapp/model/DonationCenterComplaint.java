@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Size;
 
 import com.isa.donorapp.dto.DonationCenterComplaintCreateDTO;
@@ -12,7 +13,8 @@ import com.isa.donorapp.dto.DonationCenterComplaintDTO;
 @Entity
 public class DonationCenterComplaint {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "center_complaint_sequence_generator", sequenceName = "center_complaint_sequence", initialValue = 100)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="center_complaint_sequence_generator")
 	protected Integer id;
 	
 	@ManyToOne
