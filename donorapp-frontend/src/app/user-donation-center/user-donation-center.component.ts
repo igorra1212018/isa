@@ -125,6 +125,8 @@ export class UserDonationCenterComponent implements OnInit{
         this.sortTerms();
       },
       error => {
+        if (error.status == 403)
+          this.router.navigate(['user-questionnaire']);
         console.log(error.error);
       });
   }
