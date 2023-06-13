@@ -19,13 +19,11 @@ import com.isa.donorapp.dto.UserHomepageDTO;
 import com.isa.donorapp.dto.UserProfileDTO;
 import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.model.Location;
-import com.isa.donorapp.model.Role;
 import com.isa.donorapp.model.User;
 import com.isa.donorapp.service.SocketService;
 import com.isa.donorapp.service.UserService;
 import com.isa.donorapp.repository.TokenRepository;
 import com.isa.donorapp.model.VerificationToken;
-import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.jwt.JwtUtils;
 

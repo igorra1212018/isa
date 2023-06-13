@@ -7,6 +7,7 @@ public class UserHomepageDTO {
 	private String firstName;
 	private String lastName;
 	private int penaltyCount;
+	private int loyaltyPoints;
 	
 	public UserHomepageDTO() {}
 	
@@ -22,6 +23,7 @@ public class UserHomepageDTO {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.penaltyCount = user.getPenaltyCount();
+		this.loyaltyPoints = user.getLoyaltyPoints();
 	}
 
 	public String getEmail() {
@@ -54,5 +56,13 @@ public class UserHomepageDTO {
 
 	public void setPenaltyCount(int penaltyCount) {
 		this.penaltyCount = penaltyCount;
+	}
+
+	public int getLoyaltyPoints() {
+		return loyaltyPoints;
+	}
+
+	public void setLoyaltyPoints(int loyaltyPoints) {
+		this.loyaltyPoints = loyaltyPoints;
 	}
 }
