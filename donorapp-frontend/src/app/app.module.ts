@@ -49,6 +49,7 @@ import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-
 import { UserListComponent } from './user-list/user-list.component';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
 import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
+import { StaffGraphicalAnalyticsComponent } from './staff-graphical-analytics/staff-graphical-analytics.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-
     StaffWorkCalendarComponent,
     StaffWorkCalendarComponent,
     StaffStartAppointmentComponent,
-    StaffStartAppointmentComponent
+    StaffStartAppointmentComponent,
+    StaffGraphicalAnalyticsComponent
   ],
   imports: [
     BrowserModule,

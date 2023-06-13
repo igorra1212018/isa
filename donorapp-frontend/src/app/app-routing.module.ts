@@ -30,6 +30,7 @@ import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-
 import { UserListComponent } from './user-list/user-list.component';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
 import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
+import { StaffGraphicalAnalyticsComponent } from './staff-graphical-analytics/staff-graphical-analytics.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: "staff-edit-donation-center/:id", component: StaffEditDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-processed-reservations", component: StaffProcessedReservationsComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-bloodview", component: StaffBloodViewComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-graphical-analytics", component: StaffGraphicalAnalyticsComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-delivery-tracking", component: StaffDeliveryTrackingComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff, Role.Admin] } },
   { path: 'staff-define-term/:id', component: StaffDefineTermComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-new-reservations", component: StaffWorkCalendarComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
