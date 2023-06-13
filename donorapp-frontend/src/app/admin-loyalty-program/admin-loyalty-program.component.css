@@ -1,0 +1,19 @@
+h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    width: 400px;
+  }
+  
+  .btn {
+    margin-top: 20px;
+  }
+
+  .center {
+    border: 1px solid #9e9e9e;
+    margin: auto;
+    width: 25%;
+    padding: 10px;
+  }

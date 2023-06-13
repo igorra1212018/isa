@@ -185,3 +185,8 @@ INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (36,false
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (37,true,'Da li ste u drugom stanju?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (38,true,'Da li trenutno imate menstruaciju?');
 INSERT INTO public.questionnaire_question(id, woman_only, text) VALUES (39,true,'Da li ste u poslednjih 6 meseci imali porođaj ili prekid trudnoće?');
+
+
+--Loyalty program
+
+INSERT INTO public.loyalty_program(id, points_per_donation, category1Name, category1Points, category2Name, category2Points, category3Name, category3Points) VALUES (1, 10, 'Silver', 100, 'Gold', 500, 'Platinum', 1000);
