@@ -62,9 +62,23 @@ public class TermService {
 		return terms;
 	}
 	
+	public List<Term> findNewByReservedById(Integer reservedById) //Ovo filtrira i sve koji su rejectovani ili prosli
+	{
+		List<Reservation> reservations = reservationRepository.findByUserId(reservedById);
+		List<Term> terms = new ArrayList<Term>();
+		for (Reservation r : reservations) {
+			if (!r.isCanceled() && r.getStatus() == EReservationStatus.NEW) {
+				Term term = r.getTerm();
+				term.setReservedBy(r.getUser());
+				terms.add(term);
+			}
+		}
+		return terms;
+	}
+	
 	public List<Term> findUpcomingAppointments(Integer userId)
 	{
-		List<Term> terms = findByReservedById(userId);
+		List<Term> terms = findNewByReservedById(userId);
 		List<Term> upcomingAppointments = new ArrayList<Term>();
 		for (Term t : terms) {
 			if(t.getDate().isAfter(LocalDateTime.now()))
