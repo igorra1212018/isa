@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="card mt-5">
+        <div class="header gradient-blue">
+            <div class="row d-flex justify-content-center">
+                <h3 class="text-white mb-1 mt-1 font-weight-bold">Scan QR</h3>
+            </div>
+            </div>
+            <div class="card-body mx-4">
+            <form (ngSubmit)="submit()">
+                <label for="img">Select image:</label>
+                <input type="file" id="img" name="img" accept="image/*" (change)="handleImageUpload($event)">
+                <input class="btn btn-blue btn-rounded" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>

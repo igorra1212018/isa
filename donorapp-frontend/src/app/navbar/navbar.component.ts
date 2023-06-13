@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['../shared-style.css', './navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   

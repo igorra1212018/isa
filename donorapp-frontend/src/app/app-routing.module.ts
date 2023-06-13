@@ -30,6 +30,7 @@ import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-
 import { UserListComponent } from './user-list/user-list.component';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
 import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
+import { StaffScanQrComponent } from './staff-scan-qr/staff-scan-qr.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: "staff-delivery-tracking", component: StaffDeliveryTrackingComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff, Role.Admin] } },
   { path: 'staff-define-term/:id', component: StaffDefineTermComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-new-reservations", component: StaffWorkCalendarComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
+  { path: "staff-scan-qr", component: StaffScanQrComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "staff-start-appointment/:id", component: StaffStartAppointmentComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff] } },
   { path: "admin-donation-center", component: AdminDonationCenterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: "admin-register-staff", component: AdminRegisterStaffComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
