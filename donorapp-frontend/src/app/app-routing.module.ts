@@ -31,6 +31,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
 import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
 import { StaffScanQrComponent } from './staff-scan-qr/staff-scan-qr.component';
+import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
 
 const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -62,6 +63,8 @@ const routes: Routes = [
   { path: "admin-replied-complaints", component: AdminRepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [Role.Staff, Role.Admin] } },
+  { path: "admin-loyalty-program", component: AdminLoyaltyProgramComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
+  { path: "admin-nonreplied-complaints", component: AdminNonrepliedComplaintsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}}
 ];
 
 @NgModule({

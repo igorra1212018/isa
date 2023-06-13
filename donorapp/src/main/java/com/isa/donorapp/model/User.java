@@ -42,6 +42,7 @@ public class User {
 	private String occupationInfo;
 	
 	private int penaltyCount = 0;
+	private int loyaltyPoints = 0;
 	
 	//Staff Role
 	@ManyToOne
@@ -213,6 +214,14 @@ public class User {
 		this.penaltyCount = penaltyCount;
 	}
 	
+	public int getLoyaltyPoints() {
+		return loyaltyPoints;
+	}
+
+	public void setLoyaltyPoints(int loyaltyPoints) {
+		this.loyaltyPoints = loyaltyPoints;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";

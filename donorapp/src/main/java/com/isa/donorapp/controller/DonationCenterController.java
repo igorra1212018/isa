@@ -20,6 +20,7 @@ import com.isa.donorapp.dto.UserRegisterDTO;
 import com.isa.donorapp.event.OnRegistrationCompleteEvent;
 import com.isa.donorapp.model.DonationCenter;
 import com.isa.donorapp.model.DonationCenterScore;
+import com.isa.donorapp.model.LoyaltyProgram;
 import com.isa.donorapp.model.Reservation;
 import com.isa.donorapp.model.Role;
 
@@ -52,6 +53,7 @@ import com.isa.donorapp.model.enums.EReservationStatus;
 import com.isa.donorapp.model.enums.ERole;
 import com.isa.donorapp.service.DonationCenterScoreService;
 import com.isa.donorapp.service.DonationCenterService;
+import com.isa.donorapp.service.LoyaltyProgramService;
 import com.isa.donorapp.service.ReservationService;
 import com.isa.donorapp.service.StaffService;
 import com.isa.donorapp.service.UserDetailsServiceImpl;
@@ -72,6 +74,8 @@ public class DonationCenterController {
 	DonationCenterScoreService donationCenterScoreService;
 	@Autowired
 	UserDetailsServiceImpl userDetailsServiceImpl;
+	@Autowired
+	LoyaltyProgramService loyaltyProgramService;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<DonationCenterDTO>> getAllDonationCenters() {
@@ -254,6 +258,22 @@ public class DonationCenterController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@GetMapping("/loyaltyProgram")
+	public ResponseEntity<LoyaltyProgram> getLoyaltyProgram() {
+		try {
+			LoyaltyProgram p = loyaltyProgramService.getLoyaltyProgram();
+			return new ResponseEntity<>(p, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/loyaltyProgram")
+	public ResponseEntity<LoyaltyProgram> updateLoyaltyProgram(@RequestBody LoyaltyProgram loyaltyProgram){
+		return new ResponseEntity<>(loyaltyProgramService.update(loyaltyProgram), HttpStatus.OK);
 	}
 	
 	private User getCurrentUser() {

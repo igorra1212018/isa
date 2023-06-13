@@ -4,6 +4,8 @@ import { UserHomepageService } from '../services/user-homepage.service';
 import { DonationCenter } from '../donation-center';
 import { UserHomepageInfo } from '../user-homepage-info';
 import { Role } from '../role';
+import { AdminDonationCenterService } from '../services/admin-donation-center.service';
+import { LoyaltyProgramDTO } from '../admin-loyalty-program/loyaltyProgramDTO';
 
 @Component({
     selector: 'app-user-homepage',
@@ -20,11 +22,13 @@ export class UserHomepageComponent implements OnInit {
     loadUserFailed = true;
     searchField: string = '';
     selectedFilterOption: string = '-1';
+    loyaltyProgram: LoyaltyProgramDTO = new LoyaltyProgramDTO(0, '', 0, '', 0, '', 0);
+    loyaltyStatus: string = '';
 
-    constructor(private router: Router, private _userHomepageService: UserHomepageService) {}
+    constructor(private router: Router, private _userHomepageService: UserHomepageService, private _adminService: AdminDonationCenterService) {}
 
     ngOnInit(): void {
-        this.userInfo = new UserHomepageInfo('', '', '', 0);
+        this.userInfo = new UserHomepageInfo('', '', '', 0, 0);
 
         this._userHomepageService.getAllDonationCenters().subscribe(
             (data) => {
@@ -41,10 +45,28 @@ export class UserHomepageComponent implements OnInit {
                 (data) => {
                     this.userInfo = data;
                     this.loadUserFailed = false;
+                    this._adminService.loadLoyaltyProgram().subscribe(
+                        (prog) => { 
+                            this.loyaltyProgram = prog;
+                            this.determineLoyaltyStatus();
+                        }
+                    );
                 },
                 (error) => (this.loadUserFailed = true)
             );
         else this.loadUserFailed = true;
+    }
+
+    determineLoyaltyStatus() {
+        if (this.userInfo.loyaltyPoints < this.loyaltyProgram.category1Points)
+            this.loyaltyStatus = 'Regular';
+        else if (this.userInfo.loyaltyPoints < this.loyaltyProgram.category2Points)
+            this.loyaltyStatus = this.loyaltyProgram.category1Name;
+        else if (this.userInfo.loyaltyPoints < this.loyaltyProgram.category3Points)
+            this.loyaltyStatus = this.loyaltyProgram.category2Name;
+        else
+            this.loyaltyStatus = this.loyaltyProgram.category3Name;
+
     }
 
     searchFilterAndSort() {

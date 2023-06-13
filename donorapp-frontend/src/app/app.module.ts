@@ -50,6 +50,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
 import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
 import { StaffScanQrComponent } from './staff-scan-qr/staff-scan-qr.component';
+import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { StaffScanQrComponent } from './staff-scan-qr/staff-scan-qr.component';
     StaffWorkCalendarComponent,
     StaffStartAppointmentComponent,
     StaffStartAppointmentComponent,
-    StaffScanQrComponent
+    StaffScanQrComponent,
+    AdminLoyaltyProgramComponent
   ],
   imports: [
     BrowserModule,
