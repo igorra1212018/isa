@@ -88,7 +88,8 @@ export class StaffDonationCenterComponent implements OnInit {
         target: 'map',
         layers: [layer],
         view: view,
-        interactions: []
+        interactions: [],
+        controls: []
       });
     },
       error => this.errorMsg = "Couldn't load center");

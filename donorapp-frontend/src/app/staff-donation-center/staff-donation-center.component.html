@@ -23,9 +23,9 @@
             <div id="map" class="map"></div>
             <h1 class="card-text">{{ center.address + " " + center.city + ", " + center.country }}</h1>
             <h2 class="card-text">{{ center.description }}</h2>
-            <h2>Other admins:</h2>
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let staffs of staff">
-                <h3 class="card-title">{{ staffs.firstName + " " + staffs.lastName }}</h3>
+            <h4>Other admins:</h4>
+            <div class="col-lg-4 col-md-6 mb-1" *ngFor="let staffs of staff">
+                <h5>{{ staffs.firstName + " " + staffs.lastName }}</h5>
             </div>
             <div>
                 <span *ngIf="center.rating < 1">
@@ -54,9 +54,9 @@
                 <span *ngIf="center.rating >= 4.75" class="fas fa-star checked"></span>
             </div>
         </div>
-        <div class="col-md-1">
-            <button class="btn btn-blue btn-rounded" (click)="update()">Change info</button>
-            <button class="btn btn-blue btn-rounded" (click)="defineTerms()">Define terms</button>
+        <div class="col-md-2">
+            <button class="btn btn-blue btn-rounded" style="width: 150px;" (click)="update()">Change info</button>
+            <button class="btn btn-blue btn-rounded" style="width: 150px;" (click)="defineTerms()">Define terms</button>
         </div>
     </div>
 </div>
