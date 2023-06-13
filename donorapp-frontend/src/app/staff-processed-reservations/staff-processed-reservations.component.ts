@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaffProcessedReservationsService } from '../services/staff-processed-reservations.service';
+import { StaffReservationsService } from '../services/staff-reservations.service';
 import { ProcessedUser } from '../processedUsers';
 
 @Component({
@@ -10,21 +10,21 @@ import { ProcessedUser } from '../processedUsers';
 
 export class StaffProcessedReservationsComponent implements OnInit{
   public processedUsers = [] as ProcessedUser[];
-  firstName: string = "";
+  selectedSortOption = "date";
+  /*firstName: string = "";
   lastName: string = "";
   duration: number = 0;
-  date: Date = new Date();
-  selectedSortOption = "date";
+  date: Date = new Date();  
 
   dataSource: any;  
-  displayedColumns: string[] = ['firstName', 'lastName', 'duration', 'date'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'duration', 'date'];*/
 
-  constructor(private _processedReservationsService: StaffProcessedReservationsService) { }
+  constructor(private _processedReservationsService: StaffReservationsService) { }
 
   ngOnInit(): void {
     this._processedReservationsService.getProcessedUsers().subscribe(data =>{
       this.processedUsers = data;
-      this.dataSource = data;
+      //this.dataSource = data;
       console.log(data);
         this.processedUsers.forEach(function (value) {
         value.date = new Date(value.date);

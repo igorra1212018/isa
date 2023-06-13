@@ -1,0 +1,202 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <!--Header-->
+                <div class="header gradient-blue">
+                    <div class="row d-flex justify-content-center">
+                        <h3 class="text-white mb-1 mt-1 font-weight-bold">New appointment</h3>
+                    </div>
+                </div>
+
+                <div style="padding: 5%; margin: auto">
+                    <form #form="ngForm">
+                        <div class="row d-flex mt-6">
+                            <h5>Registracija i prijem davaoca</h5>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="krvnaGrupa" [(ngModel)]="krvnaGrupa" required="required" pattern="[A-Z]{A, B, AB, O}">
+                                    <span class="keep_hovered">Krvna grupa:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="napomenaDoktoru" [(ngModel)]="napomenaDoktoru">
+                                    <span class="keep_hovered">Napomena doktoru:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <h5>Odredjivanje hemoglobina</h5>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="bakarSulfat" [(ngModel)]="bakarSulfat" required="required">
+                                    <span class="keep_hovered">Bakar-sulfat:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="nivo" [(ngModel)]="nivo" required="required">
+                                    <span class="keep_hovered">Nivo (nizak, normalan, visok):</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="hemoglobinometar" [(ngModel)]="hemoglobinometar" required="required">
+                                    <span class="keep_hovered">Hemoglobinometar:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="ocitanaVrednost" [(ngModel)]="ocitanaVrednost" required="required">
+                                    <span class="keep_hovered">ocitanaVrednost:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <h5>Zdravstveni pregled davaoca</h5>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="pluca" [(ngModel)]="pluca" required="required">
+                                    <span class="keep_hovered">Pluca:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="srce" [(ngModel)]="srce" required="required">
+                                    <span class="keep_hovered">Srce:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="gornjiPritisak" [(ngModel)]="gornjiPritisak" required="required">
+                                    <span class="keep_hovered">Gornji pritisak:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>                                    
+                                    <input type="text" name="donjiPritisak" [(ngModel)]="donjiPritisak" required="required">
+                                    <span class="keep_hovered">Donji pritisak:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="trombinskoVreme" [(ngModel)]="trombinskoVreme" required="required">
+                                    <span class="keep_hovered">TT:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <div class="col-md-6">
+                                <label>
+                                    <span class="keep_hovered">Prihvacen/Odbijen:</span>
+                                    <select [(ngModel)]="selectedValueRejected" name="selectedValueRejected">
+                                        <option value="true">Odbijen</option>
+                                        <option value="false">Prihvacen</option>                                        
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="razlogOdbijanja" [(ngModel)]="razlogOdbijanja">
+                                    <span class="keep_hovered">Razlog odbijanja:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <h5>Priprema kese</h5>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="tipKese" [(ngModel)]="tipKese" required="required">
+                                    <span class="keep_hovered">Tip kese:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="brojLotaKese" [(ngModel)]="brojLotaKese" required="required">
+                                    <span class="keep_hovered">Broj lota kese:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <h5>Venepunkcija</h5>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="mestoPunkcije" [(ngModel)]="mestoPunkcije" required="required">
+                                    <span class="keep_hovered">Mesto punkcije(leva/desna ruka):</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="kolicinaUzeteKrvi" [(ngModel)]="kolicinaUzeteKrvi" required="required">
+                                    <span class="keep_hovered">Kolicina uzete krvi:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="pocetakDavanja" [(ngModel)]="pocetakDavanja" required="required">
+                                    <span class="keep_hovered">Pocetak davanja:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="zavrsetakDavanja" [(ngModel)]="zavrsetakDavanja" required="required">
+                                    <span class="keep_hovered">Zavrsetak davanja:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="razlogPrekida" [(ngModel)]="razlogPrekida">
+                                    <span class="keep_hovered">Razlog prekida:</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex mt-6">
+                            <h5>Koriscena oprema</h5>
+                            <div class="col-md-12">
+                                <label>
+                                    <select [(ngModel)]="selectedValue" name="eq" required="required">
+                                        <option  *ngFor="let eq of centerEquipment" [value]="eq.id">
+                                            {{eq.name}}</option>
+                                    </select>
+                                    <span class="keep_hovered">Tip opreme:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="text" name="kolicinaOpreme" [(ngModel)]="kolicinaOpreme" required="required" pattern="[0-9]">
+                                    <span class="keep_hovered">Kolicina opreme:</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" (click)="add()">Dodaj opremu</button>
+                            </div>
+                            <p>Potrosena oprema: {{this.viewValue}}</p>
+                        </div>
+                        <div class="row d-flex">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <button
+                                    (click)="saveAppointment()"
+                                    class="btn btn-blue btn-rounded"
+                                    style="width: 100%"
+                                >
+                                    Save appointment
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

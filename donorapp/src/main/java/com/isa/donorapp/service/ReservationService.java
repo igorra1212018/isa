@@ -248,4 +248,19 @@ public class ReservationService {
 		}
 		return true;
 	}
+
+	public void stoodUpAppointment(Integer reservationId) {
+		Reservation reservation = reservationRepository.findById(reservationId).get();
+		User user = userService.findById(reservation.getUser().getId());
+		user.setPenaltyCount(user.getPenaltyCount() + 1);
+		userService.updateUser(user);
+		reservation.setStatus(EReservationStatus.STOOD_UP);
+		reservationRepository.save(reservation);
+	}
+
+	public void reqsNotMetAppointment(Integer reservationId) {
+		Reservation reservation = reservationRepository.findById(reservationId).get();
+		reservation.setStatus(EReservationStatus.REJECTED);
+		reservationRepository.save(reservation);		
+	}
 }

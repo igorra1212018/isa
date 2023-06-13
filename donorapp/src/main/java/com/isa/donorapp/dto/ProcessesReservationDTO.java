@@ -15,10 +15,18 @@ public class ProcessesReservationDTO {
 		
 	public ProcessesReservationDTO() {}	
 
+	public ProcessesReservationDTO(Integer id, User u, Term t) {
+		super();
+		this.id = id;
+		this.user = u;
+		this.date = t.getDate();
+		this.duration = t.getDuration();
+	}
+	
 	public ProcessesReservationDTO(User u, Term t) {
 		super();
 		this.id = t.getId();
-		this.user = u;;
+		this.user = u;
 		this.date = t.getDate();
 		this.duration = t.getDuration();
 	}

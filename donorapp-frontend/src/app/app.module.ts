@@ -47,6 +47,8 @@ import { WebSocketShareService } from "./services/web-socket-share.service";
 import { StaffDeliveryTrackingComponent } from './staff-delivery-tracking/staff-delivery-tracking.component';
 import { UserMakeAppointmentComponent } from './user-make-appointment/user-make-appointment.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { StaffWorkCalendarComponent } from './staff-work-calendar/staff-work-calendar.component';
+import { StaffStartAppointmentComponent } from './staff-start-appointment/staff-start-appointment.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,11 @@ import { UserListComponent } from './user-list/user-list.component';
     StarRatingComponent,
     StaffDeliveryTrackingComponent,
     UserMakeAppointmentComponent,
-    UserListComponent
+    UserListComponent,
+    StaffWorkCalendarComponent,
+    StaffWorkCalendarComponent,
+    StaffStartAppointmentComponent,
+    StaffStartAppointmentComponent
   ],
   imports: [
     BrowserModule,
