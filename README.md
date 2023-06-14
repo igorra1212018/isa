@@ -26,7 +26,7 @@ Ovaj README.md fajl sadrži detaljna uputstva za instalaciju i pokretanje projek
 11. Pokretanje RabbitMQ servera
 12. Izvršavanje komande u RabbitMQ komandnoj liniji: `rabbitmq-plugins enable rabbitmq_management`
 13. Konfiguracija okruženja u PyCharm-u i pokretanje "main.py"
-14. Pokretanje "DonorApplication.java" kao Java aplikacija u Eclipse-u
+14. Pokretanje "DonorApplication.java" kao Java aplikaciju u Eclipse-u
 15. Popunjavanje baze podataka izvršavanjem komandi iz "data.sql" fajla
 16. Pokretanje frontend-a pomoću komande:
     ```
